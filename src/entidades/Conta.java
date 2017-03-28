@@ -6,6 +6,7 @@ import enums.Tipo_Conta;
  * Created by RAFAEL-OOBJ on 27/03/2017.
  */
 public class Conta {
+
     private String nome_agencia;
     private String codigo_agencia;
     private String numero_conta;
@@ -22,7 +23,7 @@ public class Conta {
     public Conta(String nome_agencia, String codigo_agencia, String numero_conta,
                  String nome_cliente, String codigo_cliente, Tipo_Conta tipo_conta, double saldo,
                  double limite) {
-
+        super();
         this.nome_agencia = nome_agencia;
         this.codigo_agencia = codigo_agencia;
         this.numero_conta = numero_conta;

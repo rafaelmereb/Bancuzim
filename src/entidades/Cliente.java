@@ -4,6 +4,7 @@ package entidades;
  * Created by RAFAEL-OOBJ on 27/03/2017.
  */
 public class Cliente {
+
     private String nome;
     private String cpf_cnpj;
     private String endereco;
@@ -15,6 +16,7 @@ public class Cliente {
     }
 
     public Cliente(String nome, String cpf_cnpj, String endereco, String data_de_nascimento, String sexo) {
+        super();
         this.nome = nome;
         this.cpf_cnpj = cpf_cnpj;
         this.endereco = endereco;
