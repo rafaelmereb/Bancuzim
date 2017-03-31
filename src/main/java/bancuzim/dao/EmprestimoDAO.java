@@ -1,6 +1,6 @@
 package bancuzim.dao;
 
-import bancuzim.interfaces.DAO.DAOInterface;
+import bancuzim.interfaces.dao.DAOInterface;
 
 import java.util.List;
 

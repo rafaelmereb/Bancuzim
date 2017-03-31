@@ -10,8 +10,8 @@ import javax.persistence.Id;
 @Entity
 public class Cliente {
 
-    @Id @GeneratedValue
     private String nome;
+    @Id @GeneratedValue
     private String cpf_cnpj;
     private String endereco;
     private String data_de_nascimento;
