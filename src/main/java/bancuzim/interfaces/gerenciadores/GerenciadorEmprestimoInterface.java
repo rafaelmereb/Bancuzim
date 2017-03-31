@@ -1,6 +1,6 @@
 package bancuzim.interfaces.gerenciadores;
 
-import bancuzim.model.Emprestimo;
+import bancuzim.modelo.Emprestimo;
 
 import java.util.List;
 

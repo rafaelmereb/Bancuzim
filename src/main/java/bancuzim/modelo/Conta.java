@@ -1,4 +1,4 @@
-package bancuzim.model;
+package bancuzim.modelo;
 
 import bancuzim.enums.Tipo_Conta;
 

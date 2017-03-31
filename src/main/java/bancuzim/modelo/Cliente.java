@@ -1,4 +1,6 @@
-package bancuzim.model;
+package bancuzim.modelo;
+
+import bancuzim.enums.Sexo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,18 +12,18 @@ import javax.persistence.Id;
 @Entity
 public class Cliente {
 
-    private String nome;
     @Id @GeneratedValue
     private String cpf_cnpj;
+    private String nome;
     private String endereco;
     private String data_de_nascimento;
-    private String sexo;
+    private Sexo sexo;
 
     public Cliente(){
         super();
     }
 
-    public Cliente(String nome, String cpf_cnpj, String endereco, String data_de_nascimento, String sexo) {
+    public Cliente(String nome, String cpf_cnpj, String endereco, String data_de_nascimento, Sexo sexo) {
         super();
         this.nome = nome;
         this.cpf_cnpj = cpf_cnpj;
@@ -62,11 +64,11 @@ public class Cliente {
         this.data_de_nascimento = data_de_nascimento;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 }

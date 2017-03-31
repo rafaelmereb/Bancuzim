@@ -1,6 +1,6 @@
 package bancuzim.interfaces.gerenciadores;
 
-import bancuzim.model.Conta;
+import bancuzim.modelo.Conta;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package bancuzim.model;
+package bancuzim.modelo;
 
 /**
  * Created by RAFAEL-OOBJ on 27/03/2017.
