@@ -1,4 +1,4 @@
-package enums;
+package bancuzim.enums;
 
 /**
  * Created by RAFAEL-OOBJ on 27/03/2017.

@@ -1,6 +1,6 @@
-package entidades;
+package bancuzim.model;
 
-import enums.Tipo_Emprestimo;
+import bancuzim.enums.Tipo_Emprestimo;
 
 /**
  * Created by RAFAEL-OOBJ on 27/03/2017.

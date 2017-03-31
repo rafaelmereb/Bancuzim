@@ -1,10 +1,16 @@
-package entidades;
+package bancuzim.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by RAFAEL-OOBJ on 27/03/2017.
  */
+@Entity
 public class Cliente {
 
+    @Id @GeneratedValue
     private String nome;
     private String cpf_cnpj;
     private String endereco;

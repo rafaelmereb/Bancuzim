@@ -1,6 +1,6 @@
-package interfaces.gerenciadores;
+package bancuzim.interfaces.gerenciadores;
 
-import entidades.Cliente;
+import bancuzim.model.Cliente;
 
 import java.util.List;
 

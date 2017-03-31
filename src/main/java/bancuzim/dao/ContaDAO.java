@@ -1,13 +1,13 @@
-package dao;
+package bancuzim.dao;
 
-import interfaces.DAO.DAOInterface;
+import bancuzim.interfaces.DAO.DAOInterface;
 
 import java.util.List;
 
 /**
  * Created by RAFAEL-OOBJ on 27/03/2017.
  */
-public class ClienteDAO implements DAOInterface {
+public class ContaDAO implements DAOInterface {
 
     public void salvar() {
 
