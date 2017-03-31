@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/bancuzim.iml" filepath="$PROJECT_DIR$/bancuzim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Bancuzim.iml" filepath="$PROJECT_DIR$/Bancuzim.iml" />
     </modules>
   </component>
 </project>

@@ -1,8 +1,8 @@
-package bancuzim.interfaces.DAO;
+package bancuzim.interfaces.dao;
 
 import java.util.List;
 
-public interface DAOInterface{
+public interface DAOInterface {
 
     void salvar();
     Object procurarPorId();
