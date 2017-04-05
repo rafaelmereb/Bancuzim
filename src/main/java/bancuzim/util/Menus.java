@@ -1,6 +1,4 @@
-package theBancuzim.util;
-
-import org.apache.log4j.Logger;
+package bancuzim.util;
 
 public class Menus {
 
@@ -63,7 +61,7 @@ public class Menus {
                 "L - Listar todos os clientes\n"+
                 "I - Importar clientes\n"+
                 "V - Voltar ao menu principal" +
-        "\n/* -------------------------------------------------- */\n";;
+        "\n/* -------------------------------------------------- */\n";
 
 
     public static final String CADASTRAR_CLIENTE = "";
@@ -88,7 +86,7 @@ public class Menus {
                     "L - Listar todos as contas\n"+
                     "I - Importar contas\n"+
                     "V - Voltar ao menu principal" +
-          "\n/* -------------------------------------------------- */\n";;
+          "\n/* -------------------------------------------------- */\n";
 
 
     public static final String CADASTRAR_CONTA = "";
@@ -113,7 +111,7 @@ public class Menus {
                     "L - Listar todos os empréstimos\n"+
                     "I - Importar empréstimos\n"+
                     "V - Voltar ao menu principal" +
-          "\n/* -------------------------------------------------- */\n";;
+          "\n/* -------------------------------------------------- */\n";
 
 
     public static final String CADASTRAR_EMPRESTIMO = "";

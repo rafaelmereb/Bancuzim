@@ -1,16 +1,15 @@
-package theBancuzim.controller;
+package bancuzim.service;
 
+import bancuzim.enums.OpcaoMenu;
+import bancuzim.repository.AgenciaRepository;
+import bancuzim.util.Menus;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import theBancuzim.entity.Agencia;
-import theBancuzim.enums.OpcaoMenu;
-import theBancuzim.repository.AgenciaRepository;
-import theBancuzim.util.Menus;
 
 import java.util.Scanner;
 
-public class AgenciaController implements CommandLineRunner {
+public class AgenciaService implements CommandLineRunner {
 
     @Autowired
     private AgenciaRepository agenciaRepository;
@@ -19,8 +18,8 @@ public class AgenciaController implements CommandLineRunner {
     Scanner entrada;
     OpcaoMenu opcaoMenu;
 
-    public AgenciaController() {
-        log = Logger.getLogger(AgenciaController.class);
+    public AgenciaService() {
+        log = Logger.getLogger(AgenciaService.class);
         entrada = new Scanner(System.in);
         opcaoMenu = OpcaoMenu.CONTINUE;
     }

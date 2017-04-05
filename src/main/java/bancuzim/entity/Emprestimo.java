@@ -1,6 +1,6 @@
-package theBancuzim.entity;
+package bancuzim.entity;
 
-import theBancuzim.enums.Tipo_Emprestimo;
+import bancuzim.enums.Tipo_Emprestimo;
 
 public class Emprestimo {
 

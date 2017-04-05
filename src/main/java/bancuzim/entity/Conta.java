@@ -1,6 +1,6 @@
-package theBancuzim.entity;
+package bancuzim.entity;
 
-import theBancuzim.enums.Tipo_Conta;
+import bancuzim.enums.Tipo_Conta;
 
 public class Conta {
 

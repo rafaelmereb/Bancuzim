@@ -1,6 +1,6 @@
-package theBancuzim.entity;
+package bancuzim.entity;
 
-import theBancuzim.enums.Sexo;
+import bancuzim.enums.Sexo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

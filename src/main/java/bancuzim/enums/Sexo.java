@@ -1,4 +1,4 @@
-package theBancuzim.enums;
+package bancuzim.enums;
 
 public enum Sexo {
     MASCULINO,FEMININO

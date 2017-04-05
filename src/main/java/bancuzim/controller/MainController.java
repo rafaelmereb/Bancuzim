@@ -1,9 +1,9 @@
-package theBancuzim.controller;
+package bancuzim.controller;
 
+import bancuzim.util.Menus;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import theBancuzim.util.Menus;
 
 import java.util.Scanner;
 

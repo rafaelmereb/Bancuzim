@@ -1,7 +1,7 @@
-package theBancuzim.repository;
+package bancuzim.repository;
 
+import bancuzim.entity.Agencia;
 import org.springframework.data.repository.CrudRepository;
-import theBancuzim.entity.Agencia;
 
 public interface AgenciaRepository extends CrudRepository<Agencia, Integer>{
     Agencia findByNome(String nome);
