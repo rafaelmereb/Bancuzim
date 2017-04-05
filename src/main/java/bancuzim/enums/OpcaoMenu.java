@@ -12,4 +12,6 @@ public enum OpcaoMenu {
     public String getOpcao() {
         return opcao;
     }
+
+
 }

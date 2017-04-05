@@ -2,7 +2,7 @@ package bancuzim.service;
 
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.repository.AgenciaRepository;
-import bancuzim.util.Menus;
+import bancuzim.util.Menu;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,22 +27,13 @@ public class AgenciaService implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        try {
-
-        }catch(Exception e){
-
-        }
-
-
-
-
 
     }
 
     private void gerenciarAgencias(){
 
         while (opcaoMenu != OpcaoMenu.V){
-            log.warn(Menus.GERENCIAR_AGENCIAS);
+            log.warn(Menu.GERENCIAR_AGENCIAS);
         }
     }
 }

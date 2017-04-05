@@ -1,18 +1,18 @@
 package bancuzim.util;
 
-public class Menus {
+public class Menu {
 
-    private static Menus ourInstance = new Menus();
+    private static Menu ourInstance = new Menu();
 
-    public static Menus getInstance() {
+    public static Menu getInstance() {
         return ourInstance;
     }
 
-    private Menus() {
+    private Menu() {
     }
 
     public static final String INICIAL =
-            "Olá, bem vindo ao Bancuzim!\n" +
+            "\nOlá, bem vindo ao Bancuzim!\n" +
                 "Digite um comando para prosseguir:\n" +
                 "A - Gerenciar agências\n" +
                 "B - Gerenciar clientes\n" +
