@@ -9,7 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.util.Scanner;
 
-public class AgenciaService implements CommandLineRunner {
+public class AgenciaService implements CommandLineRunner, Runnable {
 
     @Autowired
     private AgenciaRepository agenciaRepository;
@@ -24,16 +24,32 @@ public class AgenciaService implements CommandLineRunner {
         opcaoMenu = OpcaoMenu.CONTINUE;
     }
 
+    /**
+     * Run da interface CommandLineRunner
+     * @param args
+     * @throws Exception
+     */
     @Override
     public void run(String... args) throws Exception {
 
 
     }
 
+
+
     private void gerenciarAgencias(){
 
         while (opcaoMenu != OpcaoMenu.V){
             log.warn(Menu.GERENCIAR_AGENCIAS);
+            opcaoMenu = OpcaoMenu.valueOf(entrada.nextLine());
         }
+    }
+
+    /**
+     * Run da interface Runnable
+     */
+    @Override
+    public void run() {
+        run();
     }
 }
