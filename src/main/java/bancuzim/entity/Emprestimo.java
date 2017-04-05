@@ -1,16 +1,13 @@
-package bancuzim.modelo;
+package theBancuzim.entity;
 
-import bancuzim.enums.Tipo_Emprestimo;
+import theBancuzim.enums.Tipo_Emprestimo;
 
-/**
- * Created by RAFAEL-OOBJ on 27/03/2017.
- */
 public class Emprestimo {
 
     private String nome_cliente;
     private String cpf_cnpj;
     private Tipo_Emprestimo tipo_emprestimo;
-    private double valor;
+    private Double valor;
 
     public Emprestimo(){
         super();

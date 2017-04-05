@@ -1,14 +1,11 @@
-package bancuzim.modelo;
+package theBancuzim.entity;
 
-import bancuzim.enums.Sexo;
+import theBancuzim.enums.Sexo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Created by RAFAEL-OOBJ on 27/03/2017.
- */
 @Entity
 public class Cliente {
 

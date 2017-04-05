@@ -1,10 +1,7 @@
-package bancuzim.modelo;
+package theBancuzim.entity;
 
-import bancuzim.enums.Tipo_Conta;
+import theBancuzim.enums.Tipo_Conta;
 
-/**
- * Created by RAFAEL-OOBJ on 27/03/2017.
- */
 public class Conta {
 
     private String nome_agencia;
