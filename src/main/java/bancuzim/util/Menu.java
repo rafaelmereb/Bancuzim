@@ -37,8 +37,8 @@ public final class Menu {
 
     /* ----------------------------------------- AGENCIA ----------------------------------------- */
 
-    public static String CADASTRAR_AGENCIA = "";
-    public static String BUSCAR_AGENCIA = "";
+    public static String CADASTRAR_AGENCIA ="/############### CADASTRAR AGÊNCIA ############### */\n";
+    public static String BUSCAR_AGENCIA ="" ;
     public static String ATUALIZAR_AGENCIA = "";
     public static String DELETAR_AGENCIA = "";
     public static String LISTAR_AGENCIAS = "";
