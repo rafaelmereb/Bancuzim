@@ -2,6 +2,9 @@ package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Conta;
 
+/**
+ * Entidade Conta. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
+ */
 public class Conta {
 
     private String nome_agencia;

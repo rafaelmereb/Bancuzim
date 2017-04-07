@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+/**
+ * Entidade Agência
+ */
 public class Agencia {
 
     @Id

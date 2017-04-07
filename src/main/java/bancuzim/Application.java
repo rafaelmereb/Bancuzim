@@ -11,6 +11,10 @@ public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
+    /**
+     * Executa a aplicação SpringBoot
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
     }

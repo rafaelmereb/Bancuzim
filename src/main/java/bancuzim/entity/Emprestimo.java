@@ -2,6 +2,9 @@ package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Emprestimo;
 
+/**
+ * Entidade Emprestimo. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
+ */
 public class Emprestimo {
 
     private String nome_cliente;
