@@ -1,123 +1,115 @@
 package bancuzim.util;
 
-public class Menu {
-
-    private static Menu ourInstance = new Menu();
-
-    public static Menu getInstance() {
-        return ourInstance;
-    }
+/**
+ * Classe utilitária na definição dos menus apresentados nas Views.
+ * TODO: FINALIZAR DEMAIS MENUS
+ * @author Rafael
+ */
+public final class Menu {
 
     private Menu() {
     }
 
-    public static final String INICIAL =
+    public static String INICIAL =
+            "\n/* ############### BANCUZIM ############### */\n" +
             "\nOlá, bem vindo ao Bancuzim!\n" +
-                "Digite um comando para prosseguir:\n" +
-                "A - Gerenciar agências\n" +
-                "B - Gerenciar clientes\n" +
-                "C - Gerenciar contas\n" +
-                "E - Gerenciar empréstimos/financiamentos\n" +
-                "S - Sair";
+                    "Digite um comando para prosseguir:\n" +
+                    "A - Gerenciar agências\n" +
+                    "B - Gerenciar clientes\n" +
+                    "C - Gerenciar contas\n" +
+                    "E - Gerenciar empréstimos/financiamentos\n" +
+                    "S - Sair";
 
+    public static String GERENCIAR_AGENCIAS =
+            "\n/* ############### GERENCIAR AGÊNCIAS ############### */\n" +
 
-    /* ----------------------------- AGENCIA ----------------------------- */
-
-
-    public static final String GERENCIAR_AGENCIAS =
-           "/* --------------- GERENCIAR AGÊNCIAS --------------- */\n" +
-
-            "Digite um comando para prosseguir:\n" +
-                "C - Cadastrar uma agência\n" +
-                "B - Buscar por uma agência específica\n" +
-                "A - Atualizar os dados de uma agência\n" +
-                "D - Deletar uma agência\n" +
-                "L - Listar todas as agências\n" +
-                "I - Importar agências\n" +
-                "V - Voltar ao menu principal\n" +
-         "\n/* -------------------------------------------------- */\n";
-
-
-    public static final String CADASTRAR_AGENCIA = "";
-    public static final String BUSCAR_AGENCIA = "";
-    public static final String ATUALIZAR_AGENCIA = "";
-    public static final String DELETAR_AGENCIA = "";
-    public static final String LISTAR_AGENCIAS = "";
-    public static final String IMPORTAR_AGENCIA = "";
+                    "Digite um comando para prosseguir:\n" +
+                    "C - Cadastrar uma agência\n" +
+                    "B - Buscar por uma agência específica\n" +
+                    "A - Atualizar os dados de uma agência\n" +
+                    "D - Deletar uma agência\n" +
+                    "L - Listar todas as agências\n" +
+                    "I - Importar agências\n" +
+                    "V - Voltar ao menu principal\n" +
+                    "\n/* -------------------------------------------------- */\n";
 
 
 
-    /* ----------------------------- CLIENTE ----------------------------- */
+    /* ----------------------------------------- AGENCIA ----------------------------------------- */
 
+    public static String CADASTRAR_AGENCIA = "";
+    public static String BUSCAR_AGENCIA = "";
+    public static String ATUALIZAR_AGENCIA = "";
+    public static String DELETAR_AGENCIA = "";
+    public static String LISTAR_AGENCIAS = "";
+    public static String IMPORTAR_AGENCIA = "";
+    public static String GERENCIAR_CLIENTES =
+            "/############### GERENCIAR CLIENTES ############### */\n" +
 
-    public static final String GERENCIAR_CLIENTES =
-          "/* --------------- GERENCIAR AGÊNCIAS --------------- */\n" +
-
-            "Digite um comando para prosseguir:\n"+
-                "C - Cadastrar um cliente\n"+
-                "B - Buscar por um cliente específico\n"+
-                "A - Atualizar os dados de um cliente\n"+
-                "D - Deletar um cliente\n"+
-                "L - Listar todos os clientes\n"+
-                "I - Importar clientes\n"+
-                "V - Voltar ao menu principal" +
-        "\n/* -------------------------------------------------- */\n";
-
-
-    public static final String CADASTRAR_CLIENTE = "";
-    public static final String IMPORTAR_CLIENTE = "";
-    public static final String ATUALIZAR_CLIENTE = "";
-    public static final String DELETAR_CLIENTE = "";
-    public static final String BUSCAR_CLIENTE = "";
-    public static final String LISTAR_CLIENTES = "";
-
-
-    /* ----------------------------- CONTA ----------------------------- */
-
-
-    public static final String GERENCIAR_CONTAS =
-            "/* --------------- GERENCIAR CONTAS --------------- */\n" +
-
-                    "Digite um comando para prosseguir:\n"+
-                    "C - Cadastrar uma conta\n"+
-                    "B - Buscar por uma conta específico\n"+
-                    "A - Atualizar os dados de uma conta\n"+
-                    "D - Deletar uma conta\n"+
-                    "L - Listar todos as contas\n"+
-                    "I - Importar contas\n"+
+                    "Digite um comando para prosseguir:\n" +
+                    "C - Cadastrar um cliente\n" +
+                    "B - Buscar por um cliente específico\n" +
+                    "A - Atualizar os dados de um cliente\n" +
+                    "D - Deletar um cliente\n" +
+                    "L - Listar todos os clientes\n" +
+                    "I - Importar clientes\n" +
                     "V - Voltar ao menu principal" +
-          "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */\n";
 
 
-    public static final String CADASTRAR_CONTA = "";
-    public static final String IMPORTAR_CONTA = "";
-    public static final String ATUALIZAR_CONTA = "";
-    public static final String DELETAR_CONTA = "";
-    public static final String BUSCAR_CONTA = "";
-    public static final String LISTAR_CONTAS = "";
 
 
-     /* ----------------------------- EMPRESTIMOS/FINANCIAMENTOS ----------------------------- */
+    /* ----------------------------------------- CLIENTE ----------------------------------------- */
 
+    public static String CADASTRAR_CLIENTE = "";
+    public static String IMPORTAR_CLIENTE = "";
+    public static String ATUALIZAR_CLIENTE = "";
+    public static String DELETAR_CLIENTE = "";
+    public static String BUSCAR_CLIENTE = "";
+    public static String LISTAR_CLIENTES = "";
+    public static String GERENCIAR_CONTAS =
+            "/* ############### GERENCIAR CONTAS ############### */\n" +
 
-    public static final String GERENCIAR_EMPRESTIMOS =
-            "/* --------------- GERENCIAR EMPRÉSTIMOS --------------- */\n" +
-
-                    "Digite um comando para prosseguir:\n"+
-                    "C - Cadastrar um empréstimo\n"+
-                    "B - Buscar por um empréstimo específico\n"+
-                    "A - Atualizar os dados de um empréstimo\n"+
-                    "D - Deletar um empréstimo\n"+
-                    "L - Listar todos os empréstimos\n"+
-                    "I - Importar empréstimos\n"+
+                    "Digite um comando para prosseguir:\n" +
+                    "C - Cadastrar uma conta\n" +
+                    "B - Buscar por uma conta específico\n" +
+                    "A - Atualizar os dados de uma conta\n" +
+                    "D - Deletar uma conta\n" +
+                    "L - Listar todos as contas\n" +
+                    "I - Importar contas\n" +
                     "V - Voltar ao menu principal" +
-          "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */\n";
 
 
-    public static final String CADASTRAR_EMPRESTIMO = "";
-    public static final String IMPORTAR_EMPRESTIMO = "";
-    public static final String ATUALIZAR_EMPRESTIMO = "";
-    public static final String DELETAR_EMPRESTIMO = "";
-    public static final String BUSCAR_EMPRESTIMO = "";
-    public static final String LISTAR_EMPRESTIMOS = "";
+    /* ----------------------------------------- CONTA ----------------------------------------- */
+
+    public static String CADASTRAR_CONTA = "";
+    public static String IMPORTAR_CONTA = "";
+    public static String ATUALIZAR_CONTA = "";
+    public static String DELETAR_CONTA = "";
+    public static String BUSCAR_CONTA = "";
+    public static String LISTAR_CONTAS = "";
+    public static String GERENCIAR_EMPRESTIMOS =
+            "/* ############### GERENCIAR EMPRÉSTIMOS ############### */\n" +
+
+                    "Digite um comando para prosseguir:\n" +
+                    "C - Cadastrar um empréstimo\n" +
+                    "B - Buscar por um empréstimo específico\n" +
+                    "A - Atualizar os dados de um empréstimo\n" +
+                    "D - Deletar um empréstimo\n" +
+                    "L - Listar todos os empréstimos\n" +
+                    "I - Importar empréstimos\n" +
+                    "V - Voltar ao menu principal" +
+                    "\n/* -------------------------------------------------- */\n";
+
+
+     /* ----------------------------------------- EMPRESTIMOS/FINANCIAMENTOS ----------------------------------------- */
+
+    public static String CADASTRAR_EMPRESTIMO = "";
+    public static String IMPORTAR_EMPRESTIMO = "";
+    public static String ATUALIZAR_EMPRESTIMO = "";
+    public static String DELETAR_EMPRESTIMO = "";
+    public static String BUSCAR_EMPRESTIMO = "";
+    public static String LISTAR_EMPRESTIMOS = "";
+
 }
