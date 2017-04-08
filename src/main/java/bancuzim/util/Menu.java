@@ -31,20 +31,20 @@ public final class Menu {
                     "L - Listar todas as agências\n" +
                     "I - Importar agências\n" +
                     "V - Voltar ao menu principal\n" +
-                    "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */";
 
 
 
     /* ----------------------------------------- AGENCIA ----------------------------------------- */
 
-    public static String CADASTRAR_AGENCIA ="/############### CADASTRAR AGÊNCIA ############### */\n";
+    public static String CADASTRAR_AGENCIA ="\n/############### CADASTRAR AGÊNCIA ############### */";
     public static String BUSCAR_AGENCIA ="" ;
     public static String ATUALIZAR_AGENCIA = "";
     public static String DELETAR_AGENCIA = "";
     public static String LISTAR_AGENCIAS = "";
     public static String IMPORTAR_AGENCIA = "";
     public static String GERENCIAR_CLIENTES =
-            "/############### GERENCIAR CLIENTES ############### */\n" +
+            "\n/############### GERENCIAR CLIENTES ############### */" +
 
                     "Digite um comando para prosseguir:\n" +
                     "C - Cadastrar um cliente\n" +
@@ -54,7 +54,7 @@ public final class Menu {
                     "L - Listar todos os clientes\n" +
                     "I - Importar clientes\n" +
                     "V - Voltar ao menu principal" +
-                    "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */";
 
 
 
@@ -78,7 +78,7 @@ public final class Menu {
                     "L - Listar todos as contas\n" +
                     "I - Importar contas\n" +
                     "V - Voltar ao menu principal" +
-                    "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */";
 
 
     /* ----------------------------------------- CONTA ----------------------------------------- */
@@ -100,7 +100,7 @@ public final class Menu {
                     "L - Listar todos os empréstimos\n" +
                     "I - Importar empréstimos\n" +
                     "V - Voltar ao menu principal" +
-                    "\n/* -------------------------------------------------- */\n";
+                    "\n/* -------------------------------------------------- */";
 
 
      /* ----------------------------------------- EMPRESTIMOS/FINANCIAMENTOS ----------------------------------------- */

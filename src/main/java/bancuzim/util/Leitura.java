@@ -31,11 +31,11 @@ public final class Leitura {
      * @return a opção escolhida, do tipo OpcaoMenu
      */
     public static OpcaoMenu lerOpcaoMenu(String mensagem,
-                                                   Scanner scanner) {
+                                         Scanner scanner) {
 
         String valor = "";
         do {
-            System.out.println(mensagem);
+            System.out.println("\n" + mensagem);
             valor = scanner.nextLine().toUpperCase();
         } while (StringUtils.isBlank(valor) && OpcaoMenu.notContains(valor));
 
