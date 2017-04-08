@@ -9,6 +9,10 @@ public enum OpcaoMenu {
         this.opcao = opcaoMenu;
     }
 
+    public String getOpcao() {
+        return opcao;
+    }
+
     public static boolean contains(String string) {
 
         for (OpcaoMenu opcao : OpcaoMenu.values()) {
@@ -31,8 +35,22 @@ public enum OpcaoMenu {
         return true;
     }
 
-    public String getOpcao() {
-        return opcao;
+    public static boolean isVoltar(OpcaoMenu opcao){
+        return opcao.equals(V);
     }
+
+    public static boolean notVoltar(OpcaoMenu opcao){
+        return !opcao.equals(V);
+    }
+
+    public static boolean isSair(OpcaoMenu opcao){
+        return opcao.equals(S);
+    }
+
+    public static boolean notSair(OpcaoMenu opcao){
+        return !opcao.equals(S);
+    }
+
+
 
 }
