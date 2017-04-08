@@ -1,5 +1,6 @@
 package bancuzim.view;
 
+
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
@@ -9,13 +10,15 @@ import org.springframework.boot.CommandLineRunner;
 
 import java.util.Scanner;
 
-import static bancuzim.enums.OpcaoMenu.*;
+import static bancuzim.enums.OpcaoMenu.CONTINUE;
+import static bancuzim.enums.OpcaoMenu.notSair;
 
-public class ViewMenuPrincipal implements CommandLineRunner{
+public class ViewMenuPrincipal implements CommandLineRunner {
 
     private Logger log = Logger.getLogger(ViewMenuPrincipal.class);
 
  /* Deverá possuir todas as views para poder redirecionar a opção escolhida: */
+
     private ViewGerenciarAgencias viewGerenciarAgencias;
  /* private ViewGerenciarClientes viewGerenciarClientes;
     private ViewGerenciarContas viewGerenciarContas;
@@ -32,54 +35,54 @@ public class ViewMenuPrincipal implements CommandLineRunner{
         manterMenuPrincipal();
     }
 
+
     /**
      * * Mantém o menu principal, exibindo e recebendo entradas até que o usuário acione a opção de sair (S).
      */
-    public void manterMenuPrincipal(){
+    public void manterMenuPrincipal() {
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        Scanner leitor = new Scanner(System.in);
+        OpcaoMenu opcao = CONTINUE;
 
-            OpcaoMenu opcao = CONTINUE;
-
-            while(!opcao.equals(S)){
-
-                log.warn(Menu.INICIAL);
-                opcao = Leitura.lerOpcaoMenu("Opção: ", scanner);
-                interpretarOpcao(opcao);
-            }
+        while (notSair(opcao)) {
+            exibirMenu();
+            opcao = Leitura.lerOpcaoMenu("Opção: ", leitor);
+            interpretarOpcao(opcao);
         }
+
+    }
+
+    private void exibirMenu() {
+        log.warn(Menu.INICIAL);
     }
 
     /**
      * Interpreta a opção escolhida pelo usuário, mapeando-a para a view correspondente.
+     *
      * @param opcao
      */
-    private void interpretarOpcao(OpcaoMenu opcao){
+    private void interpretarOpcao(OpcaoMenu opcao) {
 
-
-        switch (opcao){  //OBS: Usar ExecutorService + Future para aguardar a execução dos submenus
+        switch (opcao) {
             case A: // Gerenciar agências
-                log.warn("\nMenu Gerenciar agências escolhido!");
                 viewGerenciarAgencias.run();
                 break;
 
             case B: // Gerenciar clientes
-                log.warn("\nMenu Gerenciar clientes escolhido!");
-            //  viewGerenciarClientes.run();
+                //  viewGerenciarClientes.run();
                 break;
 
             case C: // Gerenciar contas
-                log.warn("\nMenu Gerenciar contas escolhido!");
-            //  viewGerenciarContas.run();
+                //  viewGerenciarContas.run();
                 break;
 
             case E: // Gerenciar emprestimos
-                log.warn("\nMenu Gerenciar empréstimos escolhido!");
-            //  viewGerenciarEmprestimos.run();
+                //  viewGerenciarEmprestimos.run();
                 break;
 
             case S: // SAIR
                 log.warn("Tchau!");
+                fim();
                 break;
 
             default:
@@ -88,4 +91,7 @@ public class ViewMenuPrincipal implements CommandLineRunner{
         }
     }
 
+    private void fim() {
+        System.exit(0);
+    }
 }

@@ -1,14 +1,17 @@
 package bancuzim.view.agencia;
 
+
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 
+import javax.annotation.PostConstruct;
 import java.util.Scanner;
 
-import static bancuzim.enums.OpcaoMenu.*;
+import static bancuzim.enums.OpcaoMenu.CONTINUE;
+import static bancuzim.enums.OpcaoMenu.notVoltar;
 
 /**
  * View correspondente à gerência de agências
@@ -16,13 +19,15 @@ import static bancuzim.enums.OpcaoMenu.*;
 public class ViewGerenciarAgencias implements CommandLineRunner{
 
     private Logger log = Logger.getLogger(ViewGerenciarAgencias.class);
-    private Scanner entrada;
+
+    ViewCadastrarAgencia viewCadastrarAgencia;
 
     @Override
+    @PostConstruct
     public void run(String... args){
-        /* Instanciar views:
+
         viewCadastrarAgencia = new ViewCadastrarAgencia();
-        viewBuscarAgencia = new ViewBuscarAgencia();
+     /* viewBuscarAgencia = new ViewBuscarAgencia();
         viewAtualizarAgencia = new ViewAtualizarAgencia();
         viewDeletarAgencia = new ViewDeletarAgencia();
         viewListarAgencias = new ViewListarAgencias();
@@ -36,50 +41,52 @@ public class ViewGerenciarAgencias implements CommandLineRunner{
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
     public void manterMenuGerenciarAgencias() {
+        Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
-        while(!opcao.equals(V)){
-            log.warn(Menu.GERENCIAR_AGENCIAS);
-            opcao = Leitura.lerOpcaoMenu("Opção: ", entrada);
+        while(notVoltar(opcao)){
+            exibirMenu();
+            opcao = Leitura.lerOpcaoMenu("Opção: ", leitor);
             interpretarEntrada(opcao);
         }
     }
 
+    private void exibirMenu() {
+        log.warn(Menu.GERENCIAR_AGENCIAS);
+    }
+
+
     /**
-     * Interpreta a opção escolhida pelo usuário, mapeando-a para a view correspondente.
-     * @param opcao
+     * Interpreta a opção escolhida pelo usuário, mapeando-a para a view correspondente
+     *
+     * @param opcao escolhida pelo usuário
      */
     private void interpretarEntrada(OpcaoMenu opcao) {
 
-        switch (opcao){
+        switch (opcao) {
             case C: // CADASTRAR Agência
-                log.warn("\nMenu Cadastrar Agência escolhido!");
-            /*  viewCadastrarAgencia.run();*/
+                viewCadastrarAgencia.run();
                 break;
 
             case B: // BUSCAR por uma agência específica
-                log.warn("\nMenu Buscar Agência escolhido!");
+
             /*  viewCadastrarAgencia.run();*/
                 break;
 
             case A: // ATUALIZAR os dados de uma agência
-                log.warn("\nMenu Atualizar Agência escolhido!");
             /*  viewCadastrarAgencia.run();*/
                 break;
 
             case D: // DELETAR uma agência
-                log.warn("\nMenu Deletar Agência escolhido!");
             /*  viewCadastrarAgencia.run();*/
                 break;
 
             case L: // LISTAR todas as agências
-                log.warn("\nMenu Listar Agências escolhido");
             /*  viewCadastrarAgencia.run();*/
                 break;
 
             case I: // IMPORTAR agências
             /*  viewCadastrarAgencia.run();*/
-                log.warn("\nMenu Importar Agência(s) escolhido!");
                 break;
 
             case V: // VOLTAR ao menu principal
@@ -90,6 +97,5 @@ public class ViewGerenciarAgencias implements CommandLineRunner{
                 break;
         }
     }
-
 
 }
