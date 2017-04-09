@@ -42,7 +42,7 @@ public class ViewCadastrarAgencia {
      *
      * @return agencia cujos dados foram colhidos
      */
-    private Agencia colherDadosDeAgencia() {
+    Agencia colherDadosDeAgencia() {
         Scanner leitor = new Scanner(System.in);
         Agencia agencia = new Agencia();
 
@@ -60,7 +60,7 @@ public class ViewCadastrarAgencia {
      *
      * @param agencia a ser persistida
      */
-    private void cadastrarAgencia(Agencia agencia) throws FalhaCadastroException {
+     void cadastrarAgencia(Agencia agencia) throws FalhaCadastroException {
         agenciaService.salvarAgencia(agencia);
     }
 }

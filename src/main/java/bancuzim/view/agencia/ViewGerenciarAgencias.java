@@ -4,6 +4,7 @@ package bancuzim.view.agencia;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
+import bancuzim.exception.FalhaDelecaoException;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,20 @@ public class ViewGerenciarAgencias{
     @Autowired
     private ViewBuscarAgencia viewBuscarAgencia;
 
-    public void load() throws FalhaCadastroException, FalhaBuscaException {
+    @Autowired
+    private ViewAtualizarAgencia viewAtualizarAgencia;
+
+    @Autowired
+    private ViewDeletarAgencia viewDeletarAgencia;
+
+    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
         manterMenuGerenciarAgencias();
     }
 
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    public void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException {
+    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
@@ -52,7 +59,7 @@ public class ViewGerenciarAgencias{
      *
      * @param opcao escolhida pelo usuário
      */
-    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException {
+    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException {
 
         switch (opcao) {
             case C: // CADASTRAR Agência
@@ -64,11 +71,11 @@ public class ViewGerenciarAgencias{
                 break;
 
             case A: // ATUALIZAR os dados de uma agência
-            /*  viewAtualizarAgencia.load();*/
+                viewAtualizarAgencia.load();
                 break;
 
             case D: // DELETAR uma agência
-            /*  viewDeletarAgencia.load();*/
+                viewDeletarAgencia.load();
                 break;
 
             case L: // LISTAR todas as agências

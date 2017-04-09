@@ -16,12 +16,13 @@ import static bancuzim.enums.OpcaoMenu.*;
 public class ViewBuscarAgencia {
 
     @Autowired
-    AgenciaService agenciaService;
+    private AgenciaService agenciaService;
 
-    public void load() throws FalhaBuscaException {
+    void load() throws FalhaBuscaException {
+        exibirMenu();
         Scanner leitor = new Scanner(System.in);
         exibirAgencia(
-                redirecionarBuscaSegundoReferencia(
+                buscarAgenciaSegundoReferencia(
                         colherReferenciaParaBusca(leitor), leitor)
         );
     }
@@ -29,7 +30,7 @@ public class ViewBuscarAgencia {
     /**
      * Exibe a agência buscada, caso a mesma tenha sido encontrada
      *
-     * @param agencia
+     * @param agencia a ser exibida
      */
     private void exibirAgencia(Agencia agencia) {
         if (agencia != null) {
@@ -45,7 +46,7 @@ public class ViewBuscarAgencia {
      * @return agencia encontrada, caso a mesma exista
      * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    private Agencia redirecionarBuscaSegundoReferencia(OpcaoMenu opcao, Scanner leitor) throws FalhaBuscaException {
+    Agencia buscarAgenciaSegundoReferencia(OpcaoMenu opcao, Scanner leitor) throws FalhaBuscaException {
 
         if (isA(opcao)) { // Parâmetro de busca: Código
             return buscarAgenciaPorCodigo(colherCodigoAgencia(leitor));
@@ -61,7 +62,7 @@ public class ViewBuscarAgencia {
      * @param leitor para receber a entrada do usuário
      * @return código da agência pretendida
      */
-    private Integer colherCodigoAgencia(Scanner leitor) {
+    Integer colherCodigoAgencia(Scanner leitor) {
         return Leitura.lerCampoIntegerObrigatorio("Código da agência: ", leitor);
     }
 
@@ -71,7 +72,7 @@ public class ViewBuscarAgencia {
      * @param leitor que receberá a entrada do usuário
      * @return nome da agência pretendida
      */
-    private String colherNomeAgencia(Scanner leitor) {
+    String colherNomeAgencia(Scanner leitor) {
         return Leitura.lerCampoStringObrigatorio("Nome da agência: ", leitor);
     }
 
@@ -88,7 +89,7 @@ public class ViewBuscarAgencia {
      * @param leitor que receberá a entrada do usuário
      * @return referência que será utilizada na busca da agência (nome ou código)
      */
-    private OpcaoMenu colherReferenciaParaBusca(Scanner leitor) {
+    OpcaoMenu colherReferenciaParaBusca(Scanner leitor) {
 
         OpcaoMenu opcao = CONTINUE;
         ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
@@ -96,7 +97,6 @@ public class ViewBuscarAgencia {
         opcoesDisponiveis.add(B);
 
         while (!opcoesDisponiveis.contains(opcao)) {
-            exibirMenu();
             System.out.println("Escolha a opção desejada:\nA - Buscar agência pelo seu Código\nB - Buscar agência pelo seu Nome");
             opcao = Leitura.lerOpcaoMenu("Opção: ", leitor);
             switch (opcao) {
@@ -119,7 +119,7 @@ public class ViewBuscarAgencia {
      * @return agencia com o nome informado, caso a mesma exista
      * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    private Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
+    Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
         return agenciaService.buscarAgenciaPorNome(nomeAgencia);
     }
 
@@ -130,7 +130,7 @@ public class ViewBuscarAgencia {
      * @return agencia com o código informado, caso a mesma exista
      * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    private Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
+    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
         return agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
     }
 

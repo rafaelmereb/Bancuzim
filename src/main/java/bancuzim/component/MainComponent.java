@@ -2,6 +2,7 @@ package bancuzim.component;
 
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
+import bancuzim.exception.FalhaDelecaoException;
 import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +22,7 @@ public class MainComponent implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
             viewMenuPrincipal.load();
-        } catch (FalhaCadastroException | FalhaBuscaException ignored) {
+        } catch (FalhaCadastroException | FalhaDelecaoException | FalhaBuscaException ignored) {
 
         }
     }

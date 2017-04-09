@@ -3,6 +3,7 @@ package bancuzim.service;
 import bancuzim.entity.Agencia;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
+import bancuzim.exception.FalhaDelecaoException;
 import bancuzim.repository.AgenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,4 +64,11 @@ public class AgenciaService {
         return agenciaBuscada;
     }
 
+    public void deletarAgencia(Agencia agencia) throws FalhaDelecaoException {
+        try {
+            agenciaRepository.deleteAgenciaByCodigo(agencia.getCodigo());
+        }catch (Exception e){
+            throw new FalhaDelecaoException(AGENCIA, e.getCause().getMessage());
+        }
+    }
 }
