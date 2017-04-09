@@ -2,12 +2,12 @@ package bancuzim.view.agencia;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.FalhaBuscaException;
+import bancuzim.exception.FalhaCadastroException;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
-import org.apache.log4j.Logger;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
 import java.util.Scanner;
 
 import static bancuzim.enums.OpcaoMenu.CONTINUE;
@@ -16,31 +16,22 @@ import static bancuzim.enums.OpcaoMenu.notVoltar;
 /**
  * View correspondente à gerência de agências
  */
-public class ViewGerenciarAgencias implements CommandLineRunner{
+public class ViewGerenciarAgencias{
 
-    private Logger log = Logger.getLogger(ViewGerenciarAgencias.class);
+    @Autowired
+    private ViewCadastrarAgencia viewCadastrarAgencia;
 
-    ViewCadastrarAgencia viewCadastrarAgencia;
+    @Autowired
+    private ViewBuscarAgencia viewBuscarAgencia;
 
-    @Override
-    @PostConstruct
-    public void run(String... args){
-
-        viewCadastrarAgencia = new ViewCadastrarAgencia();
-     /* viewBuscarAgencia = new ViewBuscarAgencia();
-        viewAtualizarAgencia = new ViewAtualizarAgencia();
-        viewDeletarAgencia = new ViewDeletarAgencia();
-        viewListarAgencias = new ViewListarAgencias();
-        viewImportarAgencias = new ViewImportarAgencias();
-        */
-
+    public void load() throws FalhaCadastroException, FalhaBuscaException {
         manterMenuGerenciarAgencias();
     }
 
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    public void manterMenuGerenciarAgencias() {
+    public void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException {
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
@@ -52,7 +43,7 @@ public class ViewGerenciarAgencias implements CommandLineRunner{
     }
 
     private void exibirMenu() {
-        log.warn(Menu.GERENCIAR_AGENCIAS);
+        System.out.println(Menu.GERENCIAR_AGENCIAS);
     }
 
 
@@ -61,39 +52,38 @@ public class ViewGerenciarAgencias implements CommandLineRunner{
      *
      * @param opcao escolhida pelo usuário
      */
-    private void interpretarEntrada(OpcaoMenu opcao) {
+    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException {
 
         switch (opcao) {
             case C: // CADASTRAR Agência
-                viewCadastrarAgencia.run();
+                viewCadastrarAgencia.load();
                 break;
 
             case B: // BUSCAR por uma agência específica
-
-            /*  viewCadastrarAgencia.run();*/
+                viewBuscarAgencia.load();
                 break;
 
             case A: // ATUALIZAR os dados de uma agência
-            /*  viewCadastrarAgencia.run();*/
+            /*  viewAtualizarAgencia.load();*/
                 break;
 
             case D: // DELETAR uma agência
-            /*  viewCadastrarAgencia.run();*/
+            /*  viewDeletarAgencia.load();*/
                 break;
 
             case L: // LISTAR todas as agências
-            /*  viewCadastrarAgencia.run();*/
+            /*  viewListarAgencias.load();*/
                 break;
 
             case I: // IMPORTAR agências
-            /*  viewCadastrarAgencia.run();*/
+            /*  viewImportarAgencias.load();*/
                 break;
 
             case V: // VOLTAR ao menu principal
                 break;
 
             default:
-                log.warn("\nOpção Inválida! Tente novamente informando uma opção válida!");
+                System.out.println("\nOpção Inválida! Tente novamente informando uma opção válida!");
                 break;
         }
     }

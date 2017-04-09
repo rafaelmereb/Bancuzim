@@ -1,9 +1,9 @@
 package bancuzim.service;
 
 import bancuzim.entity.Agencia;
+import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
 import bancuzim.repository.AgenciaRepository;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +17,50 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class AgenciaService{
+public class AgenciaService {
 
     @Autowired
     private AgenciaRepository agenciaRepository;
-
-    private Logger log = Logger.getLogger(AgenciaService.class);
+    private final String AGENCIA = Agencia.class.getSimpleName();
 
     public void salvarAgencia(Agencia agencia) throws FalhaCadastroException {
 
         try {
             Agencia agenciaSalva = agenciaRepository.save(agencia);
 
-            if (agenciaSalva != null) {
-                log.warn("Agência cadastrada com sucesso!");
+            if (agenciaSalva == null) {
+                throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
             }
         } catch (Exception e) {
-            throw new FalhaCadastroException("Falha ao cadastrar agência!", e);
+            throw new FalhaCadastroException(AGENCIA, e.getCause().getMessage());
         }
+    }
+
+    public Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
+
+        Agencia agenciaBuscada;
+
+        try {
+             agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
+
+            if (agenciaBuscada == null) { throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");}
+        } catch (Exception e) {
+            throw new FalhaBuscaException(AGENCIA, e.getCause().getMessage());
+        }
+        return agenciaBuscada;
+    }
+
+    public Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
+        Agencia agenciaBuscada;
+
+        try {
+            agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
+
+            if (agenciaBuscada == null) { throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");}
+        } catch (Exception e) {
+            throw new FalhaBuscaException(AGENCIA, e.getCause().getMessage());
+        }
+        return agenciaBuscada;
     }
 
 }

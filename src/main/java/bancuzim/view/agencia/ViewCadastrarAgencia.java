@@ -5,9 +5,7 @@ import bancuzim.exception.FalhaCadastroException;
 import bancuzim.service.AgenciaService;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 
 import java.util.Scanner;
 
@@ -15,20 +13,13 @@ import java.util.Scanner;
  * View correspondente ao Cadastro de uma Agência
  */
 
-public class ViewCadastrarAgencia implements CommandLineRunner {
+public class ViewCadastrarAgencia {
 
     @Autowired
-    AgenciaService agenciaService;
+    private AgenciaService agenciaService;
 
-    private Logger log = Logger.getLogger(ViewCadastrarAgencia.class);
-
-    @Override
-    public void run(String... args) {
-        try {
-            manterCadastroDeAgencia();
-        } catch (FalhaCadastroException e) {
-           //
-        }
+    void load() throws FalhaCadastroException {
+        manterCadastroDeAgencia();
     }
 
     /**
@@ -36,14 +27,14 @@ public class ViewCadastrarAgencia implements CommandLineRunner {
      */
     private void manterCadastroDeAgencia() throws FalhaCadastroException {
         exibirMenu();
-        cadastrarAgencia(colherAgencia());
+        cadastrarAgencia(colherDadosDeAgencia());
     }
 
     /**
      * Exibe cabeçalho da View de Cadastro de Agência
      */
     private void exibirMenu() {
-        log.warn(Menu.CADASTRAR_AGENCIA);
+        System.out.println(Menu.CADASTRAR_AGENCIA);
     }
 
     /**
@@ -51,7 +42,7 @@ public class ViewCadastrarAgencia implements CommandLineRunner {
      *
      * @return agencia cujos dados foram colhidos
      */
-    private Agencia colherAgencia() {
+    private Agencia colherDadosDeAgencia() {
         Scanner leitor = new Scanner(System.in);
         Agencia agencia = new Agencia();
 

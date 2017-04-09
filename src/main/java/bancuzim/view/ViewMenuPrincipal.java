@@ -2,44 +2,45 @@ package bancuzim.view;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.FalhaBuscaException;
+import bancuzim.exception.FalhaCadastroException;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import bancuzim.view.agencia.ViewGerenciarAgencias;
-import org.apache.log4j.Logger;
-import org.springframework.boot.CommandLineRunner;
+import bancuzim.view.cliente.ViewGerenciarClientes;
+import bancuzim.view.conta.ViewGerenciarContas;
+import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Scanner;
 
 import static bancuzim.enums.OpcaoMenu.CONTINUE;
 import static bancuzim.enums.OpcaoMenu.notSair;
 
-public class ViewMenuPrincipal implements CommandLineRunner {
-
-    private Logger log = Logger.getLogger(ViewMenuPrincipal.class);
+public class ViewMenuPrincipal {
 
  /* Deverá possuir todas as views para poder redirecionar a opção escolhida: */
 
+    @Autowired
     private ViewGerenciarAgencias viewGerenciarAgencias;
- /* private ViewGerenciarClientes viewGerenciarClientes;
+
+    @Autowired
+    private ViewGerenciarClientes viewGerenciarClientes;
+
+    @Autowired
     private ViewGerenciarContas viewGerenciarContas;
-    private ViewGerenciarEmprestimos viewGerenciarEmprestimos; */
 
-    @Override
-    public void run(String... args) throws Exception {
-        /* Instanciar views:
-        viewGerenciarClientes = new ViewGerenciarClientes();
-        viewGerenciarContas = new ViewGerenciarContas();
-        viewGerenciarEmprestimos = new ViewGerenciarEmprestimos(); */
-        viewGerenciarAgencias = new ViewGerenciarAgencias();
+    @Autowired
+    private ViewGerenciarEmprestimos viewGerenciarEmprestimos;
 
+    public void load(String... args) throws Exception, FalhaCadastroException, FalhaBuscaException {
         manterMenuPrincipal();
     }
-
 
     /**
      * * Mantém o menu principal, exibindo e recebendo entradas até que o usuário acione a opção de sair (S).
      */
-    public void manterMenuPrincipal() {
+    private void manterMenuPrincipal() throws FalhaCadastroException, FalhaBuscaException {
 
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
@@ -53,40 +54,40 @@ public class ViewMenuPrincipal implements CommandLineRunner {
     }
 
     private void exibirMenu() {
-        log.warn(Menu.INICIAL);
+        System.out.println(Menu.INICIAL);
     }
 
     /**
      * Interpreta a opção escolhida pelo usuário, mapeando-a para a view correspondente.
      *
-     * @param opcao
+     * @param opcao opção escolhida pelo usuário
      */
-    private void interpretarOpcao(OpcaoMenu opcao) {
+    private void interpretarOpcao(OpcaoMenu opcao) throws FalhaCadastroException, FalhaBuscaException {
 
         switch (opcao) {
             case A: // Gerenciar agências
-                viewGerenciarAgencias.run();
+                viewGerenciarAgencias.load();
                 break;
 
             case B: // Gerenciar clientes
-                //  viewGerenciarClientes.run();
+                //  viewGerenciarClientes.load();
                 break;
 
             case C: // Gerenciar contas
-                //  viewGerenciarContas.run();
+                //  viewGerenciarContas.load();
                 break;
 
             case E: // Gerenciar emprestimos
-                //  viewGerenciarEmprestimos.run();
+                //  viewGerenciarEmprestimos.load();
                 break;
 
             case S: // SAIR
-                log.warn("Tchau!");
+                System.out.println("Tchau!");
                 fim();
                 break;
 
             default:
-                log.warn("\nOpção Inválida! Tente novamente informando uma opção válida!");
+                System.out.println("\nOpção Inválida! Tente novamente informando uma opção válida!");
                 break;
         }
     }
