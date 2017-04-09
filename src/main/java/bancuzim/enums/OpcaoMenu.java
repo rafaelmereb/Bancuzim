@@ -35,6 +35,62 @@ public enum OpcaoMenu {
         return true;
     }
 
+    public static boolean isA(OpcaoMenu opcao){
+        return opcao.equals(A);
+    }
+
+    public static boolean notA(OpcaoMenu opcao){
+        return !opcao.equals(A);
+    }
+
+    public static boolean isB(OpcaoMenu opcao){
+        return opcao.equals(B);
+    }
+
+    public static boolean notB(OpcaoMenu opcao){
+        return !opcao.equals(B);
+    }
+
+    public static boolean isC(OpcaoMenu opcao){
+        return opcao.equals(C);
+    }
+
+    public static boolean notC(OpcaoMenu opcao){
+        return !opcao.equals(C);
+    }
+
+    public static boolean isD(OpcaoMenu opcao){
+        return opcao.equals(D);
+    }
+
+    public static boolean notD(OpcaoMenu opcao){
+        return !opcao.equals(D);
+    }
+
+    public static boolean isE(OpcaoMenu opcao){
+        return opcao.equals(E);
+    }
+
+    public static boolean notE(OpcaoMenu opcao){
+        return !opcao.equals(E);
+    }
+
+    public static boolean isL(OpcaoMenu opcao){
+        return opcao.equals(L);
+    }
+
+    public static boolean notL(OpcaoMenu opcao){
+        return !opcao.equals(L);
+    }
+
+    public static boolean isI(OpcaoMenu opcao){
+        return opcao.equals(I);
+    }
+
+    public static boolean notI(OpcaoMenu opcao){
+        return !opcao.equals(I);
+    }
+
     public static boolean isVoltar(OpcaoMenu opcao){
         return opcao.equals(V);
     }
