@@ -1,19 +1,17 @@
 package bancuzim.view.agencia;
 
+import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
 import bancuzim.exception.FalhaCadastroException;
 import bancuzim.service.AgenciaService;
-import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Scanner;
 
 /**
  * View correspondente ao Cadastro de uma Agência
  */
 
-public class ViewCadastrarAgencia {
+public class ViewCadastrarAgencia extends ViewAgencia{
 
     @Autowired
     private AgenciaService agenciaService;
@@ -37,22 +35,7 @@ public class ViewCadastrarAgencia {
         System.out.println(Menu.CADASTRAR_AGENCIA);
     }
 
-    /**
-     * Colhe dados da agência a ser cadastrada
-     *
-     * @return agencia cujos dados foram colhidos
-     */
-    Agencia colherDadosDeAgencia() {
-        Scanner leitor = new Scanner(System.in);
-        Agencia agencia = new Agencia();
 
-        agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: ", leitor));
-        agencia.setNome(Leitura.lerCampoStringObrigatorio("Nome da Agência: ", leitor));
-        agencia.setGerente(Leitura.lerCampoStringObrigatorio("Nome do Gerente da Agência: ", leitor));
-        agencia.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: ", leitor));
-
-        return agencia;
-    }
 
 
     /**
@@ -60,7 +43,7 @@ public class ViewCadastrarAgencia {
      *
      * @param agencia a ser persistida
      */
-     void cadastrarAgencia(Agencia agencia) throws FalhaCadastroException {
+     private void cadastrarAgencia(Agencia agencia) throws FalhaCadastroException {
         agenciaService.salvarAgencia(agencia);
     }
 }

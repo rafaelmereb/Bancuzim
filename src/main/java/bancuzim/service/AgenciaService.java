@@ -1,9 +1,9 @@
 package bancuzim.service;
 
 import bancuzim.entity.Agencia;
+import bancuzim.exception.FalhaAtualizacaoException;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
-import bancuzim.exception.FalhaDelecaoException;
 import bancuzim.repository.AgenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,6 @@ public class AgenciaService {
     private final String AGENCIA = Agencia.class.getSimpleName();
 
     public void salvarAgencia(Agencia agencia) throws FalhaCadastroException {
-
         try {
             Agencia agenciaSalva = agenciaRepository.save(agencia);
 
@@ -33,42 +32,75 @@ public class AgenciaService {
                 throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
             }
         } catch (Exception e) {
-            throw new FalhaCadastroException(AGENCIA, e.getCause().getMessage());
+            e.printStackTrace();
         }
     }
 
     public Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
 
-        Agencia agenciaBuscada;
+        Agencia agenciaBuscada = null;
 
         try {
              agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
 
-            if (agenciaBuscada == null) { throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");}
+            if (agenciaBuscada == null) {
+                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
+            }
         } catch (Exception e) {
-            throw new FalhaBuscaException(AGENCIA, e.getCause().getMessage());
+           e.printStackTrace();
         }
+
         return agenciaBuscada;
     }
 
     public Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
-        Agencia agenciaBuscada;
+
+        Agencia agenciaBuscada = null;
 
         try {
             agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
 
-            if (agenciaBuscada == null) { throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");}
+            if (agenciaBuscada == null) {
+                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
+            }
         } catch (Exception e) {
-            throw new FalhaBuscaException(AGENCIA, e.getCause().getMessage());
+            e.printStackTrace();
         }
+
         return agenciaBuscada;
     }
 
-    public void deletarAgencia(Agencia agencia) throws FalhaDelecaoException {
+
+    public void atualizarAgencia(Agencia agencia) throws FalhaAtualizacaoException {
         try {
-            agenciaRepository.deleteAgenciaByCodigo(agencia.getCodigo());
+            Agencia agenciaAtualizada = agenciaRepository.save(agencia);
+
+            if (!agencia.getCodigo().equals(agenciaAtualizada.getCodigo())){
+                throw new FalhaAtualizacaoException(AGENCIA, "Não foi possível atualizar a agência indicada!");
+            }
         }catch (Exception e){
-            throw new FalhaDelecaoException(AGENCIA, e.getCause().getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void deletarAgenciaPorCodigo(Integer codigo) {
+        try {
+            agenciaRepository.delete(codigo);
+
+            //throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void deletarAgenciaPorNome(String nomeAgencia){
+        try {
+            agenciaRepository.deleteAgenciaByNome(nomeAgencia);
+
+            //throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência!");
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

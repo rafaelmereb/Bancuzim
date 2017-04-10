@@ -2,6 +2,7 @@ package bancuzim.view.agencia;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.FalhaAtualizacaoException;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
 import bancuzim.exception.FalhaDelecaoException;
@@ -31,20 +32,20 @@ public class ViewGerenciarAgencias{
     @Autowired
     private ViewDeletarAgencia viewDeletarAgencia;
 
-    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
+    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
         manterMenuGerenciarAgencias();
     }
 
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
+    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
         while(notVoltar(opcao)){
             exibirMenu();
-            opcao = Leitura.lerOpcaoMenu("Opção: ", leitor);
+            opcao = Leitura.lerOpcaoMenu(leitor);
             interpretarEntrada(opcao);
         }
     }
@@ -59,7 +60,7 @@ public class ViewGerenciarAgencias{
      *
      * @param opcao escolhida pelo usuário
      */
-    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException {
+    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException, FalhaAtualizacaoException {
 
         switch (opcao) {
             case C: // CADASTRAR Agência

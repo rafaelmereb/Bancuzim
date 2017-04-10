@@ -1,4 +1,4 @@
-package bancuzim.interfaces.repository;
+package bancuzim.abstracts.repository;
 
 import bancuzim.repository.AgenciaRepository;
 import org.junit.Test;

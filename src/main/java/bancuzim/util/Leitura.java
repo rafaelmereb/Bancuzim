@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public final class Leitura {
 
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
             .forPattern("dd/MM/yyyy HH:mm");
 
     private Leitura() {
@@ -26,18 +26,22 @@ public final class Leitura {
      * Solicita uma entrada enquanto a String informada pelo usuário
      * for inválida, não correspondendo a uma opcaoMenu.
      *
-     * @param mensagem para solicitar a entrada do campo
-     * @param scanner instancia do Scanner
+     * @param scanner  instancia do Scanner
      * @return a opção escolhida, do tipo OpcaoMenu
      */
-    public static OpcaoMenu lerOpcaoMenu(String mensagem,
-                                         Scanner scanner) {
+    public static OpcaoMenu lerOpcaoMenu(Scanner scanner) {
 
-        String valor = "";
+        String valor;
+        boolean opcaoValida = false;
         do {
-            System.out.println("\n" + mensagem);
+            System.out.println("\n" + "Opção: ");
+
             valor = scanner.nextLine().toUpperCase();
-        } while (StringUtils.isBlank(valor) && OpcaoMenu.notContains(valor));
+            if (OpcaoMenu.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+            } else opcaoValida = true;
+        } while (!opcaoValida);
+
 
         return OpcaoMenu.valueOf(valor);
     }
@@ -47,7 +51,7 @@ public final class Leitura {
      * inválida.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner instancia do Scanner
+     * @param scanner  instancia do Scanner
      * @return o campo String informado
      */
     public static String lerCampoStringObrigatorio(String mensagem,
@@ -56,7 +60,11 @@ public final class Leitura {
         String valor = "";
         do {
             System.out.println(mensagem);
-            valor = scanner.nextLine();
+            try {
+                valor = scanner.nextLine();
+            } catch (IllegalStateException e) {
+                System.out.println("Opção inválida!");
+            }
         } while (StringUtils.isBlank(valor));
 
         return valor;
@@ -67,7 +75,7 @@ public final class Leitura {
      * inválida.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner instancia do Scanner
+     * @param scanner  instancia do Scanner
      * @return o campo Integer informado
      */
     public static Integer lerCampoIntegerObrigatorio(String mensagem,
@@ -78,7 +86,7 @@ public final class Leitura {
             try {
                 System.out.println(mensagem);
                 valor = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException ex) {
+            } catch (IllegalArgumentException e) {
                 System.out.println("Entrada Inválida. Digite um número válido!");
             }
         } while (valor == null);
@@ -91,7 +99,7 @@ public final class Leitura {
      * diferente do desejado.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner instancia do Scanner
+     * @param scanner  instancia do Scanner
      * @return o valor Boolean
      */
     public static Boolean lerCampoBooleanObrigatorio(String mensagem,
@@ -128,13 +136,13 @@ public final class Leitura {
      * Solicita uma entrada enquanto a data informada pelo usuário for inválida.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner instancia do Scanner
+     * @param scanner  instancia do Scanner
      * @return a data informada
      */
     public static LocalDateTime lerCampoDateTimeObrigatorio(String mensagem,
                                                             Scanner scanner) {
 
-        LocalDateTime date = null;
+        LocalDateTime date;
         do {
             try {
                 System.out.println(mensagem);

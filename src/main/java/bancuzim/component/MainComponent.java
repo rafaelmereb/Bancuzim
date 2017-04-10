@@ -1,5 +1,6 @@
 package bancuzim.component;
 
+import bancuzim.exception.FalhaAtualizacaoException;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
 import bancuzim.exception.FalhaDelecaoException;
@@ -22,7 +23,7 @@ public class MainComponent implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
             viewMenuPrincipal.load();
-        } catch (FalhaCadastroException | FalhaDelecaoException | FalhaBuscaException ignored) {
+        } catch (FalhaAtualizacaoException | FalhaCadastroException | FalhaDelecaoException | FalhaBuscaException ignored) {
 
         }
     }

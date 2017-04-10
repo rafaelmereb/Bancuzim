@@ -2,6 +2,7 @@ package bancuzim.view;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.FalhaAtualizacaoException;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.exception.FalhaCadastroException;
 import bancuzim.exception.FalhaDelecaoException;
@@ -34,21 +35,21 @@ public class ViewMenuPrincipal {
     @Autowired
     private ViewGerenciarEmprestimos viewGerenciarEmprestimos;
 
-    public void load(String... args) throws Exception, FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
+    public void load() throws Exception, FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
         manterMenuPrincipal();
     }
 
     /**
      * * Mantém o menu principal, exibindo e recebendo entradas até que o usuário acione a opção de sair (S).
      */
-    private void manterMenuPrincipal() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
+    private void manterMenuPrincipal() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
 
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
         while (notSair(opcao)) {
             exibirMenu();
-            opcao = Leitura.lerOpcaoMenu("Opção: ", leitor);
+            opcao = Leitura.lerOpcaoMenu(leitor);
             interpretarOpcao(opcao);
         }
 
@@ -63,7 +64,7 @@ public class ViewMenuPrincipal {
      *
      * @param opcao opção escolhida pelo usuário
      */
-    private void interpretarOpcao(OpcaoMenu opcao) throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException {
+    private void interpretarOpcao(OpcaoMenu opcao) throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
 
         switch (opcao) {
             case A: // Gerenciar agências
