@@ -33,10 +33,10 @@ public class ViewDeletarAgencia extends ViewAgencia{
         Scanner leitor = new Scanner(System.in);
         switch (opcaoMenu){
             case A:
-                deletarAgenciaPorNome(colherNomeAgencia(leitor));
+                deletarAgenciaPorNome(colherNomeAgencia());
                 break;
             case B:
-                deletarAgenciaPorCodigo(colherCodigoAgencia(leitor));
+                deletarAgenciaPorCodigo(colherCodigoAgencia());
                 break;
             default:
                 System.out.println("Opção inválida!");

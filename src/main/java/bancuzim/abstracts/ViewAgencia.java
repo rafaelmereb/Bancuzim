@@ -43,14 +43,7 @@ public abstract class ViewAgencia {
      * @return
      */
     public Agencia buscarAgencia() {
-
-        Agencia agenciaEncontrada = null;
-        try {
-            agenciaEncontrada = buscarAgenciaPorReferencia(colherReferenciaParaBusca());
-        } catch (FalhaBuscaException e) {
-            e.getMessage();
-        }
-        return agenciaEncontrada;
+        return buscarAgenciaPorReferencia(colherReferenciaParaBusca());
     }
 
     /**
