@@ -1,10 +1,10 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Sexo;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 /**
@@ -12,7 +12,8 @@ import javax.persistence.GeneratedValue;
  */
 public class Cliente {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
     private String cpf_cnpj;
     private String nome;

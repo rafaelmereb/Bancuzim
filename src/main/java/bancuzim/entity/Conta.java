@@ -1,7 +1,7 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Conta;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
 
