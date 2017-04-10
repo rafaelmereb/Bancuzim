@@ -1,12 +1,18 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Conta;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.GeneratedValue;
+
 
 /**
  * Entidade Conta. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
  */
 public class Conta {
 
+    @Id @GeneratedValue
+    private Integer id;
     private String nome_agencia;
     private String codigo_agencia;
     private String numero_conta;

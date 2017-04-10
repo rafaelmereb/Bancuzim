@@ -53,6 +53,11 @@ public class AppConfiguration {
         return new ViewDeletarAgencia();
     }
 
+    @Bean
+    ViewListarAgencias viewListarAgencias() {
+        return new ViewListarAgencias();
+    }
+
     /************************************************** CLIENTE **************************************************/
 
 

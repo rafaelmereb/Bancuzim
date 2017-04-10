@@ -1,14 +1,16 @@
 package bancuzim.entity;
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
 
 @Entity
 public class Agencia {
 
-    @Id
+    @Id @GeneratedValue
+    private Integer id;
     private Integer codigo;
-
     private String nome;
     private String endereco;
     private String gerente;

@@ -1,12 +1,17 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Emprestimo;
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.GeneratedValue;
 
 /**
  * Entidade Emprestimo. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
  */
 public class Emprestimo {
 
+    @Id @GeneratedValue
+    private Integer id;
     private String nome_cliente;
     private String cpf_cnpj;
     private Tipo_Emprestimo tipo_emprestimo;

@@ -1,6 +1,7 @@
 package bancuzim.view.agencia;
 
 import bancuzim.abstracts.ViewAgencia;
+import bancuzim.entity.Agencia;
 import bancuzim.exception.FalhaBuscaException;
 import bancuzim.service.AgenciaService;
 import bancuzim.util.Menu;
@@ -14,19 +15,12 @@ public class ViewBuscarAgencia extends ViewAgencia {
     private AgenciaService agenciaService;
 
     void load() throws FalhaBuscaException {
-        exibirMenu();
-        Scanner leitor = new Scanner(System.in);
-        exibirAgencia(
-                buscarAgenciaPorReferencia(
-                        colherReferenciaParaBusca(leitor), leitor)
-        );
+        exibirMenu(Menu.BUSCAR_AGENCIA);
+        manterViewBuscarAgencia();
     }
 
-    /**
-     * Exibe cabeçalho da View de Busca de Agência
-     */
-    private void exibirMenu() {
-        System.out.println(Menu.BUSCAR_AGENCIA);
+    private void manterViewBuscarAgencia() {
+        exibirAgencia(buscarAgencia());
     }
 
 }

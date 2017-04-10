@@ -13,22 +13,24 @@ public class ViewDeletarAgencia extends ViewAgencia{
 
     private final String AGENCIA = Agencia.class.getSimpleName();
 
-    void load() throws FalhaBuscaException, FalhaDelecaoException {
-        exibirMenu();
+    void load(){
+        exibirMenu(Menu.DELETAR_AGENCIA);
         deletarAgencia();
     }
 
-    private void exibirMenu() {
-        System.out.println(Menu.DELETAR_AGENCIA);
+    /**
+     * Método encarregado por
+     */
+    private void deletarAgencia(){
+        deletarAgenciaSegundoReferencia(colherReferenciaParaBusca());
     }
 
-    private void deletarAgencia() throws FalhaDelecaoException{
+    /**
+     * Redireciona a forma de deleção a partir da referência escolhida pelo usuário (nome ou código)
+     * @param opcaoMenu correspondente à referência escolhida para deleção pelo usuário
+     */
+    private void deletarAgenciaSegundoReferencia(OpcaoMenu opcaoMenu){
         Scanner leitor = new Scanner(System.in);
-        deletarAgenciaSegundoReferencia(colherReferenciaParaBusca(leitor), leitor);
-
-    }
-
-    private void deletarAgenciaSegundoReferencia(OpcaoMenu opcaoMenu, Scanner leitor) {
         switch (opcaoMenu){
             case A:
                 deletarAgenciaPorNome(colherNomeAgencia(leitor));
@@ -42,12 +44,28 @@ public class ViewDeletarAgencia extends ViewAgencia{
         }
     }
 
-    private void deletarAgenciaPorCodigo(Integer codigo) {
-        agenciaService.deletarAgenciaPorCodigo(codigo);
+    /**
+     * Confere a responsabilidade de deletar uma agência pelo seu respectivo código à service correspondente
+     * @param codigo utilizado como referência para a deleção
+     */
+    private void deletarAgenciaPorCodigo(Integer codigo){
+        try {
+            agenciaService.deletarAgenciaPorCodigo(codigo);
+        } catch (FalhaDelecaoException e) {
+            e.getMessage();
+        }
     }
 
-    private void deletarAgenciaPorNome(String nome) {
-        agenciaService.deletarAgenciaPorNome(nome);
+    /**
+     * Confere a responsabilidade de deletar uma agência pelo seu respectivo nome à service correspondente
+     * @param nome utilizado como referência para a deleção
+     */
+    private void deletarAgenciaPorNome(String nome){
+        try {
+            agenciaService.deletarAgenciaPorNome(nome);
+        } catch (FalhaDelecaoException e) {
+            e.getMessage();
+        }
     }
 
 

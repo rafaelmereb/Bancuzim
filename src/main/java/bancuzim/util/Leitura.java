@@ -34,7 +34,7 @@ public final class Leitura {
         String valor;
         boolean opcaoValida = false;
         do {
-            System.out.println("\n" + "Opção: ");
+            System.out.println("Opção: ");
 
             valor = scanner.nextLine().toUpperCase();
             if (OpcaoMenu.notContains(valor)) {

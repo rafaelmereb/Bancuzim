@@ -2,10 +2,7 @@ package bancuzim.view.agencia;
 
 
 import bancuzim.enums.OpcaoMenu;
-import bancuzim.exception.FalhaAtualizacaoException;
-import bancuzim.exception.FalhaBuscaException;
-import bancuzim.exception.FalhaCadastroException;
-import bancuzim.exception.FalhaDelecaoException;
+import bancuzim.exception.*;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,7 @@ import static bancuzim.enums.OpcaoMenu.notVoltar;
 /**
  * View correspondente à gerência de agências
  */
-public class ViewGerenciarAgencias{
+public class ViewGerenciarAgencias {
 
     @Autowired
     private ViewCadastrarAgencia viewCadastrarAgencia;
@@ -32,18 +29,21 @@ public class ViewGerenciarAgencias{
     @Autowired
     private ViewDeletarAgencia viewDeletarAgencia;
 
-    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
+    @Autowired
+    private ViewListarAgencias viewListarAgencias;
+
+    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
         manterMenuGerenciarAgencias();
     }
 
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException {
+    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
         Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
 
-        while(notVoltar(opcao)){
+        while (notVoltar(opcao)) {
             exibirMenu();
             opcao = Leitura.lerOpcaoMenu(leitor);
             interpretarEntrada(opcao);
@@ -60,7 +60,7 @@ public class ViewGerenciarAgencias{
      *
      * @param opcao escolhida pelo usuário
      */
-    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException, FalhaAtualizacaoException {
+    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
 
         switch (opcao) {
             case C: // CADASTRAR Agência
@@ -80,7 +80,7 @@ public class ViewGerenciarAgencias{
                 break;
 
             case L: // LISTAR todas as agências
-            /*  viewListarAgencias.load();*/
+                viewListarAgencias.load();
                 break;
 
             case I: // IMPORTAR agências
