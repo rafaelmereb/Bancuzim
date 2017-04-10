@@ -31,17 +31,17 @@ public class AgenciaService {
      * @throws FalhaCadastroException caso o cadastrado encontre algum tipo de falha
      */
     public void salvarAgencia(Agencia agencia) throws FalhaCadastroException {
-        // if (buscarAgenciaPorCodigo(agencia.getCodigo()) == null){
-        //   try {
-        Agencia agenciaSalva = agenciaRepository.save(agencia);
+        //   if (buscarAgenciaPorCodigo(agencia.getCodigo()) == null) {
+        try {
+            Agencia agenciaSalva = agenciaRepository.save(agencia);
 
-        //       if (agenciaSalva == null) {
-        //           throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
-        //       }
-        //   } catch (Exception e) {
-        //        e.printStackTrace();
-        //   }
-        //} else throw new FalhaCadastroException(AGENCIA, "Já existe outra agência com o mesmo ID");
+            if (agenciaSalva == null) {
+                throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //   } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com o mesmo ID");
     }
 
     /**
@@ -54,15 +54,15 @@ public class AgenciaService {
 
         Agencia agenciaBuscada = null;
 
-        // try {
-        agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
+        try {
+            agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
 
-        //     if (agenciaBuscada == null) {
-        //         throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
-        //     }
-        // } catch (Exception e) {
-        //    e.printStackTrace();
-        //}
+            if (agenciaBuscada == null) {
+                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return agenciaBuscada;
     }
@@ -77,15 +77,15 @@ public class AgenciaService {
 
         Agencia agenciaBuscada = null;
 
-        //  try {
-        agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
+        try {
+            agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
 
-        //     if (agenciaBuscada == null) {
-        //          throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
-        //      }
-        //  } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
+            if (agenciaBuscada == null) {
+                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return agenciaBuscada;
     }

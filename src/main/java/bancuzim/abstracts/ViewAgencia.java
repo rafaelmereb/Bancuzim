@@ -30,10 +30,10 @@ public abstract class ViewAgencia {
         Scanner leitor = new Scanner(System.in);
         Agencia agencia = new Agencia();
 
-        agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: ", leitor));
-        agencia.setNome(Leitura.lerCampoStringObrigatorio("Nome da Agência: ", leitor));
-        agencia.setGerente(Leitura.lerCampoStringObrigatorio("Nome do Gerente da Agência: ", leitor));
-        agencia.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: ", leitor));
+        agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: "));
+        agencia.setNome(Leitura.lerCampoStringObrigatorio("Nome da Agência: "));
+        agencia.setGerente(Leitura.lerCampoStringObrigatorio("Nome do Gerente da Agência: "));
+        agencia.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: "));
 
         return agencia;
     }
@@ -56,21 +56,21 @@ public abstract class ViewAgencia {
     /**
      * Colhe o código da agência pretendida
      *
-     * @param leitor para receber a entrada do usuário
      * @return código da agência pretendida
      */
-    public Integer colherCodigoAgencia(Scanner leitor) {
-        return Leitura.lerCampoIntegerObrigatorio("Código da agência: ", leitor);
+    public Integer colherCodigoAgencia() {
+        Scanner leitor = new Scanner(System.in);
+        return Leitura.lerCampoIntegerObrigatorio("Código da agência: ");
     }
 
     /**
      * Colhe o nome da agência pretendida
      *
-     * @param leitor que receberá a entrada do usuário
      * @return nome da agência pretendida
      */
-    public String colherNomeAgencia(Scanner leitor) {
-        return Leitura.lerCampoStringObrigatorio("Nome da agência: ", leitor);
+    public String colherNomeAgencia() {
+        Scanner leitor = new Scanner(System.in);
+        return Leitura.lerCampoStringObrigatorio("Nome da agência: ");
     }
 
     /**
@@ -117,38 +117,49 @@ public abstract class ViewAgencia {
      *
      * @param opcao  correspondente a escolha da referência utilizada para a consulta
      * @return agencia encontrada, caso a mesma exista
-     * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    public Agencia buscarAgenciaPorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
-        Scanner leitor = new Scanner(System.in);
+    public Agencia buscarAgenciaPorReferencia(OpcaoMenu opcao){
+
         if (isA(opcao)) { // Parâmetro de busca: Código
-            return buscarAgenciaPorCodigo(colherCodigoAgencia(leitor));
+            return buscarAgenciaPorCodigo(colherCodigoAgencia());
         } else { // Parâmetro de busca: Nome
-            return buscarAgenciaPorNome(colherNomeAgencia(leitor));
+            return buscarAgenciaPorNome(colherNomeAgencia());
         }
 
     }
 
     /**
-     * Realiza a busca da agência pretendida segundo nome fornecido
+     * Confere a responsabilidade de buscar uma agência a partir de seu nome à service correspondente
      *
      * @param nomeAgencia utilizada como referência na busca
      * @return agencia com o nome informado, caso a mesma exista
      * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
-        return agenciaService.buscarAgenciaPorNome(nomeAgencia);
+    Agencia buscarAgenciaPorNome(String nomeAgencia) {
+        Agencia agencia = null;
+        try {
+            agencia = agenciaService.buscarAgenciaPorNome(nomeAgencia);
+        } catch (FalhaBuscaException e) {
+            e.getMessage();
+        }
+        return agencia;
     }
 
     /**
-     * Realiza a busca da agência pretendida segundo código fornecido
+     * Confere a responsabilidade de buscar uma agência a partir de seu código à service correspondente
      *
      * @param codigoAgencia utilizado como referência na busca
      * @return agencia com o código informado, caso a mesma exista
      * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
-    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
-        return agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
+    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) {
+        Agencia agencia = null;
+        try {
+             agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
+        } catch (FalhaBuscaException e) {
+            e.getMessage();
+        }
+        return agencia;
     }
 
     /**

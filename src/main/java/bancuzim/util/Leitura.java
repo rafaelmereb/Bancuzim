@@ -51,17 +51,15 @@ public final class Leitura {
      * inválida.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner  instancia do Scanner
      * @return o campo String informado
      */
-    public static String lerCampoStringObrigatorio(String mensagem,
-                                                   Scanner scanner) {
-
+    public static String lerCampoStringObrigatorio(String mensagem) {
+        Scanner leitor = new Scanner(System.in);
         String valor = "";
         do {
             System.out.println(mensagem);
             try {
-                valor = scanner.nextLine();
+                valor = leitor.nextLine();
             } catch (IllegalStateException e) {
                 System.out.println("Opção inválida!");
             }
@@ -75,17 +73,15 @@ public final class Leitura {
      * inválida.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner  instancia do Scanner
      * @return o campo Integer informado
      */
-    public static Integer lerCampoIntegerObrigatorio(String mensagem,
-                                                     Scanner scanner) {
-
+    public static Integer lerCampoIntegerObrigatorio(String mensagem) {
+        Scanner leitor = new Scanner(System.in);
         Integer valor = null;
         do {
             try {
                 System.out.println(mensagem);
-                valor = Integer.parseInt(scanner.nextLine());
+                valor = Integer.parseInt(leitor.nextLine());
             } catch (IllegalArgumentException e) {
                 System.out.println("Entrada Inválida. Digite um número válido!");
             }
@@ -99,18 +95,16 @@ public final class Leitura {
      * diferente do desejado.
      *
      * @param mensagem para solicitar a entrada do campo
-     * @param scanner  instancia do Scanner
      * @return o valor Boolean
      */
-    public static Boolean lerCampoBooleanObrigatorio(String mensagem,
-                                                     Scanner scanner) {
-
+    public static Boolean lerCampoBooleanObrigatorio(String mensagem) {
+        Scanner leitor = new Scanner(System.in);
         Boolean valorBooleano = false;
         Integer valor = null;
         do {
             try {
                 System.out.println(mensagem);
-                valor = Integer.parseInt(scanner.nextLine());
+                valor = Integer.parseInt(leitor.nextLine());
                 switch (valor) {
                     case 0:
                         valorBooleano = false;
