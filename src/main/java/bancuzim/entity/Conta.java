@@ -1,6 +1,8 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Conta;
+
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import javax.persistence.GeneratedValue;
  */
 public class Conta {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome_agencia;
     private String codigo_agencia;

@@ -1,21 +1,22 @@
 package bancuzim.entity;
 
-import javax.persistence.Id;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Agencia {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer codigo;
     private String nome;
     private String endereco;
     private String gerente;
 
-    public Agencia(){
+    public Agencia() {
         super();
     }
 
@@ -26,6 +27,15 @@ public class Agencia {
         this.endereco = endereco;
         this.gerente = gerente;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     public Integer getCodigo() {
         return codigo;
@@ -68,4 +78,6 @@ public class Agencia {
                 ", gerente: '" + gerente + '\'' +
                 '}';
     }
+
+
 }

@@ -1,6 +1,8 @@
 package bancuzim.entity;
 
 import bancuzim.enums.Tipo_Emprestimo;
+
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.persistence.GeneratedValue;
  */
 public class Emprestimo {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome_cliente;
     private String cpf_cnpj;
