@@ -54,6 +54,11 @@ public class AppConfiguration {
     }
 
     @Bean
+    ViewImportarAgencia viewImportarAgencia(){
+        return new ViewImportarAgencia();
+    }
+
+    @Bean
     ViewListarAgencias viewListarAgencias() {
         return new ViewListarAgencias();
     }

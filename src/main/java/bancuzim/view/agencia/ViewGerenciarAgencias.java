@@ -32,6 +32,9 @@ public class ViewGerenciarAgencias {
     @Autowired
     private ViewListarAgencias viewListarAgencias;
 
+    @Autowired
+    private ViewImportarAgencia viewImportarAgencias;
+
     public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
         manterMenuGerenciarAgencias();
     }
@@ -84,7 +87,7 @@ public class ViewGerenciarAgencias {
                 break;
 
             case I: // IMPORTAR agências
-            /*  viewImportarAgencias.load();*/
+                viewImportarAgencias.load();
                 break;
 
             case V: // VOLTAR ao menu principal
