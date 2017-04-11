@@ -26,17 +26,16 @@ public final class Leitura {
      * Solicita uma entrada enquanto a String informada pelo usuário
      * for inválida, não correspondendo a uma opcaoMenu.
      *
-     * @param scanner  instancia do Scanner
      * @return a opção escolhida, do tipo OpcaoMenu
      */
-    public static OpcaoMenu lerOpcaoMenu(Scanner scanner) {
-
+    public static OpcaoMenu lerOpcaoMenu() {
+        Scanner leitor = new Scanner(System.in);
         String valor;
         boolean opcaoValida = false;
         do {
             System.out.println("Opção: ");
 
-            valor = scanner.nextLine().toUpperCase();
+            valor = leitor.nextLine().toUpperCase();
             if (OpcaoMenu.notContains(valor)) {
                 System.out.println("Opcao Invalida!");
             } else opcaoValida = true;

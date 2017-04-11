@@ -1,12 +1,11 @@
 package bancuzim.view.agencia;
 
 import bancuzim.entity.Agencia;
-import bancuzim.exception.FalhaImportacaoException;
+import bancuzim.exception.importacao.FalhaImportacaoException;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,57 +15,108 @@ import java.util.List;
 
 public class ViewImportarAgencia {
 
+    /**
+     * "Carrega a View responsável por Importar Agências"
+     */
     public void load() {
         exibirMenu(Menu.IMPORTAR_AGENCIA);
         manterViewImportarAgencia();
     }
 
+    /**
+     * Mantém a View responsável por Importar Agências
+     */
     private void manterViewImportarAgencia() {
+        interpretarCaminhoDoArquivo(colherCaminhoDoArquivo());
+    }
+
+    /**
+     * Interpreta o arquivo a ser importado pela aplicação
+     *
+     * @param caminhoDoArquivo a ser interpretado
+     * @return uma lista de agências com as informações do arquivo
+     */
+    private ArrayList<Agencia> interpretarCaminhoDoArquivo(Path caminhoDoArquivo) {
+        ArrayList<Agencia> listaAgencias = null;
         try {
-            interpretarArquivo(colherCaminhoDoArquivo());
-        } catch (FalhaImportacaoException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private void interpretarArquivo(Path caminhoDoArquivo) throws FalhaImportacaoException, IOException {
-        if (Files.exists(caminhoDoArquivo)) {
-            if (Files.isReadable(caminhoDoArquivo)) {
-                ArrayList<String> linhasDoArquivo = (ArrayList<String>) colherLinhasDoArquivo(caminhoDoArquivo);
-                try {
-                    for (String linha : linhasDoArquivo) {
-
-                        String[] atributosDeAgenda = StringUtils.split(linha, ";");
-                        //Divide a linha em array de Strings a partir do caractere ";".
-                        if (atributosDeAgenda.length != 6) {
-                            Agencia agencia = new Agencia();
-                            agencia.setId(Integer.valueOf(atributosDeAgenda[0])); // Id
-                            agencia.setNome(atributosDeAgenda[1]);
-                            agencia.setCodigo(Integer.valueOf(atributosDeAgenda[2]));
-                            agencia.setEndereco(atributosDeAgenda[3]);
-                            agencia.setGerente(atributosDeAgenda[4]);
-                        } else throw new FalhaImportacaoException(Agencia.class.getSimpleName(), "Arquivo não segue o padrão esperado!");
-                    }
-                } catch (Exception e) {
-                    e.getMessage();
+            //Colhe linhas do arquivo:
+            ArrayList<String> linhasDoArquivo = (ArrayList<String>) colherLinhasDoArquivo(caminhoDoArquivo);
+            if (linhasDoArquivo != null) {
+                for (String linha : linhasDoArquivo) {
+                    //Colhe atributos de agência presentes na linha:
+                    String[] atributosDeAgenda = StringUtils.split(linha, ";");
+                    //Adiciona agência obtida do arquivo na lista de agências a serem retornadas:
+                    listaAgencias.add(montarAgencia(atributosDeAgenda));
                 }
-            } else throw new FalhaImportacaoException(Agencia.class.getSimpleName() , "Não é possível ler o arquivo");
-        } else throw new FileNotFoundException("Arquivo não encontrado no caminho informado!");
+            }
+        } catch (FalhaImportacaoException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return listaAgencias;
     }
 
+    /**
+     * Verifica se um caminho de arquivo é acessível (existe e é passível de leitura)
+     * @param caminho a ser verificado
+     * @return se o arquivo é válido(true) ou inválido (false)
+     * @throws FalhaImportacaoException se uma falha ocorrer no processo
+     */
+    private boolean isAcessivel(Path caminho) throws FalhaImportacaoException {
+        return Files.isReadable(caminho);
+    }
+
+    /**
+     * Monta um objeto agência a partir de uma String de atributos
+     *
+     * @param atributosDeAgenda a serem colhidos
+     * @return uma agência com os atributos informados
+     * @throws FalhaImportacaoException caso aconteça alguma falha no processo
+     */
+    private Agencia montarAgencia(String[] atributosDeAgenda) throws FalhaImportacaoException {
+        Agencia agencia = new Agencia();
+        //Divide a linha em array de Strings a partir do caractere ";".
+        if (atributosDeAgenda.length != 6) {
+            //Colhe os atributos e os seta num objeto agência
+
+            agencia.setId(Integer.valueOf(atributosDeAgenda[0])); // Id
+            agencia.setNome(atributosDeAgenda[1]); // Nome
+            agencia.setCodigo(Integer.valueOf(atributosDeAgenda[2])); // Código
+            agencia.setEndereco(atributosDeAgenda[3]); // Endereço
+            agencia.setGerente(atributosDeAgenda[4]); // Gerente
+            return agencia;
+        } else {
+            throw new FalhaImportacaoException(Agencia.class.getSimpleName(), "Falha ao colher atributos de agenda!");
+        }
+    }
+
+    /**
+     * Colhe do usuário o caminho do arquivo a ser importado
+     *
+     * @return o caminho (Path) do arquivo a ser importado
+     */
     private Path colherCaminhoDoArquivo() {
         return Paths.get(Leitura.lerCampoStringObrigatorio("Entre com o caminho (completo) do arquivo a ser importado:"));
 
     }
 
-    private List<String> colherLinhasDoArquivo(Path caminhoDoArquivo) throws IOException {
-        return Files.readAllLines(caminhoDoArquivo);
+    /**
+     * Colhe as linhas de um arquivo a partir de seu caminho
+     *
+     * @param caminhoDoArquivo a ser processado
+     * @return lista de Strings cujas Strings são as linhas do arquivo
+     * @throws FalhaImportacaoException se não é possível ler o arquivo
+     * @throws IOException              se um erro I/O ocorrer ao ler o arquivo ou uma sequência de bytes for mal-formada ou inmapeável é lida.
+     */
+    private List<String> colherLinhasDoArquivo(Path caminhoDoArquivo) throws FalhaImportacaoException, IOException {
+        if (isAcessivel(caminhoDoArquivo)) {
+            return Files.readAllLines(caminhoDoArquivo);
+        } else return null;
     }
 
+    /**
+     * Exibe o menu correspondente à esta View
+     * @param menu String correspondente ao menu/cabeçalho para exibição
+     */
     private void exibirMenu(String menu) {
         System.out.println(menu);
     }

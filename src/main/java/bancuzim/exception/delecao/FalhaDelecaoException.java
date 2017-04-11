@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.delecao;
 
 public class FalhaDelecaoException extends Exception{
 

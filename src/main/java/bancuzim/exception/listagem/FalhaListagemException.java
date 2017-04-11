@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.listagem;
 
 public class FalhaListagemException extends Exception {
 

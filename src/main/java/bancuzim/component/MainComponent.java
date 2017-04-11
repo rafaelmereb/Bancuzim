@@ -17,11 +17,10 @@ public class MainComponent implements CommandLineRunner {
     private ViewMenuPrincipal viewMenuPrincipal;
 
     @Override
+    /**
+     * Aciona a View correspondente ao Menu Principal
+     */
     public void run(String... args) throws Exception {
-        try {
-            viewMenuPrincipal.load();
-        } catch (FalhaCadastroException | FalhaBuscaException | FalhaAtualizacaoException |  FalhaDelecaoException | FalhaListagemException ignored) {
-
-        }
+        viewMenuPrincipal.load();
     }
 }

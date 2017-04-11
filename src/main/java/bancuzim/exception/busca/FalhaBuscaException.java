@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.busca;
 
 public class FalhaBuscaException extends Exception {
 

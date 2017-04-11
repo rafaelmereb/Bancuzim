@@ -32,21 +32,22 @@ public class ViewMenuPrincipal {
     @Autowired
     private ViewGerenciarEmprestimos viewGerenciarEmprestimos;
 
-    public void load() throws Exception, FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
+    /**
+     * "Carrega" a view responsável pelo Menu Principal
+     */
+    public void load() {
         manterMenuPrincipal();
     }
 
     /**
      * * Mantém o menu principal, exibindo e recebendo entradas até que o usuário acione a opção de sair (S).
      */
-    private void manterMenuPrincipal() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
-
-        Scanner leitor = new Scanner(System.in);
+    private void manterMenuPrincipal(){
         OpcaoMenu opcao = CONTINUE;
 
         while (notSair(opcao)) {
             exibirMenu();
-            opcao = Leitura.lerOpcaoMenu(leitor);
+            opcao = Leitura.lerOpcaoMenu();
             interpretarOpcao(opcao);
         }
 
@@ -61,7 +62,7 @@ public class ViewMenuPrincipal {
      *
      * @param opcao opção escolhida pelo usuário
      */
-    private void interpretarOpcao(OpcaoMenu opcao) throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
+    private void interpretarOpcao(OpcaoMenu opcao) {
 
         switch (opcao) {
             case A: // Gerenciar agências

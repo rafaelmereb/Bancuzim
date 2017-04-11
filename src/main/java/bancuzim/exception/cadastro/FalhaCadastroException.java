@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.cadastro;
 
 public class FalhaCadastroException extends Exception {
 

@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.importacao;
 
 public class FalhaImportacaoException extends Exception{
 

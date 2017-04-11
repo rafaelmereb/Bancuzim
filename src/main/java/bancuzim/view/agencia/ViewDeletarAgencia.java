@@ -3,8 +3,7 @@ package bancuzim.view.agencia;
 import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
-import bancuzim.exception.FalhaBuscaException;
-import bancuzim.exception.FalhaDelecaoException;
+import bancuzim.exception.delecao.FalhaDelecaoException;
 import bancuzim.util.Menu;
 
 import java.util.Scanner;
@@ -52,7 +51,7 @@ public class ViewDeletarAgencia extends ViewAgencia{
         try {
             agenciaService.deletarAgenciaPorCodigo(codigo);
         } catch (FalhaDelecaoException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -64,7 +63,7 @@ public class ViewDeletarAgencia extends ViewAgencia{
         try {
             agenciaService.deletarAgenciaPorNome(nome);
         } catch (FalhaDelecaoException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
 

@@ -2,12 +2,8 @@ package bancuzim.view.agencia;
 
 import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
-import bancuzim.exception.FalhaAtualizacaoException;
-import bancuzim.exception.FalhaBuscaException;
-import bancuzim.util.Leitura;
+import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
 import bancuzim.util.Menu;
-
-import java.util.Scanner;
 
 public class ViewAtualizarAgencia extends ViewAgencia {
 
@@ -28,7 +24,7 @@ public class ViewAtualizarAgencia extends ViewAgencia {
             try {
                 atualizarAgencia(colherDadosDeAgencia());
             } catch (FalhaAtualizacaoException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -37,7 +33,7 @@ public class ViewAtualizarAgencia extends ViewAgencia {
      * Confere a responsabilidade de atualizar uma agência específica à service correspondente
      *
      * @param agencia com os dados atualizados
-     * @throws FalhaAtualizacaoException
+     * @throws FalhaAtualizacaoException caso uma falha ocorra no processo
      */
     private void atualizarAgencia(Agencia agencia) throws FalhaAtualizacaoException {
         agenciaService.atualizarAgencia(agencia);

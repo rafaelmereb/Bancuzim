@@ -1,7 +1,11 @@
 package bancuzim.service;
 
 import bancuzim.entity.Agencia;
-import bancuzim.exception.*;
+import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
+import bancuzim.exception.busca.FalhaBuscaException;
+import bancuzim.exception.cadastro.FalhaCadastroException;
+import bancuzim.exception.delecao.FalhaDelecaoException;
+import bancuzim.exception.listagem.FalhaListagemException;
 import bancuzim.repository.AgenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,18 +34,54 @@ public class AgenciaService {
      * @param agencia a ser persistida no banco de dados
      * @throws FalhaCadastroException caso o cadastrado encontre algum tipo de falha
      */
-    public void salvarAgencia(Agencia agencia) throws FalhaCadastroException {
-        //   if (buscarAgenciaPorCodigo(agencia.getCodigo()) == null) {
-        try {
+    public void salvarAgencia(Agencia agencia) throws FalhaBuscaException, FalhaCadastroException {
+
+        if (isNew(agencia)) {
             Agencia agenciaSalva = agenciaRepository.save(agencia);
 
             if (agenciaSalva == null) {
                 throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        //   } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com o mesmo ID");
+    }
+
+    /**
+     * Verifica se uma determinada agência é inexistente no banco de dados (dados não conflitam)
+     *
+     * @param agencia a ser verificada
+     * @return se a agencia é nova
+     * @throws FalhaBuscaException caso ocorra uma falha no processo
+     */
+    private boolean isNew(Agencia agencia) throws FalhaBuscaException {
+
+        if (isCodigoInexistente(agencia.getCodigo())) {
+            if (isNomeInexistente(agencia.getNome())) {
+                return true;
+            } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com mesmo Nome!");
+        } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com mesmo Código!");
+
+    }
+
+    /**
+     * Verifica se um determinado codigo é inexistente no banco de dados
+     *
+     * @param codigo a ser verificado
+     * @return se o código já existe (false) ou não (true) no banco de dados
+     * @throws FalhaBuscaException caso ocorra uma falha no processo
+     */
+    private boolean isCodigoInexistente(Integer codigo) throws FalhaBuscaException {
+        return buscarAgenciaPorCodigo(codigo) == null;
+    }
+
+    /**
+     * Verifica se um determinado nome é inexistente no banco de dados
+     *
+     * @param nome a ser verificado
+     * @return se o nome já existe (false) ou não (true) no banco de dados
+     * @throws FalhaBuscaException caso ocorra uma falha no processo
+     */
+    private boolean isNomeInexistente(String nome) throws FalhaBuscaException {
+        return buscarAgenciaPorNome(nome) == null;
     }
 
     /**
@@ -53,17 +93,10 @@ public class AgenciaService {
     public Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
 
         Agencia agenciaBuscada = null;
-
-        try {
-            agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
-
-            if (agenciaBuscada == null) {
-                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
+        if (agenciaBuscada == null) {
+            throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
         }
-
         return agenciaBuscada;
     }
 
@@ -76,15 +109,9 @@ public class AgenciaService {
     public Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
 
         Agencia agenciaBuscada = null;
-
-        try {
-            agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
-
-            if (agenciaBuscada == null) {
-                throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
+        if (agenciaBuscada == null) {
+            throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
         }
 
         return agenciaBuscada;
@@ -97,15 +124,11 @@ public class AgenciaService {
      * @throws FalhaAtualizacaoException caso a busca encontre algum tipo de falha
      */
     public void atualizarAgencia(Agencia agencia) throws FalhaAtualizacaoException {
-        //  try {
         Agencia agenciaAtualizada = agenciaRepository.save(agencia);
 
-        //   if (!agencia.getCodigo().equals(agenciaAtualizada.getCodigo())){
-        //       throw new FalhaAtualizacaoException(AGENCIA, "Não foi possível atualizar a agência indicada!");
-        //    }
-        //}catch (Exception e){
-        //    e.printStackTrace();
-        // }
+        if (!agencia.getCodigo().equals(agenciaAtualizada.getCodigo())) {
+            throw new FalhaAtualizacaoException(AGENCIA, "Não foi possível atualizar a agência indicada!");
+        }
     }
 
     /**
@@ -115,11 +138,13 @@ public class AgenciaService {
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
     public void deletarAgenciaPorCodigo(Integer codigo) throws FalhaDelecaoException {
+        agenciaRepository.delete(codigo);
+
         try {
-            agenciaRepository.delete(codigo);
-        } catch (Exception e) {
-            e.printStackTrace();
+            buscarAgenciaPorCodigo(codigo);
+            // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
             throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o código informado!");
+        } catch (FalhaBuscaException e) {
         }
     }
 
@@ -130,11 +155,13 @@ public class AgenciaService {
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
     public void deletarAgenciaPorNome(String nomeAgencia) throws FalhaDelecaoException {
+
+        agenciaRepository.deleteAgenciaByNome(nomeAgencia);
         try {
-            agenciaRepository.deleteAgenciaByNome(nomeAgencia);
-        } catch (Exception e) {
-            e.printStackTrace();
+            buscarAgenciaPorNome(nomeAgencia);
+            // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
             throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o nome informado!");
+        } catch (Exception e) {
         }
     }
 
@@ -144,11 +171,12 @@ public class AgenciaService {
      * @throws FalhaListagemException caso a deleção encontre algum tipo de falha
      */
     public ArrayList<Agencia> listarAgencias() throws FalhaListagemException {
+
         ArrayList<Agencia> listaDeAgencias = (ArrayList<Agencia>) toList(agenciaRepository.findAll());
 
-        //      if (listaDeAgencias.isEmpty()){
-        //          throw new FalhaListagemException(AGENCIA, "Não há nenhuma agência a ser exibida!");
-        //      }
+        if (listaDeAgencias.isEmpty()) {
+            throw new FalhaListagemException(AGENCIA, "Não há nenhuma agência a ser exibida!");
+        }
 
         return listaDeAgencias;
     }

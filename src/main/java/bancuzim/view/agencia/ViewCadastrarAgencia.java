@@ -2,7 +2,8 @@ package bancuzim.view.agencia;
 
 import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
-import bancuzim.exception.FalhaCadastroException;
+import bancuzim.exception.busca.FalhaBuscaException;
+import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.service.AgenciaService;
 import bancuzim.util.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ViewCadastrarAgencia extends ViewAgencia {
     @Autowired
     private AgenciaService agenciaService;
 
-    void load() throws FalhaCadastroException {
+    void load() {
         exibirMenu(Menu.CADASTRAR_AGENCIA);
         manterViewCadastrarAgencia();
     }
@@ -25,7 +26,7 @@ public class ViewCadastrarAgencia extends ViewAgencia {
     /**
      * Mantém a View responsável por cadastrar agências
      */
-    private void manterViewCadastrarAgencia() throws FalhaCadastroException {
+    private void manterViewCadastrarAgencia() {
         cadastrarAgencia(colherDadosDeAgencia());
     }
 
@@ -34,7 +35,11 @@ public class ViewCadastrarAgencia extends ViewAgencia {
      *
      * @param agencia a ser persistida
      */
-    private void cadastrarAgencia(Agencia agencia) throws FalhaCadastroException {
-        agenciaService.salvarAgencia(agencia);
+    private void cadastrarAgencia(Agencia agencia) {
+        try {
+            agenciaService.salvarAgencia(agencia);
+        } catch (FalhaBuscaException | FalhaCadastroException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

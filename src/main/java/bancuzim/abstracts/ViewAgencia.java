@@ -2,11 +2,9 @@ package bancuzim.abstracts;
 
 import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
-import bancuzim.exception.FalhaBuscaException;
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.service.AgenciaService;
 import bancuzim.util.Leitura;
-import bancuzim.util.Menu;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -40,7 +38,7 @@ public abstract class ViewAgencia {
 
     /**
      * Método responsável por buscar uma agência a partir dos dados de entrada do usuário
-     * @return
+     * @return agência buscada
      */
     public Agencia buscarAgencia() {
         return buscarAgenciaPorReferencia(colherReferenciaParaBusca());
@@ -83,7 +81,6 @@ public abstract class ViewAgencia {
      * @return referência que será utilizada na busca da agência (nome ou código)
      */
     public OpcaoMenu colherReferenciaParaBusca() {
-        Scanner leitor = new Scanner(System.in);
         OpcaoMenu opcao = CONTINUE;
         ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
         opcoesDisponiveis.add(A);
@@ -91,7 +88,7 @@ public abstract class ViewAgencia {
 
         while (!opcoesDisponiveis.contains(opcao)) {
             System.out.println("Escolha a referência a ser utilizada no processo:\nA - Código\nB - Nome");
-            opcao = Leitura.lerOpcaoMenu(leitor);
+            opcao = Leitura.lerOpcaoMenu();
             switch (opcao) {
                 case A:
                 case B:
@@ -126,14 +123,13 @@ public abstract class ViewAgencia {
      *
      * @param nomeAgencia utilizada como referência na busca
      * @return agencia com o nome informado, caso a mesma exista
-     * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
     Agencia buscarAgenciaPorNome(String nomeAgencia) {
         Agencia agencia = null;
         try {
             agencia = agenciaService.buscarAgenciaPorNome(nomeAgencia);
         } catch (FalhaBuscaException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return agencia;
     }
@@ -143,14 +139,13 @@ public abstract class ViewAgencia {
      *
      * @param codigoAgencia utilizado como referência na busca
      * @return agencia com o código informado, caso a mesma exista
-     * @throws FalhaBuscaException caso alguma falha ocorra no processo
      */
     Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) {
         Agencia agencia = null;
         try {
-             agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
+             agencia = agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
         } catch (FalhaBuscaException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return agencia;
     }

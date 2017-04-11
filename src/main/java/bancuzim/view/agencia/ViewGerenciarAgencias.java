@@ -35,20 +35,19 @@ public class ViewGerenciarAgencias {
     @Autowired
     private ViewImportarAgencia viewImportarAgencias;
 
-    public void load() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
+    public void load() {
         manterMenuGerenciarAgencias();
     }
 
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    private void manterMenuGerenciarAgencias() throws FalhaCadastroException, FalhaBuscaException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
-        Scanner leitor = new Scanner(System.in);
+    private void manterMenuGerenciarAgencias(){
         OpcaoMenu opcao = CONTINUE;
 
         while (notVoltar(opcao)) {
             exibirMenu();
-            opcao = Leitura.lerOpcaoMenu(leitor);
+            opcao = Leitura.lerOpcaoMenu();
             interpretarEntrada(opcao);
         }
     }
@@ -63,7 +62,7 @@ public class ViewGerenciarAgencias {
      *
      * @param opcao escolhida pelo usuário
      */
-    private void interpretarEntrada(OpcaoMenu opcao) throws FalhaBuscaException, FalhaCadastroException, FalhaDelecaoException, FalhaAtualizacaoException, FalhaListagemException {
+    private void interpretarEntrada(OpcaoMenu opcao){
 
         switch (opcao) {
             case C: // CADASTRAR Agência

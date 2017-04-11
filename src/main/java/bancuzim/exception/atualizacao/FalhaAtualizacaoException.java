@@ -1,4 +1,4 @@
-package bancuzim.exception;
+package bancuzim.exception.atualizacao;
 
 public class FalhaAtualizacaoException extends Exception {
 
