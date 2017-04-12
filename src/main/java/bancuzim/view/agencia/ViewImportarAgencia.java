@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ViewImportarAgencia {
@@ -27,7 +28,7 @@ public class ViewImportarAgencia {
      * Mantém a View responsável por Importar Agências
      */
     private void manterViewImportarAgencia() {
-        interpretarCaminhoDoArquivo(colherCaminhoDoArquivo());
+        consumirArquivo(colherCaminhoDoArquivo());
     }
 
     /**
@@ -36,11 +37,11 @@ public class ViewImportarAgencia {
      * @param caminhoDoArquivo a ser interpretado
      * @return uma lista de agências com as informações do arquivo
      */
-    private ArrayList<Agencia> interpretarCaminhoDoArquivo(Path caminhoDoArquivo) {
+    private ArrayList<Agencia> consumirArquivo(Path caminhoDoArquivo) {
         ArrayList<Agencia> listaAgencias = null;
         try {
             //Colhe linhas do arquivo:
-            ArrayList<String> linhasDoArquivo = (ArrayList<String>) colherLinhasDoArquivo(caminhoDoArquivo);
+            List<String> linhasDoArquivo = colherLinhasDoArquivo(caminhoDoArquivo);
             if (linhasDoArquivo != null) {
                 for (String linha : linhasDoArquivo) {
                     //Colhe atributos de agência presentes na linha:
@@ -109,7 +110,7 @@ public class ViewImportarAgencia {
      */
     private List<String> colherLinhasDoArquivo(Path caminhoDoArquivo) throws FalhaImportacaoException, IOException {
         if (isAcessivel(caminhoDoArquivo)) {
-            return Files.readAllLines(caminhoDoArquivo);
+            return Collections.synchronizedList(Files.readAllLines(caminhoDoArquivo));
         } else return null;
     }
 
