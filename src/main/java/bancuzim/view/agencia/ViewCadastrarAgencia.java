@@ -2,7 +2,6 @@ package bancuzim.view.agencia;
 
 import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
-import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.service.AgenciaService;
 import bancuzim.util.Menu;
@@ -38,7 +37,7 @@ public class ViewCadastrarAgencia extends ViewAgencia {
     private void cadastrarAgencia(Agencia agencia) {
         try {
             agenciaService.salvarAgencia(agencia);
-        } catch (FalhaBuscaException | FalhaCadastroException e) {
+        } catch (FalhaCadastroException e) {
             System.out.println(e.getMessage());
         }
     }

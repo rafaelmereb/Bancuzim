@@ -34,7 +34,7 @@ public class AgenciaService {
      * @param agencia a ser persistida no banco de dados
      * @throws FalhaCadastroException caso o cadastrado encontre algum tipo de falha
      */
-    public void salvarAgencia(Agencia agencia) throws FalhaBuscaException, FalhaCadastroException {
+    public void salvarAgencia(Agencia agencia) throws FalhaCadastroException {
 
         if (isNew(agencia)) {
             Agencia agenciaSalva = agenciaRepository.save(agencia);
@@ -50,15 +50,15 @@ public class AgenciaService {
      *
      * @param agencia a ser verificada
      * @return se a agencia é nova
-     * @throws FalhaBuscaException caso ocorra uma falha no processo
+     * @throws FalhaCadastroException caso ocorra uma falha no processo
      */
-    private boolean isNew(Agencia agencia) throws FalhaBuscaException {
+    private boolean isNew(Agencia agencia) throws FalhaCadastroException {
 
         if (isCodigoInexistente(agencia.getCodigo())) {
             if (isNomeInexistente(agencia.getNome())) {
                 return true;
-            } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com mesmo Nome!");
-        } else throw new FalhaBuscaException(AGENCIA, "Já existe outra agência com mesmo Código!");
+            } else throw new FalhaCadastroException(AGENCIA, "Já existe outra agência com mesmo Nome!");
+        } else throw new FalhaCadastroException(AGENCIA, "Já existe outra agência com mesmo Código!");
 
     }
 
@@ -67,10 +67,16 @@ public class AgenciaService {
      *
      * @param codigo a ser verificado
      * @return se o código já existe (false) ou não (true) no banco de dados
-     * @throws FalhaBuscaException caso ocorra uma falha no processo
      */
-    private boolean isCodigoInexistente(Integer codigo) throws FalhaBuscaException {
-        return buscarAgenciaPorCodigo(codigo) == null;
+    private boolean isCodigoInexistente(Integer codigo){
+        boolean codigoInexistente = false;
+        try {
+            //Caso o código não exista, o método lançará uma exceção:
+            buscarAgenciaPorCodigo(codigo);
+        } catch (FalhaBuscaException e) {
+            codigoInexistente = true;
+        }
+        return codigoInexistente;
     }
 
     /**
@@ -78,10 +84,16 @@ public class AgenciaService {
      *
      * @param nome a ser verificado
      * @return se o nome já existe (false) ou não (true) no banco de dados
-     * @throws FalhaBuscaException caso ocorra uma falha no processo
      */
-    private boolean isNomeInexistente(String nome) throws FalhaBuscaException {
-        return buscarAgenciaPorNome(nome) == null;
+    private boolean isNomeInexistente(String nome) {
+        boolean nomeInexistente = false;
+        try {
+            //Caso o nome não exista, o método lançará uma exceção:
+            buscarAgenciaPorNome(nome);
+        } catch (FalhaBuscaException e) {
+            nomeInexistente = true;
+        }
+        return nomeInexistente;
     }
 
     /**
@@ -92,8 +104,7 @@ public class AgenciaService {
      */
     public Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
 
-        Agencia agenciaBuscada = null;
-        agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
+        Agencia agenciaBuscada = agenciaRepository.findByNome(nomeAgencia);
         if (agenciaBuscada == null) {
             throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo nome informado!");
         }
@@ -108,8 +119,7 @@ public class AgenciaService {
      */
     public Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
 
-        Agencia agenciaBuscada = null;
-        agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
+        Agencia agenciaBuscada = agenciaRepository.findByCodigo(codigoAgencia);
         if (agenciaBuscada == null) {
             throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
         }
@@ -145,6 +155,7 @@ public class AgenciaService {
             // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
             throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o código informado!");
         } catch (FalhaBuscaException e) {
+            System.out.println("Agência removida com sucesso!");
         }
     }
 
@@ -161,7 +172,8 @@ public class AgenciaService {
             buscarAgenciaPorNome(nomeAgencia);
             // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
             throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o nome informado!");
-        } catch (Exception e) {
+        } catch (FalhaBuscaException e) {
+            System.out.println("Agência removida com sucesso!");
         }
     }
 
@@ -191,7 +203,7 @@ public class AgenciaService {
         if (iteravel instanceof List) {
             return (List<Agencia>) iteravel;
         }
-        ArrayList<Agencia> lista = new ArrayList<Agencia>();
+        ArrayList<Agencia> lista = new ArrayList<>();
         if (iteravel != null) {
             for (Agencia item : iteravel) {
                 lista.add(item);

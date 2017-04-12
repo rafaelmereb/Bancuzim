@@ -14,13 +14,13 @@ public class ViewDeletarAgencia extends ViewAgencia{
 
     void load(){
         exibirMenu(Menu.DELETAR_AGENCIA);
-        deletarAgencia();
+        manterViewDeletarAgencia();
     }
 
     /**
-     * Método encarregado por
+     * Método encarregado por de
      */
-    private void deletarAgencia(){
+    private void manterViewDeletarAgencia(){
         deletarAgenciaSegundoReferencia(colherReferenciaParaBusca());
     }
 

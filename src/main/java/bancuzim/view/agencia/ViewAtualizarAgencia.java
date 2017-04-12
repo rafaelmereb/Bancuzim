@@ -19,10 +19,20 @@ public class ViewAtualizarAgencia extends ViewAgencia {
         //Buscando agência a ser atualizada:
         Agencia agenciaEncontrada = buscarAgencia();
 
-        //Atualizando agência encontrada:
         if (agenciaEncontrada != null) {
             try {
-                atualizarAgencia(colherDadosDeAgencia());
+                //Colhendo os dados atualizados:
+                System.out.println("\n#### Digite os novos dados ####");
+                Agencia agenciaAtualizada = colherDadosDeAgencia();
+
+                //Setando os novos dados no registro já presente:
+                agenciaEncontrada.setCodigo(agenciaAtualizada.getCodigo());
+                agenciaEncontrada.setNome(agenciaAtualizada.getNome());
+                agenciaEncontrada.setGerente(agenciaAtualizada.getGerente());
+                agenciaEncontrada.setEndereco(agenciaAtualizada.getEndereco());
+
+                //Atualizando agência:
+                atualizarAgencia(agenciaEncontrada);
             } catch (FalhaAtualizacaoException e) {
                 System.out.println(e.getMessage());
             }
