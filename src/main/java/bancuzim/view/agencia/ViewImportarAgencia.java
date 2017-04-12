@@ -28,12 +28,22 @@ public class ViewImportarAgencia {
      * Mantém a View responsável por Importar Agências
      */
     private void manterViewImportarAgencia() {
-        consumirArquivo(colherCaminhoDoArquivo());
+        importarAgencias(consumirArquivo(colherCaminhoDoArquivo()));
+    }
+
+    /**
+     * Método responsável por salvar as agências que foram extraídas de um arquivo
+     * @param agencias lista de agências a serem importadas
+     */
+    private void importarAgencias(ArrayList<Agencia> agencias) {
+        for (Agencia agencia: agencias) {
+            //TODO: Verificar se já existe, e se não, importar a agência
+        }
     }
 
     /**
      * Interpreta o arquivo a ser importado pela aplicação
-     *
+     * TODO: MÉTODO NÃO É MULTITHREAD
      * @param caminhoDoArquivo a ser interpretado
      * @return uma lista de agências com as informações do arquivo
      */
