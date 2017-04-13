@@ -17,8 +17,6 @@ import java.util.List;
 /**
  * Classe de serviço para a entidade Agencia, segundo anotação SpringBoot.
  * (Espera-se que aqui não seja feito nenhuma operação senão printar o resultado das operações e acionar os métodos de AgenciaRepository)
- * TODO: Mapeamento entre os métodos dessa classe e os métodos definidos na interface AgenciaRepository.
- * TODO: Lidar com as exceções solicitadas na atividade
  */
 @Service
 @Transactional
@@ -41,7 +39,7 @@ public class AgenciaService {
 
             if (agenciaSalva == null) {
                 throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
-            } else if (agenciaSalva.getCodigo().equals(agencia.getCodigo())){
+            } else if (agenciaSalva.getCodigo().equals(agencia.getCodigo())) {
                 System.out.println("Agência salva com sucesso!");
             }
 
@@ -71,7 +69,7 @@ public class AgenciaService {
      * @param codigo a ser verificado
      * @return se o código já existe (false) ou não (true) no banco de dados
      */
-    private boolean isCodigoInexistente(Integer codigo){
+    private boolean isCodigoInexistente(Integer codigo) {
         boolean codigoInexistente = false;
         try {
             //Caso o código não exista, o método lançará uma exceção:
@@ -126,7 +124,6 @@ public class AgenciaService {
         if (agenciaBuscada == null) {
             throw new FalhaBuscaException(AGENCIA, "Agência não encontrada pelo código informado!");
         }
-
         return agenciaBuscada;
     }
 
@@ -151,14 +148,14 @@ public class AgenciaService {
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
     public void deletarAgenciaPorCodigo(Integer codigo) throws FalhaDelecaoException {
-        agenciaRepository.deleteAgenciaByCodigo(codigo);
 
         try {
+            // Se não houver agência com o código informado, uma FalhaBuscaException será lançada:
             buscarAgenciaPorCodigo(codigo);
-            // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
-            throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o código informado!");
-        } catch (FalhaBuscaException e) {
+            agenciaRepository.deleteAgenciaByCodigo(codigo);
             System.out.println("Agência removida com sucesso!");
+        } catch (FalhaBuscaException e) {
+            throw new FalhaDelecaoException(AGENCIA, "Não há agência com o código informado!");
         }
     }
 
@@ -170,13 +167,14 @@ public class AgenciaService {
      */
     public void deletarAgenciaPorNome(String nomeAgencia) throws FalhaDelecaoException {
 
-        agenciaRepository.deleteAgenciaByNome(nomeAgencia);
         try {
+            // Se não houver agência com o nome informado, uma FalhaBuscaException será lançada:
             buscarAgenciaPorNome(nomeAgencia);
-            // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
-            throw new FalhaDelecaoException(AGENCIA, "Falha ao deletar agência com o nome informado!");
-        } catch (FalhaBuscaException e) {
+
+            agenciaRepository.deleteAgenciaByNome(nomeAgencia);
             System.out.println("Agência removida com sucesso!");
+        } catch (FalhaBuscaException e) {
+            throw new FalhaDelecaoException(AGENCIA, "Não há agência com o nome informado!");
         }
     }
 
@@ -187,7 +185,7 @@ public class AgenciaService {
      */
     public ArrayList<Agencia> listarAgencias() throws FalhaListagemException {
 
-        ArrayList<Agencia> listaDeAgencias = (ArrayList<Agencia>) toList(agenciaRepository.findAll());
+        ArrayList<Agencia> listaDeAgencias = (ArrayList<Agencia>) converterIteravelEmLista(agenciaRepository.findAll());
 
         if (listaDeAgencias.isEmpty()) {
             throw new FalhaListagemException(AGENCIA, "Não há nenhuma agência a ser exibida!");
@@ -202,11 +200,11 @@ public class AgenciaService {
      * @param iteravel que fornecerá as agências
      * @return lista de agências
      */
-    private List<Agencia> toList(Iterable<Agencia> iteravel) {
+    private List<Agencia> converterIteravelEmLista(Iterable<Agencia> iteravel) {
         if (iteravel instanceof List) {
             return (List<Agencia>) iteravel;
         }
-        ArrayList<Agencia> lista = new ArrayList<>();
+        List<Agencia> lista = new ArrayList<>();
         if (iteravel != null) {
             for (Agencia item : iteravel) {
                 lista.add(item);

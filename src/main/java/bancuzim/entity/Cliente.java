@@ -13,20 +13,20 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
-    private String cpf_cnpj;
+    private String cpfCnpj;
     private String endereco;
     private Date data_de_nascimento;
     private Sexo sexo;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Conta> contas;
 
     public Cliente(){
         super();
     }
 
-    public Cliente(String nome, String cpf_cnpj, String endereco, Date data_de_nascimento, Sexo sexo) {
+    public Cliente(String nome, String cpfCnpj, String endereco, Date data_de_nascimento, Sexo sexo) {
         this.nome = nome;
-        this.cpf_cnpj = cpf_cnpj;
+        this.cpfCnpj = cpfCnpj;
         this.endereco = endereco;
         this.data_de_nascimento = data_de_nascimento;
         this.sexo = sexo;
@@ -49,12 +49,12 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getCpfCnpj() {
+        return cpfCnpj;
     }
 
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
     public String getEndereco() {

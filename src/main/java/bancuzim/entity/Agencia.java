@@ -13,7 +13,7 @@ public class Agencia {
     private String nome;
     private String endereco;
     private String gerente;
-    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Conta> contas;
 
     public Agencia() {

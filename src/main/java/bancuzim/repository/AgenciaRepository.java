@@ -14,7 +14,7 @@ import java.util.List;
 public interface AgenciaRepository extends CrudRepository<Agencia, Integer>{
     Agencia findByNome(String nome);
     Agencia findByCodigo(Integer codigo);
-    Agencia findByEndereco(String endereco);
+
     void deleteAgenciaByNome(String nome);
     void deleteAgenciaByCodigo(Integer id);
 }
