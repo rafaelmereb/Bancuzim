@@ -1,6 +1,7 @@
 package bancuzim.config;
 
 import bancuzim.service.AgenciaService;
+import bancuzim.service.ClienteService;
 import bancuzim.view.ViewMenuPrincipal;
 import bancuzim.view.agencia.*;
 import bancuzim.view.cliente.*;
@@ -62,6 +63,11 @@ public class AppConfiguration {
     }
 
     /************************************************** CLIENTE **************************************************/
+
+    @Bean(name = "clienteService")
+    public ClienteService clienteService() {
+        return new ClienteService();
+    }
 
     @Bean(name = "viewGerenciarClientes")
     ViewGerenciarClientes viewGerenciarClientes() {
