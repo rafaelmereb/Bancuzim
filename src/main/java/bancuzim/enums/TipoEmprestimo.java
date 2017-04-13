@@ -1,5 +1,5 @@
 package bancuzim.enums;
 
-public enum Tipo_Emprestimo {
+public enum TipoEmprestimo {
     PESSOAL, IMOVEL, VEICULO
 }

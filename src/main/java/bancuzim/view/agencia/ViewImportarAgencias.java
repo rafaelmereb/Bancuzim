@@ -1,7 +1,9 @@
 package bancuzim.view.agencia;
 
 import bancuzim.entity.Agencia;
+import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.exception.importacao.FalhaImportacaoException;
+import bancuzim.interfaces.ViewImportarInterface;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ViewImportarAgencia {
+public class ViewImportarAgencias extends ViewGerenciarAgencias implements ViewImportarInterface{
 
     /**
      * "Carrega a View responsável por Importar Agências"
@@ -37,13 +39,18 @@ public class ViewImportarAgencia {
      */
     private void importarAgencias(ArrayList<Agencia> agencias) {
         for (Agencia agencia: agencias) {
-            //TODO: Verificar se já existe, e se não, importar a agência
+            try {
+                agenciaService.salvarAgencia(agencia);
+            } catch (FalhaCadastroException e) {
+                System.out.println(e.getMessage());
+            }
         }
+        System.out.println("Agências importadas com sucesso!");
     }
 
     /**
      * Interpreta o arquivo a ser importado pela aplicação
-     * TODO: MÉTODO NÃO É MULTITHREAD
+     * TODO: IMPLEMENTAR MULTITHREAD NO CONSUMO DO ARQUIVO
      * @param caminhoDoArquivo a ser interpretado
      * @return uma lista de agências com as informações do arquivo
      */
@@ -124,11 +131,4 @@ public class ViewImportarAgencia {
         } else return null;
     }
 
-    /**
-     * Exibe o menu correspondente à esta View
-     * @param menu String correspondente ao menu/cabeçalho para exibição
-     */
-    private void exibirMenu(String menu) {
-        System.out.println(menu);
-    }
 }

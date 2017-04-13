@@ -1,9 +1,7 @@
 package bancuzim.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Agencia {
@@ -15,6 +13,8 @@ public class Agencia {
     private String nome;
     private String endereco;
     private String gerente;
+    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Conta> contas;
 
     public Agencia() {
         super();
@@ -27,6 +27,7 @@ public class Agencia {
         this.endereco = endereco;
         this.gerente = gerente;
     }
+
 
     public Integer getId() {
         return id;
@@ -67,6 +68,15 @@ public class Agencia {
 
     public void setGerente(String gerente) {
         this.gerente = gerente;
+    }
+
+
+    public Set<Conta> getContas() {
+        return contas;
+    }
+
+    public void setContas(Set<Conta> contas) {
+        this.contas = contas;
     }
 
     @Override

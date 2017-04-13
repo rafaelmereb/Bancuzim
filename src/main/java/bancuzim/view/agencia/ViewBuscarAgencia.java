@@ -1,20 +1,14 @@
 package bancuzim.view.agencia;
 
-import bancuzim.abstracts.ViewAgencia;
-import bancuzim.exception.busca.FalhaBuscaException;
-import bancuzim.service.AgenciaService;
+import bancuzim.interfaces.ViewBuscarInterface;
 import bancuzim.util.Menu;
-import org.springframework.beans.factory.annotation.Autowired;
 
-public class ViewBuscarAgencia extends ViewAgencia {
-
-    @Autowired
-    private AgenciaService agenciaService;
+public class ViewBuscarAgencia extends ViewGerenciarAgencias implements ViewBuscarInterface{
 
     /**
      * "Carrega" a View responsável por buscar agências
      */
-    void load(){
+    public void load(){
         exibirMenu(Menu.BUSCAR_AGENCIA);
         manterViewBuscarAgencia();
     }

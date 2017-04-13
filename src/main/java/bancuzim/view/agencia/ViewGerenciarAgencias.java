@@ -1,39 +1,55 @@
 package bancuzim.view.agencia;
 
 
+import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
-import bancuzim.exception.*;
+import bancuzim.exception.busca.FalhaBuscaException;
+import bancuzim.service.AgenciaService;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
+import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import static bancuzim.enums.OpcaoMenu.CONTINUE;
-import static bancuzim.enums.OpcaoMenu.notVoltar;
+import static bancuzim.enums.OpcaoMenu.*;
 
 /**
  * View correspondente à gerência de agências
  */
-public class ViewGerenciarAgencias {
+public class ViewGerenciarAgencias extends ViewMenuPrincipal {
 
     @Autowired
+    @Qualifier("viewCadastrarAgencia")
     private ViewCadastrarAgencia viewCadastrarAgencia;
 
     @Autowired
+    @Qualifier("viewBuscarAgencia")
     private ViewBuscarAgencia viewBuscarAgencia;
 
     @Autowired
+    @Qualifier("viewAtualizarAgencia")
     private ViewAtualizarAgencia viewAtualizarAgencia;
 
     @Autowired
+    @Qualifier("viewDeletarAgencia")
     private ViewDeletarAgencia viewDeletarAgencia;
 
     @Autowired
+    @Qualifier("viewListarAgencias")
     private ViewListarAgencias viewListarAgencias;
 
     @Autowired
-    private ViewImportarAgencia viewImportarAgencias;
+    @Qualifier("viewImportarAgencias")
+    private ViewImportarAgencias viewImportarAgencias;
+
+    @Autowired
+    @Qualifier("agenciaService")
+    public AgenciaService agenciaService;
+
+    public final String AGENCIA = Agencia.class.getSimpleName();
 
     public void load() {
         manterMenuGerenciarAgencias();
@@ -42,60 +58,147 @@ public class ViewGerenciarAgencias {
     /**
      * Mantém o menu de gerência de agências enquanto a opção não for V (Voltar)
      */
-    private void manterMenuGerenciarAgencias(){
+    private void manterMenuGerenciarAgencias() {
         OpcaoMenu opcao = CONTINUE;
 
         while (notVoltar(opcao)) {
-            exibirMenu();
+            exibirMenu(Menu.GERENCIAR_AGENCIAS);
             opcao = Leitura.lerOpcaoMenu();
-            interpretarEntrada(opcao);
+            interpretarEntrada(opcao, viewCadastrarAgencia, viewBuscarAgencia, viewAtualizarAgencia, viewDeletarAgencia, viewListarAgencias, viewImportarAgencias);
         }
     }
-
-    private void exibirMenu() {
-        System.out.println(Menu.GERENCIAR_AGENCIAS);
-    }
-
 
     /**
-     * Interpreta a opção escolhida pelo usuário, mapeando-a para a view correspondente
+     * Colhe dados da agência a ser cadastrada
      *
-     * @param opcao escolhida pelo usuário
+     * @return agencia cujos dados foram colhidos
      */
-    private void interpretarEntrada(OpcaoMenu opcao){
+    public Agencia colherDadosDeAgencia() {
+        Scanner leitor = new Scanner(System.in);
+        Agencia agencia = new Agencia();
 
-        switch (opcao) {
-            case C: // CADASTRAR Agência
-                viewCadastrarAgencia.load();
-                break;
+        agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: "));
+        agencia.setNome(Leitura.lerCampoStringObrigatorio("Nome da Agência: "));
+        agencia.setGerente(Leitura.lerCampoStringObrigatorio("Nome do Gerente da Agência: "));
+        agencia.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: "));
 
-            case B: // BUSCAR por uma agência específica
-                viewBuscarAgencia.load();
-                break;
+        return agencia;
+    }
 
-            case A: // ATUALIZAR os dados de uma agência
-                viewAtualizarAgencia.load();
-                break;
+    /**
+     * Método responsável por buscar uma agência a partir dos dados de entrada do usuário
+     *
+     * @return agência buscada
+     */
+    public Agencia buscarAgencia() {
+        return buscarAgenciaPorReferencia(colherReferenciaParaBusca());
+    }
 
-            case D: // DELETAR uma agência
-                viewDeletarAgencia.load();
-                break;
+    /**
+     * Colhe o código da agência pretendida
+     *
+     * @return código da agência pretendida
+     */
+    public Integer colherCodigoAgencia() {
+        Scanner leitor = new Scanner(System.in);
+        return Leitura.lerCampoIntegerObrigatorio("Código da agência: ");
+    }
 
-            case L: // LISTAR todas as agências
-                viewListarAgencias.load();
-                break;
+    /**
+     * Colhe o nome da agência pretendida
+     *
+     * @return nome da agência pretendida
+     */
+    public String colherNomeAgencia() {
+        Scanner leitor = new Scanner(System.in);
+        return Leitura.lerCampoStringObrigatorio("Nome da agência: ");
+    }
 
-            case I: // IMPORTAR agências
-                viewImportarAgencias.load();
-                break;
-
-            case V: // VOLTAR ao menu principal
-                break;
-
-            default:
-                System.out.println("\nOpção Inválida! Tente novamente informando uma opção válida!");
-                break;
+    /**
+     * Exibe a agência buscada, caso a mesma tenha sido encontrada
+     *
+     * @param agencia a ser exibida
+     */
+    public void exibirAgencia(Agencia agencia) {
+        if (agencia != null) {
+            System.out.println(agencia.toString());
         }
     }
+
+    /**
+     * Colhe a referência que será utilizada na busca da agência (nome ou código )
+     *
+     * @return referência que será utilizada na busca da agência (nome ou código)
+     */
+    public OpcaoMenu colherReferenciaParaBusca() {
+        OpcaoMenu opcao = CONTINUE;
+        ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
+        opcoesDisponiveis.add(A);
+        opcoesDisponiveis.add(B);
+
+        while (!opcoesDisponiveis.contains(opcao)) {
+            System.out.println("Escolha a referência a ser utilizada no processo:\nA - Código\nB - Nome");
+            opcao = Leitura.lerOpcaoMenu();
+            switch (opcao) {
+                case A:
+                case B:
+                    return opcao;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }
+
+        return opcao;
+    }
+
+    /**
+     * Interpreta a opcao escolhida a fim de redirecionar a busca segundo a referência correspondente
+     *
+     * @param opcao correspondente a escolha da referência utilizada para a consulta
+     * @return agencia encontrada, caso a mesma exista
+     */
+    public Agencia buscarAgenciaPorReferencia(OpcaoMenu opcao) {
+
+        if (isA(opcao)) { // Parâmetro de busca: Código
+            return buscarAgenciaPorCodigo(colherCodigoAgencia());
+        } else { // Parâmetro de busca: Nome
+            return buscarAgenciaPorNome(colherNomeAgencia());
+        }
+
+    }
+
+    /**
+     * Confere a responsabilidade de buscar uma agência a partir de seu nome à service correspondente
+     *
+     * @param nomeAgencia utilizada como referência na busca
+     * @return agencia com o nome informado, caso a mesma exista
+     */
+    Agencia buscarAgenciaPorNome(String nomeAgencia) {
+        Agencia agencia = null;
+        try {
+            agencia = agenciaService.buscarAgenciaPorNome(nomeAgencia);
+        } catch (FalhaBuscaException e) {
+            System.out.println(e.getMessage());
+        }
+        return agencia;
+    }
+
+    /**
+     * Confere a responsabilidade de buscar uma agência a partir de seu código à service correspondente
+     *
+     * @param codigoAgencia utilizado como referência na busca
+     * @return agencia com o código informado, caso a mesma exista
+     */
+    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) {
+        Agencia agencia = null;
+        try {
+            agencia = agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
+        } catch (FalhaBuscaException e) {
+            System.out.println(e.getMessage());
+        }
+        return agencia;
+    }
+
 
 }

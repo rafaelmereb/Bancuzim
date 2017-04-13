@@ -1,45 +1,82 @@
 package bancuzim.entity;
 
-import bancuzim.enums.Tipo_Conta;
+import bancuzim.enums.TipoConta;
 
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 
 /**
- * Entidade Conta. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
+ * Entidade Conta.
  */
+@Entity
 public class Conta {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    private Agencia agencia;
+    @ManyToOne
+    private Cliente cliente;
+
     private String nome_agencia;
-    private String codigo_agencia;
-    private String numero_conta;
+    private Integer codigo_agencia;
+    private Integer numero;
     private String nome_cliente;
     private String codigo_cliente;
-    private Tipo_Conta tipo_conta;
-    private double saldo;
-    private double limite;
+    private TipoConta tipo_conta;
+    private Double saldo;
+    private Double limite;
 
     public Conta() {
         super();
     }
 
-    public Conta(String nome_agencia, String codigo_agencia, String numero_conta,
-                 String nome_cliente, String codigo_cliente, Tipo_Conta tipo_conta, double saldo,
-                 double limite) {
-        super();
+    public Conta(String nome_agencia, Integer codigo_agencia, Integer numero, String nome_cliente, String codigo_cliente, TipoConta tipo_conta, Double saldo, Double limite) {
         this.nome_agencia = nome_agencia;
         this.codigo_agencia = codigo_agencia;
-        this.numero_conta = numero_conta;
+        this.numero = numero;
         this.nome_cliente = nome_cliente;
         this.codigo_cliente = codigo_cliente;
         this.tipo_conta = tipo_conta;
         this.saldo = saldo;
         this.limite = limite;
+    }
+
+    public Conta(Agencia agencia, Cliente cliente, Integer numero, TipoConta tipo_conta, Double saldo, Double limite) {
+        this.agencia = agencia;
+        this.cliente = cliente;
+        this.numero = numero;
+        this.tipo_conta = tipo_conta;
+        this.saldo = saldo;
+        this.limite = limite;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    public Agencia getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+    }
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getNome_agencia() {
@@ -50,20 +87,20 @@ public class Conta {
         this.nome_agencia = nome_agencia;
     }
 
-    public String getCodigo_agencia() {
+    public Integer getCodigo_agencia() {
         return codigo_agencia;
     }
 
-    public void setCodigo_agencia(String codigo_agencia) {
+    public void setCodigo_agencia(Integer codigo_agencia) {
         this.codigo_agencia = codigo_agencia;
     }
 
-    public String getNumero_conta() {
-        return numero_conta;
+    public Integer getNumero() {
+        return numero;
     }
 
-    public void setNumero_conta(String numero_conta) {
-        this.numero_conta = numero_conta;
+    public void setNumero(Integer numero) {
+        this.numero = numero;
     }
 
     public String getNome_cliente() {
@@ -82,11 +119,27 @@ public class Conta {
         this.codigo_cliente = codigo_cliente;
     }
 
-    public Tipo_Conta getTipo_conta() {
+    public TipoConta getTipo_conta() {
         return tipo_conta;
     }
 
-    public void setTipo_conta(Tipo_Conta tipo_conta) {
+    public void setTipo_conta(TipoConta tipo_conta) {
         this.tipo_conta = tipo_conta;
+    }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
+    }
+
+    public Double getLimite() {
+        return limite;
+    }
+
+    public void setLimite(Double limite) {
+        this.limite = limite;
     }
 }

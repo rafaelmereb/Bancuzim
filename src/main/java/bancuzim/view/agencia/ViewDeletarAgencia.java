@@ -1,24 +1,27 @@
 package bancuzim.view.agencia;
 
-import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.delecao.FalhaDelecaoException;
+import bancuzim.interfaces.ViewDeletarInterface;
 import bancuzim.util.Menu;
 
 import java.util.Scanner;
 
-public class ViewDeletarAgencia extends ViewAgencia{
+public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDeletarInterface{
 
     private final String AGENCIA = Agencia.class.getSimpleName();
 
-    void load(){
+    /**
+     * "Carrega" a View responsável por deletar agências
+     */
+    public void load(){
         exibirMenu(Menu.DELETAR_AGENCIA);
         manterViewDeletarAgencia();
     }
 
     /**
-     * Método encarregado por de
+     * Mantém a View responsável por deletar agências
      */
     private void manterViewDeletarAgencia(){
         deletarAgenciaSegundoReferencia(colherReferenciaParaBusca());
@@ -32,10 +35,10 @@ public class ViewDeletarAgencia extends ViewAgencia{
         Scanner leitor = new Scanner(System.in);
         switch (opcaoMenu){
             case A:
-                deletarAgenciaPorNome(colherNomeAgencia());
+                deletarAgenciaPorCodigo(colherCodigoAgencia());
                 break;
             case B:
-                deletarAgenciaPorCodigo(colherCodigoAgencia());
+                deletarAgenciaPorNome(colherNomeAgencia());
                 break;
             default:
                 System.out.println("Opção inválida!");

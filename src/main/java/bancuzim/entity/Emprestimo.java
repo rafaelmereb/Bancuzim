@@ -1,14 +1,13 @@
 package bancuzim.entity;
 
-import bancuzim.enums.Tipo_Emprestimo;
+import bancuzim.enums.TipoEmprestimo;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import javax.persistence.GeneratedValue;
-
 /**
- * Entidade Emprestimo. TODO: VERIFICAR DEMAIS PARÂMETROS E RELACIONAMENTOS. A CLASSE AINDA NÃO FOI FINALIZADA
+ * Entidade Emprestimo
  */
 public class Emprestimo {
 
@@ -16,14 +15,14 @@ public class Emprestimo {
     private Integer id;
     private String nome_cliente;
     private String cpf_cnpj;
-    private Tipo_Emprestimo tipo_emprestimo;
+    private TipoEmprestimo tipo_emprestimo;
     private Double valor;
 
     public Emprestimo(){
         super();
     }
 
-    public Emprestimo(String nome_cliente, String cpf_cnpj, Tipo_Emprestimo tipo_emprestimo, double valor) {
+    public Emprestimo(String nome_cliente, String cpf_cnpj, TipoEmprestimo tipo_emprestimo, double valor) {
         super();
         this.nome_cliente = nome_cliente;
         this.cpf_cnpj = cpf_cnpj;
@@ -47,11 +46,11 @@ public class Emprestimo {
         this.cpf_cnpj = cpf_cnpj;
     }
 
-    public Tipo_Emprestimo getTipo_emprestimo() {
+    public TipoEmprestimo getTipo_emprestimo() {
         return tipo_emprestimo;
     }
 
-    public void setTipo_emprestimo(Tipo_Emprestimo tipo_emprestimo) {
+    public void setTipo_emprestimo(TipoEmprestimo tipo_emprestimo) {
         this.tipo_emprestimo = tipo_emprestimo;
     }
 

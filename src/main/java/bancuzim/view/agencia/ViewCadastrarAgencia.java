@@ -1,23 +1,19 @@
 package bancuzim.view.agencia;
 
-import bancuzim.abstracts.ViewAgencia;
 import bancuzim.entity.Agencia;
 import bancuzim.exception.cadastro.FalhaCadastroException;
-import bancuzim.service.AgenciaService;
+import bancuzim.interfaces.ViewCadastrarInterface;
 import bancuzim.util.Menu;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * View correspondente ao Cadastro de uma Agência
- * TODO: Verificar se já não há agência já cadastrada com código/nome equivalentes antes de salvar o objeto
  */
+public class ViewCadastrarAgencia extends ViewGerenciarAgencias implements ViewCadastrarInterface{
 
-public class ViewCadastrarAgencia extends ViewAgencia {
-
-    @Autowired
-    private AgenciaService agenciaService;
-
-    void load() {
+    /**
+     * "Carrega" a View responsável por cadastrar agências
+     */
+    public void load() {
         exibirMenu(Menu.CADASTRAR_AGENCIA);
         manterViewCadastrarAgencia();
     }

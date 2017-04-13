@@ -41,7 +41,10 @@ public class AgenciaService {
 
             if (agenciaSalva == null) {
                 throw new FalhaCadastroException(AGENCIA, "Falha ao cadastrar agência no banco!");
+            } else if (agenciaSalva.getCodigo().equals(agencia.getCodigo())){
+                System.out.println("Agência salva com sucesso!");
             }
+
         }
     }
 
@@ -148,7 +151,7 @@ public class AgenciaService {
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
     public void deletarAgenciaPorCodigo(Integer codigo) throws FalhaDelecaoException {
-        agenciaRepository.delete(codigo);
+        agenciaRepository.deleteAgenciaByCodigo(codigo);
 
         try {
             buscarAgenciaPorCodigo(codigo);

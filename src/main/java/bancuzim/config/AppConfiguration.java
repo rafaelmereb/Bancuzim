@@ -51,9 +51,9 @@ public class AppConfiguration {
         return new ViewDeletarAgencia();
     }
 
-    @Bean(name = "viewImportarAgencia")
-    ViewImportarAgencia viewImportarAgencia() {
-        return new ViewImportarAgencia();
+    @Bean(name = "viewImportarAgencias")
+    ViewImportarAgencias viewImportarAgencias() {
+        return new ViewImportarAgencias();
     }
 
     @Bean(name = "viewListarAgencias")

@@ -1,5 +1,5 @@
 package bancuzim.enums;
 
-public enum Tipo_Conta {
+public enum TipoConta {
     POUPANCA, CORRENTE, SALARIO
 }

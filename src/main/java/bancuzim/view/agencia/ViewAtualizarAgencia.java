@@ -1,13 +1,17 @@
 package bancuzim.view.agencia;
 
-import bancuzim.abstracts.ViewAgencia;
+
 import bancuzim.entity.Agencia;
 import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
+import bancuzim.interfaces.ViewAtualizarInterface;
 import bancuzim.util.Menu;
 
-public class ViewAtualizarAgencia extends ViewAgencia {
+public class ViewAtualizarAgencia extends ViewGerenciarAgencias implements ViewAtualizarInterface{
 
-    void load() {
+    /**
+     * "Carrega" a View responsável por atualizar agências
+     */
+    public void load() {
         exibirMenu(Menu.ATUALIZAR_AGENCIA);
         manterViewAtualizarAgencia();
     }
