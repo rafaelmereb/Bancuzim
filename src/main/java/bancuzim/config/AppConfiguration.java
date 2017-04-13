@@ -3,7 +3,7 @@ package bancuzim.config;
 import bancuzim.service.AgenciaService;
 import bancuzim.view.ViewMenuPrincipal;
 import bancuzim.view.agencia.*;
-import bancuzim.view.cliente.ViewGerenciarClientes;
+import bancuzim.view.cliente.*;
 import bancuzim.view.conta.ViewGerenciarContas;
 import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
 import org.springframework.context.annotation.Bean;
@@ -14,76 +14,100 @@ public class AppConfiguration {
 
     /********************************************** MENU PRINCIPAL ***********************************************/
 
-    @Bean
+    @Bean(name = "viewMenuPrincipal")
     public ViewMenuPrincipal viewMenuPrincipal() {
         return new ViewMenuPrincipal();
     }
 
     /************************************************** AGÊNCIA **************************************************/
 
-
-    @Bean
+    @Bean(name = "agenciaService")
     public AgenciaService agenciaService() {
         return new AgenciaService();
     }
 
-
-    @Bean
+    @Bean(name = "viewGerenciarAgencias")
     public ViewGerenciarAgencias viewGerenciarAgencias() {
         return new ViewGerenciarAgencias();
     }
 
-    @Bean
+    @Bean(name = "viewCadastrarAgencia")
     ViewCadastrarAgencia viewCadastrarAgencia() {
         return new ViewCadastrarAgencia();
     }
 
-    @Bean
+    @Bean(name = "viewBuscarAgencia")
     ViewBuscarAgencia viewBuscarAgencia() {
         return new ViewBuscarAgencia();
     }
 
-    @Bean
+    @Bean(name = "viewAtualizarAgencia")
     ViewAtualizarAgencia viewAtualizarAgencia() {
         return new ViewAtualizarAgencia();
     }
 
-    @Bean
+    @Bean(name = "viewDeletarAgencia")
     ViewDeletarAgencia viewDeletarAgencia() {
         return new ViewDeletarAgencia();
     }
 
-    @Bean
-    ViewImportarAgencia viewImportarAgencia(){
+    @Bean(name = "viewImportarAgencia")
+    ViewImportarAgencia viewImportarAgencia() {
         return new ViewImportarAgencia();
     }
 
-    @Bean
+    @Bean(name = "viewListarAgencias")
     ViewListarAgencias viewListarAgencias() {
         return new ViewListarAgencias();
     }
 
     /************************************************** CLIENTE **************************************************/
 
-
-    @Bean
+    @Bean(name = "viewGerenciarClientes")
     ViewGerenciarClientes viewGerenciarClientes() {
         return new ViewGerenciarClientes();
     }
 
+    @Bean(name = "viewCadastrarCliente")
+    ViewCadastrarCliente viewCadastrarCliente() {
+        return new ViewCadastrarCliente();
+    }
+
+    @Bean(name = "viewBuscarCliente")
+    ViewBuscarCliente viewBuscarCliente() {
+        return new ViewBuscarCliente();
+    }
+
+    @Bean(name = "viewImportarClientes")
+    ViewImportarClientes viewImportarClientes() {
+        return new ViewImportarClientes();
+    }
+
+    @Bean(name = "viewListarClientes")
+    ViewListarClientes viewListarClientes() {
+        return new ViewListarClientes();
+    }
+
+    @Bean(name = "viewDeletarCliente")
+    ViewDeletarCliente viewDeletarCliente() {
+        return new ViewDeletarCliente();
+    }
+
+    @Bean(name = "viewAtualizarCliente")
+    ViewAtualizarCliente viewAtualizarCliente() {
+        return new ViewAtualizarCliente();
+    }
 
     /**************************************************  CONTA  **************************************************/
 
-
-    @Bean
+    @Bean(name = "viewGerenciarContas")
     ViewGerenciarContas viewGerenciarContas() {
         return new ViewGerenciarContas();
     }
 
-
     /************************************************ EMPRESTIMO ************************************************/
 
-    @Bean
+    @Bean(name = "viewGerenciarEmprestimos")
     ViewGerenciarEmprestimos viewGerenciarEmprestimos() {
         return new ViewGerenciarEmprestimos();
     }
