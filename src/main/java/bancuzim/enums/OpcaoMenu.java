@@ -107,6 +107,4 @@ public enum OpcaoMenu {
         return !opcao.equals(S);
     }
 
-
-
 }

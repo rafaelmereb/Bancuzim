@@ -2,21 +2,21 @@ package bancuzim.entity;
 
 import bancuzim.enums.TipoEmprestimo;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * Entidade Emprestimo
- */
+@Entity
 public class Emprestimo {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    private Cliente cliente;
+
     private String nome_cliente;
-    private String cpf_cnpj;
+    private String cpfCnpj;
     private TipoEmprestimo tipo_emprestimo;
     private Double valor;
+
 
     public Emprestimo(){
         super();
@@ -25,7 +25,7 @@ public class Emprestimo {
     public Emprestimo(String nome_cliente, String cpf_cnpj, TipoEmprestimo tipo_emprestimo, double valor) {
         super();
         this.nome_cliente = nome_cliente;
-        this.cpf_cnpj = cpf_cnpj;
+        this.cpfCnpj = cpf_cnpj;
         this.tipo_emprestimo = tipo_emprestimo;
         this.valor = valor;
     }
@@ -38,12 +38,12 @@ public class Emprestimo {
         this.nome_cliente = nome_cliente;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getCpfCnpj() {
+        return cpfCnpj;
     }
 
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
     public TipoEmprestimo getTipo_emprestimo() {

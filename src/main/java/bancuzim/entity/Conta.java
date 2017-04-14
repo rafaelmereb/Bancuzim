@@ -5,9 +5,6 @@ import bancuzim.enums.TipoConta;
 import javax.persistence.*;
 
 
-/**
- * Entidade Conta.
- */
 @Entity
 public class Conta {
 

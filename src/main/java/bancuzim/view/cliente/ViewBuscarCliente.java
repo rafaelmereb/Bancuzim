@@ -1,6 +1,5 @@
 package bancuzim.view.cliente;
 
-import bancuzim.entity.Cliente;
 import bancuzim.interfaces.ViewBuscarInterface;
 import bancuzim.util.Menu;
 
@@ -21,11 +20,5 @@ public class ViewBuscarCliente extends ViewGerenciarClientes implements ViewBusc
         exibirCliente(buscarCliente());
     }
 
-    private void exibirCliente(Cliente cliente) {
-    }
-
-    private Cliente buscarCliente() {
-        return null;
-    }
 
 }

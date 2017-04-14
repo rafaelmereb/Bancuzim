@@ -30,13 +30,14 @@ public class ViewCadastrarCliente extends ViewGerenciarClientes implements ViewC
         }
     }
 
-    private Cliente colherDadosDeCliente() {
+    public Cliente colherDadosDeCliente() {
         Cliente cliente = new Cliente();
 
         cliente.setNome(Leitura.lerCampoStringObrigatorio("Nome do Cliente: "));
         cliente.setCpfCnpj(Leitura.lerCPFouCNPJvalido());
+        cliente.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço do Cliente: "));
         cliente.setData_de_nascimento(Leitura.lerCampoDateObrigatorio("Data de nascimento (AAAA-MM-DD): "));
-        cliente.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: "));
+        cliente.setSexo(Leitura.lerSexoObrigatorio());
 
         return cliente;
     }

@@ -9,12 +9,14 @@ public class Agencia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Conta> contas;
+
     private Integer codigo;
     private String nome;
     private String endereco;
     private String gerente;
-    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Conta> contas;
+
 
     public Agencia() {
         super();
@@ -70,7 +72,6 @@ public class Agencia {
         this.gerente = gerente;
     }
 
-
     public Set<Conta> getContas() {
         return contas;
     }
@@ -81,13 +82,13 @@ public class Agencia {
 
     @Override
     public String toString() {
-        return "Agencia: {" +
-                "codigo: " + codigo +
-                ", nome: '" + nome + '\'' +
-                ", endereco: '" + endereco + '\'' +
-                ", gerente: '" + gerente + '\'' +
+        return "Agencia{" +
+                "id=" + id +
+                ", codigo=" + codigo +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", gerente='" + gerente + '\'' +
+                ", contas=" + contas +
                 '}';
     }
-
-
 }

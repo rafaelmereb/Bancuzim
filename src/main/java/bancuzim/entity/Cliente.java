@@ -12,13 +12,16 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Conta> contas;
+    @OneToMany(mappedBy = "agencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Emprestimo> emprestimos;
+
     private String nome;
     private String cpfCnpj;
     private String endereco;
     private Date data_de_nascimento;
     private Sexo sexo;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Conta> contas;
 
     public Cliente(){
         super();
@@ -31,7 +34,6 @@ public class Cliente {
         this.data_de_nascimento = data_de_nascimento;
         this.sexo = sexo;
     }
-
 
     public Integer getId() {
         return id;
@@ -81,12 +83,33 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-
     public Set<Conta> getContas() {
         return contas;
     }
 
     public void setContas(Set<Conta> contas) {
         this.contas = contas;
+    }
+
+    public Set<Emprestimo> getEmprestimos() {
+        return emprestimos;
+    }
+
+    public void setEmprestimos(Set<Emprestimo> emprestimos) {
+        this.emprestimos = emprestimos;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpfCnpj='" + cpfCnpj + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", data_de_nascimento=" + data_de_nascimento +
+                ", sexo=" + sexo +
+                ", contas=" + contas +
+                ", emprestimos=" + emprestimos +
+                '}';
     }
 }

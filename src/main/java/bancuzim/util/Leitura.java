@@ -2,6 +2,7 @@ package bancuzim.util;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.enums.Sexo;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -210,4 +211,19 @@ public final class Leitura {
         return date;
     }
 
+    public static Sexo lerSexoObrigatorio() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean sexoValido = false;
+        do {
+            System.out.println("Sexo do Cliente: ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (Sexo.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+            } else sexoValido = true;
+        } while (!sexoValido);
+
+        return Sexo.valueOf(valor);
+    }
 }

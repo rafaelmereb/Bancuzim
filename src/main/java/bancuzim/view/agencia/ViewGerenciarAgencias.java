@@ -11,9 +11,6 @@ import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import static bancuzim.enums.OpcaoMenu.*;
 
 /**
@@ -90,7 +87,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return agência buscada
      */
     public Agencia buscarAgencia() {
-        return buscarAgenciaPorReferencia(colherReferenciaParaBusca());
+        return buscarAgenciaPorReferencia(colherReferenciaParaBusca("Código", "Nome"));
     }
 
     /**
@@ -99,8 +96,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return código da agência pretendida
      */
     public Integer colherCodigoAgencia() {
-        Scanner leitor = new Scanner(System.in);
-        return Leitura.lerCampoIntegerObrigatorio("Código da agência: ");
+                return Leitura.lerCampoIntegerObrigatorio("Código da agência: ");
     }
 
     /**
@@ -109,7 +105,6 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return nome da agência pretendida
      */
     public String colherNomeAgencia() {
-        Scanner leitor = new Scanner(System.in);
         return Leitura.lerCampoStringObrigatorio("Nome da agência: ");
     }
 
@@ -122,33 +117,6 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
         if (agencia != null) {
             System.out.println(agencia.toString());
         }
-    }
-
-    /**
-     * Colhe a referência que será utilizada na busca da agência (nome ou código )
-     *
-     * @return referência que será utilizada na busca da agência (nome ou código)
-     */
-    public OpcaoMenu colherReferenciaParaBusca() {
-        OpcaoMenu opcao = CONTINUE;
-        ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
-        opcoesDisponiveis.add(A);
-        opcoesDisponiveis.add(B);
-
-        while (!opcoesDisponiveis.contains(opcao)) {
-            System.out.println("Escolha a referência a ser utilizada no processo:\nA - Código\nB - Nome");
-            opcao = Leitura.lerOpcaoMenu();
-            switch (opcao) {
-                case A:
-                case B:
-                    return opcao;
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        }
-
-        return opcao;
     }
 
     /**
@@ -198,6 +166,4 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
         }
         return agencia;
     }
-
-
 }

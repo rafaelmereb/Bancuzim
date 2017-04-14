@@ -12,8 +12,9 @@ import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import static bancuzim.enums.OpcaoMenu.CONTINUE;
-import static bancuzim.enums.OpcaoMenu.notSair;
+import java.util.ArrayList;
+
+import static bancuzim.enums.OpcaoMenu.*;
 
 public class ViewMenuPrincipal implements ViewInterface {
 
@@ -148,6 +149,32 @@ public class ViewMenuPrincipal implements ViewInterface {
         }
     }
 
+    /**
+     * Colhe a referência que será utilizada na busca de uma entidade qualquer, entre duas opcoes
+     *
+     * @return referência que será utilizada na busca da entidade
+     */
+    public OpcaoMenu colherReferenciaParaBusca(String opcaoA, String opcaoB) {
+        OpcaoMenu opcao = CONTINUE;
+        ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
+        opcoesDisponiveis.add(A);
+        opcoesDisponiveis.add(B);
+
+        while (!opcoesDisponiveis.contains(opcao)) {
+            System.out.println("Escolha a referência a ser utilizada no processo:\nA - " + opcaoA + "\nB - " + opcaoB);
+            opcao = Leitura.lerOpcaoMenu();
+            switch (opcao) {
+                case A:
+                case B:
+                    return opcao;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }
+
+        return opcao;
+    }
     private void fim() {
         System.exit(0);
     }

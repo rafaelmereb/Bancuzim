@@ -6,8 +6,6 @@ import bancuzim.exception.delecao.FalhaDelecaoException;
 import bancuzim.interfaces.ViewDeletarInterface;
 import bancuzim.util.Menu;
 
-import java.util.Scanner;
-
 public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDeletarInterface{
 
     private final String AGENCIA = Agencia.class.getSimpleName();
@@ -24,15 +22,14 @@ public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDel
      * Mantém a View responsável por deletar agências
      */
     private void manterViewDeletarAgencia(){
-        deletarAgenciaSegundoReferencia(colherReferenciaParaBusca());
+        deletarAgenciaSegundoReferencia(colherReferenciaParaBusca("Código", "Nome"));
     }
 
     /**
      * Redireciona a forma de deleção a partir da referência escolhida pelo usuário (nome ou código)
-     * @param opcaoMenu correspondente à referência escolhida para deleção pelo usuário
+     * @param opcaoMenu correspondente à referência escolhida pelo usuário para futura deleção
      */
     private void deletarAgenciaSegundoReferencia(OpcaoMenu opcaoMenu){
-        Scanner leitor = new Scanner(System.in);
         switch (opcaoMenu){
             case A:
                 deletarAgenciaPorCodigo(colherCodigoAgencia());
@@ -69,6 +66,4 @@ public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDel
             System.out.println(e.getMessage());
         }
     }
-
-
 }
