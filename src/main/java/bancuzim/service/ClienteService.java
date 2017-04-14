@@ -28,7 +28,7 @@ public class ClienteService {
      * @param cliente a ser persistido no banco de dados
      * @throws FalhaCadastroException caso o cadastrado encontre algum tipo de falha
      */
-    public void salvarAgencia(Cliente cliente) throws FalhaCadastroException {
+    public void salvarCliente(Cliente cliente) throws FalhaCadastroException {
 
         if (isNew(cliente)) {
             Cliente clienteSalvo = clienteRepository.save(cliente);
@@ -36,7 +36,7 @@ public class ClienteService {
             if (clienteSalvo == null) {
                 throw new FalhaCadastroException(CLIENTE, "Falha ao cadastrar cliente no banco!");
             } else if (clienteSalvo.getCpfCnpj().equals(cliente.getCpfCnpj())){
-                System.out.println("cliente salva com sucesso!");
+                System.out.println("Cliente salvo com sucesso!");
             }
 
         }
@@ -54,8 +54,8 @@ public class ClienteService {
         if (isCpfCnpjInexistente(cliente.getCpfCnpj())) {
             if (isNomeInexistente(cliente.getNome())) {
                 return true;
-            } else throw new FalhaCadastroException(CLIENTE, "Já existe outra cliente com mesmo Nome!");
-        } else throw new FalhaCadastroException(CLIENTE, "Já existe outra cliente com mesmo Código!");
+            } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo Nome!");
+        } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo CPF/CNPJ!");
 
     }
 
@@ -109,7 +109,7 @@ public class ClienteService {
     }
 
     /**
-     * Busca um cliente no banco de dados a partir do cpf/cnpj informado como referência
+     * Busca um cliente no banco de dados a partir do CPF/CNPJ informado como referência
      *
      * @param cpf_cnpj a ser persistida no banco de dados
      * @throws FalhaBuscaException caso a busca encontre algum tipo de falha
@@ -211,4 +211,6 @@ public class ClienteService {
         }
         return lista;
     }
+
+
 }

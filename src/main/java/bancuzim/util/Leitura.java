@@ -7,6 +7,10 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -88,6 +92,39 @@ public final class Leitura {
 
         return valor;
     }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário for uma data
+     * inválida.
+     *
+     * @param mensagem para solicitar a entrada do campo
+     * @return o campo String informado
+     */
+    public static Date lerCampoDateObrigatorio(String mensagem) {
+        Scanner leitor = new Scanner(System.in);
+        //SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        boolean valido;
+        String valor;
+        LocalDate data = null;
+        do {
+            System.out.println(mensagem);
+            try {
+                valor = leitor.nextLine();
+                if (StringUtils.isBlank(valor)) {
+                  throw new DateTimeParseException("Conteúdo ausente!", valor, 0);
+                } else{
+                    data = LocalDate.parse(valor);
+                    valido = true;
+                }
+            } catch (DateTimeParseException e){
+                System.out.println("\nConteúdo fora do padrão esperado!");
+                valido = false;
+            }
+        } while (!valido);
+
+        return Date.from(Instant.from(data));
+    }
+
 
     /**
      * Solicita uma entrada enquanto o valor informado pelo usuário for

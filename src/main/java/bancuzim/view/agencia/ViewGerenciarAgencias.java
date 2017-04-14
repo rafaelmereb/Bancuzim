@@ -74,7 +74,6 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return agencia cujos dados foram colhidos
      */
     public Agencia colherDadosDeAgencia() {
-        Scanner leitor = new Scanner(System.in);
         Agencia agencia = new Agencia();
 
         agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: "));
