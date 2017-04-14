@@ -23,7 +23,7 @@ public class ClienteService {
     private final String CLIENTE = bancuzim.entity.Cliente.class.getSimpleName();
 
     /**
-     * Persiste o cliente informado no banco de dados, caso não exista outra com mesmo id/nome
+     * Persiste o cliente informado no banco de dados, caso não exista outra com mesmo CPF/CNPJ/nome
      *
      * @param cliente a ser persistido no banco de dados
      * @throws FalhaCadastroException caso o cadastrado encontre algum tipo de falha
@@ -36,7 +36,7 @@ public class ClienteService {
             if (clienteSalvo == null) {
                 throw new FalhaCadastroException(CLIENTE, "Falha ao cadastrar cliente no banco!");
             } else if (clienteSalvo.getCpfCnpj().equals(cliente.getCpfCnpj())){
-                System.out.println("Cliente salvo com sucesso!");
+                System.out.println("\n##### Cliente salvo com sucesso! #####");
             }
 
         }
@@ -60,16 +60,16 @@ public class ClienteService {
     }
 
     /**
-     * Verifica se um determinado cpf_cnpj é inexistente no banco de dados
+     * Verifica se um determinado CPF/CNPJ é inexistente no banco de dados
      *
-     * @param cpf_cnpj a ser verificado
+     * @param cpfCnpj a ser verificado
      * @return se o código já existe (false) ou não (true) no banco de dados
      */
-    private boolean isCpfCnpjInexistente(String cpf_cnpj){
+    private boolean isCpfCnpjInexistente(String cpfCnpj){
         boolean cpfCnpjInexistente = false;
         try {
             //Caso o código não exista, o método lançará uma exceção:
-            buscarClientePorCpfCnpj(cpf_cnpj);
+            buscarClientePorCpfCnpj(cpfCnpj);
         } catch (FalhaBuscaException e) {
             cpfCnpjInexistente = true;
         }
@@ -134,24 +134,24 @@ public class ClienteService {
         Cliente clienteAtualizado = clienteRepository.save(cliente);
 
         if (!cliente.getCpfCnpj().equals(clienteAtualizado.getCpfCnpj())) {
-            throw new FalhaAtualizacaoException(CLIENTE, "Não foi possível atualizar a cliente indicada!");
+            throw new FalhaAtualizacaoException(CLIENTE, "Não foi possível atualizar a cliente indicado!");
         }
     }
 
     /**
      * Deleta um cliente no banco de dados a partir do cpf/cnpj informado como referência
      *
-     * @param cpf_cnpj da cliente a ser deletada do banco de dados
+     * @param cpfCnpj da cliente a ser deletada do banco de dados
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
-    public void deletarClientePorCpfCnpj(String cpf_cnpj) throws FalhaDelecaoException {
+    public void deletarClientePorCpfCnpj(String cpfCnpj) throws FalhaDelecaoException {
 
         try {
-            buscarClientePorCpfCnpj(cpf_cnpj);
-            // Como a busca acima lançará uma exceção, somente lançaremos a exceção abaixo se o documento não foi deletado.
+            buscarClientePorCpfCnpj(cpfCnpj);
+            // Se o CPF/CNPJ informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
 
-            clienteRepository.deleteClienteByCpfCnpj(cpf_cnpj);
-            System.out.println("Cliente removido com sucesso!");
+            clienteRepository.deleteClienteByCpfCnpj(cpfCnpj);
+            System.out.println("##### Cliente removido com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o cpf/cnpj indicado!");
         }
@@ -165,13 +165,12 @@ public class ClienteService {
      */
     public void deletarClientePorNome(String nomeCliente) throws FalhaDelecaoException {
 
-
         try {
-            // Se não houver agência com o nome informado, uma FalhaBuscaException será lançada:
             buscarClientePorNome(nomeCliente);
+            // Se o nome informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
 
             clienteRepository.deleteClienteByNome(nomeCliente);
-            System.out.println("Cliente removido com sucesso!");
+            System.out.println("##### Cliente removido com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o nome indicado!");
         }

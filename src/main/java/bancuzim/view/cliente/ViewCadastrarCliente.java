@@ -6,7 +6,7 @@ import bancuzim.interfaces.ViewCadastrarInterface;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 
-public class ViewCadastrarCliente extends ViewGerenciarClientes implements ViewCadastrarInterface{
+public class ViewCadastrarCliente extends ViewGerenciarClientes implements ViewCadastrarInterface {
 
     public void load() {
         exibirMenu(Menu.CADASTRAR_CLIENTE);
@@ -34,7 +34,7 @@ public class ViewCadastrarCliente extends ViewGerenciarClientes implements ViewC
         Cliente cliente = new Cliente();
 
         cliente.setNome(Leitura.lerCampoStringObrigatorio("Nome do Cliente: "));
-        cliente.setCpfCnpj(Leitura.lerCampoStringObrigatorio("CPF/CNPJ da Agência: "));
+        cliente.setCpfCnpj(Leitura.lerCPFouCNPJvalido());
         cliente.setData_de_nascimento(Leitura.lerCampoDateObrigatorio("Data de nascimento (AAAA-MM-DD): "));
         cliente.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: "));
 
