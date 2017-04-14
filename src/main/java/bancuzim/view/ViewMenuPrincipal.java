@@ -45,16 +45,13 @@ public class ViewMenuPrincipal implements ViewInterface {
         OpcaoMenu opcao = CONTINUE;
 
         while (notSair(opcao)) {
-            exibirMenu();
+            exibirMenu(Menu.INICIAL);
             opcao = Leitura.lerOpcaoMenu();
             interpretarOpcaoDoMenuPrincipal(opcao);
         }
 
     }
 
-    private void exibirMenu() {
-        System.out.println(Menu.INICIAL);
-    }
 
     /**
      * Interpreta a opção escolhida pelo usuário, mapeando-a para a view de gerência correspondente.

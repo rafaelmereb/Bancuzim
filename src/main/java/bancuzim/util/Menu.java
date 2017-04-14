@@ -12,7 +12,8 @@ public final class Menu {
 
     public static String INICIAL =
             "\n/* ############### BANCUZIM ############### */\n" +
-            "\nOlá, bem vindo ao Bancuzim!\n" +
+
+            "Olá, bem vindo ao Bancuzim!\n" +
                     "Digite um comando para prosseguir:\n" +
                     "A - Gerenciar agências\n" +
                     "B - Gerenciar clientes\n" +
@@ -37,14 +38,14 @@ public final class Menu {
 
     /* ----------------------------------------- AGENCIA ----------------------------------------- */
 
-    public static String CADASTRAR_AGENCIA ="\n/############### CADASTRAR AGÊNCIA ############### */";
+    public static String CADASTRAR_AGENCIA ="\n/* ############### CADASTRAR AGÊNCIA ############### */\n";
     public static String BUSCAR_AGENCIA ="" ;
     public static String ATUALIZAR_AGENCIA = "";
     public static String DELETAR_AGENCIA = "";
     public static String LISTAR_AGENCIAS = "";
     public static String IMPORTAR_AGENCIA = "";
     public static String GERENCIAR_CLIENTES =
-            "\n/############### GERENCIAR CLIENTES ############### */" +
+            "\n/* ############### GERENCIAR CLIENTES ############### */\n" +
 
                     "Digite um comando para prosseguir:\n" +
                     "C - Cadastrar um cliente\n" +

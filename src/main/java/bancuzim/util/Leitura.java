@@ -7,7 +7,6 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
@@ -72,6 +71,28 @@ public final class Leitura {
     }
 
     /**
+     * Solicita uma entrada enquanto a String informada pelo usuário não for um CPF/CNPJ válido.
+     *
+     * @return o campo String informado
+     */
+    public static String lerCPFouCNPJvalido() {
+
+        String cpfCnpj = "";
+        boolean entradaInvalida = false;
+        do {
+            if (entradaInvalida) {
+                System.out.println("CPF/CNPJ Inválido!!");
+            }
+            cpfCnpj = lerCampoStringObrigatorio("Digite um CPF/CNPJ do cliente, sem máscara/pontuação: ");
+            entradaInvalida = !(ValidadorCPF.isCPF(cpfCnpj) ^ ValidadorCNPJ.isCNPJ(cpfCnpj));
+            // '^' é o operador OU-EXCLUSIVO. O resultado só é verdadeiro se as cláusulas tem cpfCnpj diferente.
+        } while (entradaInvalida);
+
+        return cpfCnpj;
+    }
+
+
+    /**
      * Solicita uma entrada enquanto o número informado pelo usuário for
      * inválida.
      *
@@ -111,18 +132,19 @@ public final class Leitura {
             try {
                 valor = leitor.nextLine();
                 if (StringUtils.isBlank(valor)) {
-                  throw new DateTimeParseException("Conteúdo ausente!", valor, 0);
-                } else{
+                    throw new DateTimeParseException("Conteúdo ausente!", valor, 0);
+                } else {
                     data = LocalDate.parse(valor);
                     valido = true;
                 }
-            } catch (DateTimeParseException e){
-                System.out.println("\nConteúdo fora do padrão esperado!");
+            } catch (DateTimeParseException e) {
+                System.out.println("Data inválida!");
                 valido = false;
             }
         } while (!valido);
 
-        return Date.from(Instant.from(data));
+        return java.sql.Date.valueOf(data);
+        //('java.sql.Date' é filha de 'java.util.Date' e possui o método de conversão de LocalDate (java 8) para Date)
     }
 
 
