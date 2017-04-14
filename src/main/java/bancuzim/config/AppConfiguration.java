@@ -2,10 +2,11 @@ package bancuzim.config;
 
 import bancuzim.service.AgenciaService;
 import bancuzim.service.ClienteService;
+import bancuzim.service.ContaService;
 import bancuzim.view.ViewMenuPrincipal;
 import bancuzim.view.agencia.*;
 import bancuzim.view.cliente.*;
-import bancuzim.view.conta.ViewGerenciarContas;
+import bancuzim.view.conta.*;
 import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -106,10 +107,31 @@ public class AppConfiguration {
 
     /**************************************************  CONTA  **************************************************/
 
+    @Bean(name = "contaService")
+    ContaService contaService(){ return new ContaService();}
+
     @Bean(name = "viewGerenciarContas")
     ViewGerenciarContas viewGerenciarContas() {
         return new ViewGerenciarContas();
     }
+
+    @Bean(name = "viewCadastrarConta")
+    ViewCadastrarConta viewCadastrarConta() { return new ViewCadastrarConta(); }
+
+    @Bean(name = "viewImportarContas")
+    ViewImportarContas viewImportarContas(){ return new ViewImportarContas(); }
+
+    @Bean(name = "viewListarContas")
+    ViewListarContas viewListarContas(){ return new ViewListarContas(); }
+
+    @Bean(name = "viewDeletarConta")
+    ViewDeletarConta viewDeletarConta() { return new ViewDeletarConta(); }
+
+    @Bean(name = "viewAtualizarConta")
+    ViewAtualizarConta viewAtualizarConta() { return new ViewAtualizarConta(); }
+
+    @Bean(name = "viewBuscarConta")
+    ViewBuscarConta viewBuscarConta() { return new ViewBuscarConta(); }
 
     /************************************************ EMPRESTIMO ************************************************/
 

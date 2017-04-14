@@ -186,7 +186,7 @@ public class ClienteService {
         ArrayList<Cliente> listaDeClientes = (ArrayList<Cliente>) converterIteravelEmLista(clienteRepository.findAll());
 
         if (listaDeClientes.isEmpty()) {
-            throw new FalhaListagemException(CLIENTE, "Não há nenhum cliente a ser exibida!");
+            throw new FalhaListagemException(CLIENTE, "Não há nenhum cliente a ser exibido!");
         }
 
         return listaDeClientes;

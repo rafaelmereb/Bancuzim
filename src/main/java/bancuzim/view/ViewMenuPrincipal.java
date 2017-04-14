@@ -71,7 +71,7 @@ public class ViewMenuPrincipal implements ViewInterface {
                 break;
 
             case C: // Gerenciar contas
-                //  viewGerenciarContas.load();
+                viewGerenciarContas.load();
                 break;
 
             case E: // Gerenciar emprestimos
