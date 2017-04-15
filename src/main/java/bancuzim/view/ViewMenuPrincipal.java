@@ -150,18 +150,18 @@ public class ViewMenuPrincipal implements ViewInterface {
     }
 
     /**
-     * Colhe a referência que será utilizada na busca de uma entidade qualquer, entre duas opcoes
+     * Colhe uma referência entre duas opcoes
      *
-     * @return referência que será utilizada na busca da entidade
+     * @return referência que será utilizada em futuros procedimentos
      */
-    public OpcaoMenu colherReferenciaParaBusca(String opcaoA, String opcaoB) {
+    public OpcaoMenu colherReferencia(String opcaoA, String opcaoB) {
         OpcaoMenu opcao = CONTINUE;
         ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
         opcoesDisponiveis.add(A);
         opcoesDisponiveis.add(B);
 
         while (!opcoesDisponiveis.contains(opcao)) {
-            System.out.println("Escolha a referência a ser utilizada no processo:\nA - " + opcaoA + "\nB - " + opcaoB);
+            System.out.println("Escolha a referência:\nA - " + opcaoA + "\nB - " + opcaoB);
             opcao = Leitura.lerOpcaoMenu();
             switch (opcao) {
                 case A:

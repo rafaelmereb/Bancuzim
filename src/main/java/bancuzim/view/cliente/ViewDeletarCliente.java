@@ -22,7 +22,7 @@ public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDel
      * Mantém a view responsável por deletar clientes
      */
     private void manterViewDeletarCliente() {
-        deletarClienteSegundoReferencia(colherReferenciaParaBusca("CPF/CNPJ", "Nome"));
+        deletarClienteSegundoReferencia(colherReferencia("CPF/CNPJ", "Nome"));
     }
 
     /**

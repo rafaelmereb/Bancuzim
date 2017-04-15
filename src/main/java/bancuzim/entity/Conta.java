@@ -1,5 +1,6 @@
 package bancuzim.entity;
 
+import bancuzim.enums.Plano;
 import bancuzim.enums.TipoConta;
 
 import javax.persistence.*;
@@ -18,10 +19,11 @@ public class Conta {
 
     private String nome_agencia;
     private Integer codigo_agencia;
-    private Integer numero;
+    private String numero;
     private String nome_cliente;
-    private String codigo_cliente;
+    private Integer codigo_cliente;
     private TipoConta tipo_conta;
+    private Plano plano;
     private Double saldo;
     private Double limite;
 
@@ -29,22 +31,24 @@ public class Conta {
         super();
     }
 
-    public Conta(String nome_agencia, Integer codigo_agencia, Integer numero, String nome_cliente, String codigo_cliente, TipoConta tipo_conta, Double saldo, Double limite) {
+    public Conta(String nome_agencia, Integer codigo_agencia, String numero, String nome_cliente, Integer codigo_cliente, TipoConta tipo_conta, Plano plano, Double saldo, Double limite) {
         this.nome_agencia = nome_agencia;
         this.codigo_agencia = codigo_agencia;
         this.numero = numero;
         this.nome_cliente = nome_cliente;
         this.codigo_cliente = codigo_cliente;
         this.tipo_conta = tipo_conta;
+        this.plano = plano;
         this.saldo = saldo;
         this.limite = limite;
     }
 
-    public Conta(Agencia agencia, Cliente cliente, Integer numero, TipoConta tipo_conta, Double saldo, Double limite) {
+    public Conta(Agencia agencia, Cliente cliente, String numero, TipoConta tipo_conta, Plano plano, Double saldo, Double limite) {
         this.agencia = agencia;
         this.cliente = cliente;
         this.numero = numero;
         this.tipo_conta = tipo_conta;
+        this.plano = plano;
         this.saldo = saldo;
         this.limite = limite;
     }
@@ -92,11 +96,11 @@ public class Conta {
         this.codigo_agencia = codigo_agencia;
     }
 
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -108,11 +112,11 @@ public class Conta {
         this.nome_cliente = nome_cliente;
     }
 
-    public String getCodigo_cliente() {
+    public Integer getCodigo_cliente() {
         return codigo_cliente;
     }
 
-    public void setCodigo_cliente(String codigo_cliente) {
+    public void setCodigo_cliente(Integer codigo_cliente) {
         this.codigo_cliente = codigo_cliente;
     }
 
@@ -138,5 +142,31 @@ public class Conta {
 
     public void setLimite(Double limite) {
         this.limite = limite;
+    }
+
+    public Plano getPlano() {
+        return plano;
+    }
+
+    public void setPlano(Plano plano) {
+        this.plano = plano;
+    }
+
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "id=" + id +
+                ", agencia=" + agencia +
+                ", cliente=" + cliente +
+                ", nome_agencia='" + nome_agencia + '\'' +
+                ", codigo_agencia=" + codigo_agencia +
+                ", numero='" + numero + '\'' +
+                ", nome_cliente='" + nome_cliente + '\'' +
+                ", codigo_cliente=" + codigo_cliente +
+                ", tipo_conta=" + tipo_conta +
+                ", plano=" + plano +
+                ", saldo=" + saldo +
+                ", limite=" + limite +
+                '}';
     }
 }

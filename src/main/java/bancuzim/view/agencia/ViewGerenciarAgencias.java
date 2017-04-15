@@ -87,7 +87,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return agência buscada
      */
     public Agencia buscarAgencia() {
-        return buscarAgenciaPorReferencia(colherReferenciaParaBusca("Código", "Nome"));
+        return buscarAgenciaPorReferencia(colherReferencia("Código", "Nome"));
     }
 
     /**

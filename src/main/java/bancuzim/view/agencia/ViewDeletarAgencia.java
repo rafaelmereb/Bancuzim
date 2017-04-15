@@ -22,7 +22,7 @@ public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDel
      * Mantém a View responsável por deletar agências
      */
     private void manterViewDeletarAgencia(){
-        deletarAgenciaSegundoReferencia(colherReferenciaParaBusca("Código", "Nome"));
+        deletarAgenciaSegundoReferencia(colherReferencia("Código", "Nome"));
     }
 
     /**

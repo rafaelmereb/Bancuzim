@@ -82,7 +82,7 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @return agência buscada
      */
     public List<Cliente> buscarCliente() {
-        return buscarClientePorReferencia(colherReferenciaParaBusca("CPF/CNPJ", "Nome"));
+        return buscarClientePorReferencia(colherReferencia("CPF/CNPJ", "Nome"));
     }
 
     public List<Cliente> buscarClientePorReferencia(OpcaoMenu opcao) {

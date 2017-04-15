@@ -2,7 +2,9 @@ package bancuzim.util;
 
 
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.enums.Plano;
 import bancuzim.enums.Sexo;
+import bancuzim.enums.TipoConta;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -226,4 +228,53 @@ public final class Leitura {
 
         return Sexo.valueOf(valor);
     }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário
+     * for inválida, não correspondendo a um TipoConta.
+     *
+     * @return a opção escolhida, do tipo TipoConta
+     */
+    public static TipoConta lerTipoConta() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean tipoContaInvalida = false;
+        do {
+            System.out.println("Tipo da Conta (Poupanca, Corrente ou Salario): ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (TipoConta.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+                tipoContaInvalida = true;
+            }
+        } while (tipoContaInvalida);
+
+
+        return TipoConta.valueOf(valor);
+    }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário
+     * for inválida, não correspondendo a um Plano.
+     *
+     * @return a opção escolhida, do tipo Plano
+     */
+    public static Plano lerPlano() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean planoInvalido = false;
+        do {
+            System.out.println("Plano (Silver, Gold ou Diamond): ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (Plano.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+                planoInvalido = true;
+            }
+        } while (planoInvalido);
+
+
+        return Plano.valueOf(valor);
+    }
+
 }
