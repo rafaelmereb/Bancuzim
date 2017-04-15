@@ -18,9 +18,9 @@ import java.util.List;
 @Transactional
 public class ClienteService {
 
+    private final String CLIENTE = bancuzim.entity.Cliente.class.getSimpleName();
     @Autowired
     private ClienteRepository clienteRepository;
-    private final String CLIENTE = bancuzim.entity.Cliente.class.getSimpleName();
 
     /**
      * Persiste o cliente informado no banco de dados, caso não exista outra com mesmo CPF/CNPJ/nome
@@ -35,7 +35,7 @@ public class ClienteService {
 
             if (clienteSalvo == null) {
                 throw new FalhaCadastroException(CLIENTE, "Falha ao cadastrar cliente no banco!");
-            } else if (clienteSalvo.getCpfCnpj().equals(cliente.getCpfCnpj())){
+            } else if (clienteSalvo.getCpfCnpj().equals(cliente.getCpfCnpj())) {
                 System.out.println("\n##### Cliente salvo com sucesso! #####");
             }
 
@@ -52,9 +52,7 @@ public class ClienteService {
     private boolean isNew(Cliente cliente) throws FalhaCadastroException {
 
         if (isCpfCnpjInexistente(cliente.getCpfCnpj())) {
-            if (isNomeInexistente(cliente.getNome())) {
-                return true;
-            } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo Nome!");
+            return true;
         } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo CPF/CNPJ!");
 
     }
@@ -65,7 +63,7 @@ public class ClienteService {
      * @param cpfCnpj a ser verificado
      * @return se o código já existe (false) ou não (true) no banco de dados
      */
-    private boolean isCpfCnpjInexistente(String cpfCnpj){
+    private boolean isCpfCnpjInexistente(String cpfCnpj) {
         boolean cpfCnpjInexistente = false;
         try {
             //Caso o código não exista, o método lançará uma exceção:
@@ -86,7 +84,7 @@ public class ClienteService {
         boolean nomeInexistente = false;
         try {
             //Caso o nome não exista, o método lançará uma exceção:
-            buscarClientePorNome(nome);
+            buscarClientesPorNome(nome);
         } catch (FalhaBuscaException e) {
             nomeInexistente = true;
         }
@@ -99,9 +97,9 @@ public class ClienteService {
      * @param nome a ser buscado no banco de dados
      * @throws FalhaBuscaException caso a busca encontre algum tipo de falha
      */
-    public Cliente buscarClientePorNome(String nome) throws FalhaBuscaException {
+    public List<Cliente> buscarClientesPorNome(String nome) throws FalhaBuscaException {
 
-        Cliente clienteBuscado = clienteRepository.findByNome(nome);
+        List<Cliente> clienteBuscado = clienteRepository.findAllByNome(nome);
         if (clienteBuscado == null) {
             throw new FalhaBuscaException(CLIENTE, "Não há cliente com o nome informado");
         }
@@ -111,12 +109,12 @@ public class ClienteService {
     /**
      * Busca um cliente no banco de dados a partir do CPF/CNPJ informado como referência
      *
-     * @param cpf_cnpj a ser persistida no banco de dados
+     * @param cpfCnpj a ser persistida no banco de dados
      * @throws FalhaBuscaException caso a busca encontre algum tipo de falha
      */
-    public Cliente buscarClientePorCpfCnpj(String cpf_cnpj) throws FalhaBuscaException {
+    public Cliente buscarClientePorCpfCnpj(String cpfCnpj) throws FalhaBuscaException {
 
-        Cliente clienteBuscado = clienteRepository.findByCpfCnpj(cpf_cnpj);
+        Cliente clienteBuscado = clienteRepository.findByCpfCnpj(cpfCnpj);
         if (clienteBuscado == null) {
             throw new FalhaBuscaException(CLIENTE, "Não há cliente com o cpf/cnpj informado!");
         }
@@ -158,23 +156,23 @@ public class ClienteService {
     }
 
     /**
-     * Deleta um cliente no banco de dados a partir do nome informado como referência
+     * Deleta um cliente no banco de dados a partir de seu id informado como referência.
      *
-     * @param nomeCliente do cliente a ser deletada do banco de dados
+     * @param id do cliente a ser deletada do banco de dados
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
-    public void deletarClientePorNome(String nomeCliente) throws FalhaDelecaoException {
+    public void deletarCliente(int id) throws FalhaDelecaoException {
 
         try {
-            buscarClientePorNome(nomeCliente);
-            // Se o nome informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
-
-            clienteRepository.deleteClienteByNome(nomeCliente);
+            clienteRepository.findOne(id);
+            // Se o id informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
+            clienteRepository.delete(id);
             System.out.println("##### Cliente removido com sucesso! #####");
-        } catch (FalhaBuscaException e) {
-            throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o nome indicado!");
+        } catch (IllegalArgumentException e) {
+            throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o id indicado!");
         }
     }
+
 
     /**
      * Retorna os clientes anteriormente persistidos no banco de dados

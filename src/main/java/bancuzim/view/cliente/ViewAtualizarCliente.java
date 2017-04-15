@@ -20,7 +20,7 @@ public class ViewAtualizarCliente extends ViewGerenciarClientes implements ViewA
      */
     private void manterViewAtualizarCliente() {
          try {
-            atualizarDados(buscarCliente());
+            atualizarDados(escolherClienteDesejado(buscarCliente()));
             System.out.println("Cliente atualizado com sucesso!");
         } catch (FalhaAtualizacaoException e) {
             System.out.println(e.getMessage());

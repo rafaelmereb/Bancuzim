@@ -1,9 +1,13 @@
 package bancuzim.view.cliente;
 
+import bancuzim.entity.Cliente;
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.exception.delecao.FalhaDelecaoException;
 import bancuzim.interfaces.ViewDeletarInterface;
 import bancuzim.util.Menu;
+
+import java.util.List;
 
 public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDeletarInterface{
     /**
@@ -53,13 +57,18 @@ public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDel
 
     /**
      * Confere a responsabilidade de deletar um cliente pelo seu respectivo nome à service correspondente
+     * Como pode haver mais de um cliente com mesmo nome, será escolhido o cliente pelo qual será realizada a operação
+     *
      * @param nome utilizado como referência para a deleção
      */
     private void deletarClientePorNome(String nome) {
         try{
-            clienteService.deletarClientePorNome(nome);
+            List<Cliente> clientes = clienteService.buscarClientesPorNome(nome);
+            clienteService.deletarCliente(escolherClienteDesejado(clientes).getId());
         }catch (FalhaDelecaoException e){
             System.out.println(e.getMessage());
+        } catch (FalhaBuscaException e) {
+            e.printStackTrace();
         }
     }
 

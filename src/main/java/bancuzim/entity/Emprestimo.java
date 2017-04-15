@@ -9,7 +9,7 @@ public class Emprestimo {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @ManyToOne
+    @OneToOne
     private Cliente cliente;
 
     private String nome_cliente;

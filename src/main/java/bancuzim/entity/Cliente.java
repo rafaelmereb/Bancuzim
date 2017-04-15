@@ -14,8 +14,8 @@ public class Cliente {
     private Integer id;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Conta> contas;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Emprestimo> emprestimos;
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Emprestimo emprestimo;
 
     private String nome;
     private String cpfCnpj;
@@ -91,12 +91,12 @@ public class Cliente {
         this.contas = contas;
     }
 
-    public Set<Emprestimo> getEmprestimos() {
-        return emprestimos;
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
     }
 
-    public void setEmprestimos(Set<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class Cliente {
                 ", data_de_nascimento=" + data_de_nascimento +
                 ", sexo=" + sexo +
                 ", contas=" + contas +
-                ", emprestimos=" + emprestimos +
+                ", emprestimo=" + emprestimo +
                 '}';
     }
 }
