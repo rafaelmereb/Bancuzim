@@ -1,8 +1,13 @@
 package bancuzim.exception.cadastro;
 
-public class FalhaCadastroException extends Exception {
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaCadastroException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Cadastrar " + entidade + ": [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.CADASTRAR;
+
+public class FalhaCadastroException extends FalhaCRUDException {
+
+    public FalhaCadastroException(Entidade entidade, String descricaoFalha) {
+        super(CADASTRAR, entidade, descricaoFalha);
     }
 }

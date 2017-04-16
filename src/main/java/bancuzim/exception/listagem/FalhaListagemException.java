@@ -1,9 +1,13 @@
 package bancuzim.exception.listagem;
 
-public class FalhaListagemException extends Exception {
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaListagemException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Listar todos os objetos do tipo " + entidade + " cadastrados: [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.LISTAR_TODOS;
+
+public class FalhaListagemException extends FalhaCRUDException{
+
+    public FalhaListagemException(Entidade entidade, String descricaoFalha) {
+        super(LISTAR_TODOS, entidade, descricaoFalha);
     }
-
 }

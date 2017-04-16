@@ -1,9 +1,15 @@
 package bancuzim.exception.delecao;
 
-public class FalhaDelecaoException extends Exception{
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaDelecaoException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Deletar " + entidade + ": [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.DELETAR;
+
+public class FalhaDelecaoException extends FalhaCRUDException{
+
+    public FalhaDelecaoException(Entidade entidade, String descricaoFalha) {
+        super(DELETAR, entidade, descricaoFalha);
+
     }
 
 }

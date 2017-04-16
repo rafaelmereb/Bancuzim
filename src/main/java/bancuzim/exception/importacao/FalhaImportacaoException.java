@@ -1,8 +1,13 @@
 package bancuzim.exception.importacao;
 
-public class FalhaImportacaoException extends Exception{
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaImportacaoException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Importar objetos do tipo " + entidade + ": [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.IMPORTAR;
+
+public class FalhaImportacaoException extends FalhaCRUDException{
+
+    public FalhaImportacaoException(Entidade entidade, String descricaoFalha) {
+        super(IMPORTAR, entidade, descricaoFalha);
     }
 }

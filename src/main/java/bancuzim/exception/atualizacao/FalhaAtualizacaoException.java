@@ -1,8 +1,13 @@
 package bancuzim.exception.atualizacao;
 
-public class FalhaAtualizacaoException extends Exception {
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaAtualizacaoException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Atualizar " + entidade + ": [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.ATUALIZAR;
+
+public class FalhaAtualizacaoException extends FalhaCRUDException {
+
+    public FalhaAtualizacaoException(Entidade entidade, String descricaoFalha) {
+        super(ATUALIZAR, entidade, descricaoFalha);
     }
 }

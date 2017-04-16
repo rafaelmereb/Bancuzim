@@ -1,9 +1,13 @@
 package bancuzim.exception.busca;
 
-public class FalhaBuscaException extends Exception {
+import bancuzim.enums.Entidade;
+import bancuzim.exception.FalhaCRUDException;
 
-    public FalhaBuscaException(String entidade, String descricaoFalha) {
-        super("\nFalha ao Buscar " + entidade + ": [" + descricaoFalha + "]");
+import static bancuzim.enums.Operacao.BUSCAR;
+
+public class FalhaBuscaException extends FalhaCRUDException {
+
+    public FalhaBuscaException(Entidade entidade, String descricaoFalha) {
+        super(BUSCAR, entidade, descricaoFalha);
     }
-
 }
