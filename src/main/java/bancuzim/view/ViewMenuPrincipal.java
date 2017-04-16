@@ -12,25 +12,24 @@ import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.ArrayList;
-
-import static bancuzim.enums.OpcaoMenu.*;
+import static bancuzim.enums.OpcaoMenu.CONTINUE;
+import static bancuzim.enums.OpcaoMenu.notSair;
 
 public class ViewMenuPrincipal implements ViewInterface {
 
  /* Deverá possuir todas as views para poder redirecionar a opção escolhida: */
 
     @Autowired @Qualifier("viewGerenciarAgencias")
-    private ViewGerenciarAgencias viewGerenciarAgencias;
+    public ViewGerenciarAgencias viewGerenciarAgencias;
 
     @Autowired @Qualifier("viewGerenciarClientes")
-    private ViewGerenciarClientes viewGerenciarClientes;
+    public ViewGerenciarClientes viewGerenciarClientes;
 
     @Autowired @Qualifier("viewGerenciarContas")
-    private ViewGerenciarContas viewGerenciarContas;
+    public ViewGerenciarContas viewGerenciarContas;
 
     @Autowired @Qualifier("viewGerenciarEmprestimos")
-    private ViewGerenciarEmprestimos viewGerenciarEmprestimos;
+    public ViewGerenciarEmprestimos viewGerenciarEmprestimos;
 
     /**
      * "Carrega" a view responsável pelo Menu Principal
@@ -149,32 +148,6 @@ public class ViewMenuPrincipal implements ViewInterface {
         }
     }
 
-    /**
-     * Colhe uma referência entre duas opcoes
-     *
-     * @return referência que será utilizada em futuros procedimentos
-     */
-    public OpcaoMenu colherReferencia(String opcaoA, String opcaoB) {
-        OpcaoMenu opcao = CONTINUE;
-        ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
-        opcoesDisponiveis.add(A);
-        opcoesDisponiveis.add(B);
-
-        while (!opcoesDisponiveis.contains(opcao)) {
-            System.out.println("Escolha a referência:\nA - " + opcaoA + "\nB - " + opcaoB);
-            opcao = Leitura.lerOpcaoMenu();
-            switch (opcao) {
-                case A:
-                case B:
-                    return opcao;
-                default:
-                    System.out.println("Opção inválida!");
-                    break;
-            }
-        }
-
-        return opcao;
-    }
     private void fim() {
         System.exit(0);
     }
