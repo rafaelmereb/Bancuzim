@@ -1,10 +1,7 @@
 package bancuzim.util;
 
 
-import bancuzim.enums.OpcaoMenu;
-import bancuzim.enums.Plano;
-import bancuzim.enums.Sexo;
-import bancuzim.enums.TipoConta;
+import bancuzim.enums.*;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -106,6 +103,30 @@ public final class Leitura {
         } while (tipoContaInvalida);
 
         return TipoConta.valueOf(valor);
+    }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário
+     * for inválida, não correspondendo a um TipoEmprestimo.
+     *
+     * @return a opção escolhida, do tipo TipoConta
+     */
+    public static TipoEmprestimo lerTipoEmprestimo() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean tipoEmprestimoInvalido = true;
+        do {
+            System.out.println("Tipo do Empréstimo (Pessoal, Imóvel, Veículo): ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (TipoEmprestimo.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+            } else {
+                tipoEmprestimoInvalido = false;
+            }
+        } while (tipoEmprestimoInvalido);
+
+        return TipoEmprestimo.valueOf(valor);
     }
 
     /**
@@ -343,5 +364,6 @@ public final class Leitura {
 
         return Sexo.valueOf(valor);
     }
+
 
 }
