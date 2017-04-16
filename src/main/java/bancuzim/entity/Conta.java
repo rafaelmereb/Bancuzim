@@ -140,7 +140,8 @@ public class Conta {
             conta = "Conta {" +
                     " Id = " + id +
                     ", Número da Conta = '" + numero + "'" +
-                    ", Código da agência = " + agencia.getCodigo() +
+                    ", Nome da Agência: " + agencia.getNome() +
+                    ", Código da Agência = " + agencia.getCodigo() +
                     ", Cliente Responsável= " + cliente.getNome() +
                     ", Tipo da Conta = " + tipo_conta.name() +
                     ", Plano = " + plano.name() +
@@ -151,6 +152,7 @@ public class Conta {
             conta = "Conta { " +
                     " Id = " + id +
                     ", Número da Conta = '" + numero + "'" +
+                    ", Nome da Agência: " + agencia.getNome() +
                     ", Código da agência = " + agencia.getCodigo() +
                     ", Cliente Responsável= " + cliente.getNome() +
                     ", Tipo da Conta = " + tipo_conta.name() +
