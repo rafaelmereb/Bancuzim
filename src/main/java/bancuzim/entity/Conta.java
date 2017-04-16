@@ -17,11 +17,11 @@ public class Conta {
     @ManyToOne
     private Cliente cliente;
 
-    private String nome_agencia;
-    private Integer codigo_agencia;
+//    private String nome_agencia;
+//    private Integer codigo_agencia;
     private String numero;
-    private String nome_cliente;
-    private Integer codigo_cliente;
+//    private String nome_cliente;
+//    private Integer codigo_cliente;
     private TipoConta tipo_conta;
     private Plano plano;
     private Double saldo;
@@ -31,14 +31,26 @@ public class Conta {
         super();
     }
 
-    public Conta(String nome_agencia, Integer codigo_agencia, String numero, String nome_cliente, Integer codigo_cliente, TipoConta tipo_conta, Plano plano, Double saldo, Double limite) {
-        this.nome_agencia = nome_agencia;
-        this.codigo_agencia = codigo_agencia;
+    public Conta(String numero, TipoConta tipo_conta, Double saldo, Double limite) {
         this.numero = numero;
-        this.nome_cliente = nome_cliente;
-        this.codigo_cliente = codigo_cliente;
+        this.tipo_conta = tipo_conta;
+        this.saldo = saldo;
+        this.limite = limite;
+    }
+
+    public Conta(String numero, TipoConta tipo_conta, Plano plano, Double saldo, Double limite) {
+        this.numero = numero;
         this.tipo_conta = tipo_conta;
         this.plano = plano;
+        this.saldo = saldo;
+        this.limite = limite;
+    }
+
+    public Conta(Agencia agencia, Cliente cliente, String numero, TipoConta tipo_conta, Double saldo, Double limite) {
+        this.agencia = agencia;
+        this.cliente = cliente;
+        this.numero = numero;
+        this.tipo_conta = tipo_conta;
         this.saldo = saldo;
         this.limite = limite;
     }
@@ -80,6 +92,16 @@ public class Conta {
         this.cliente = cliente;
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    /*
+
     public String getNome_agencia() {
         return nome_agencia;
     }
@@ -96,13 +118,6 @@ public class Conta {
         this.codigo_agencia = codigo_agencia;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
 
     public String getNome_cliente() {
         return nome_cliente;
@@ -119,6 +134,8 @@ public class Conta {
     public void setCodigo_cliente(Integer codigo_cliente) {
         this.codigo_cliente = codigo_cliente;
     }
+
+    */
 
     public TipoConta getTipo_conta() {
         return tipo_conta;
@@ -154,19 +171,30 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta{" +
-                "id=" + id +
-                ", agencia=" + agencia +
-                ", cliente=" + cliente +
-                ", nome_agencia='" + nome_agencia + '\'' +
-                ", codigo_agencia=" + codigo_agencia +
-                ", numero='" + numero + '\'' +
-                ", nome_cliente='" + nome_cliente + '\'' +
-                ", codigo_cliente=" + codigo_cliente +
-                ", tipo_conta=" + tipo_conta +
-                ", plano=" + plano +
-                ", saldo=" + saldo +
-                ", limite=" + limite +
-                '}';
+        String conta;
+
+        if (getTipo_conta().equals(TipoConta.CORRENTE)) {
+            conta = "Conta{" +
+                    "id = " + id +
+                    ", número da conta = '" + numero + "'" +
+                    ", código da agência = " + agencia.getCodigo() +
+                    ", cliente = " + cliente.getNome() +
+                    ", tipo da conta = " + tipo_conta.name() +
+                    ", plano = " + plano.name() +
+                    ", saldo = " + saldo +
+                    ", limite = " + limite +
+                    '}';
+        } else {
+            conta = "Conta{" +
+                    "id = " + id +
+                    ", número da conta = '" + numero + "'" +
+                    ", código da agência = " + agencia.getCodigo() +
+                    ", cliente = " + cliente.getNome() +
+                    ", tipo da conta = " + tipo_conta.name() +
+                    ", saldo = " + saldo +
+                    ", limite = " + limite +
+                    '}';
+        }
+        return conta;
     }
 }
