@@ -100,43 +100,6 @@ public class Conta {
         this.numero = numero;
     }
 
-    /*
-
-    public String getNome_agencia() {
-        return nome_agencia;
-    }
-
-    public void setNome_agencia(String nome_agencia) {
-        this.nome_agencia = nome_agencia;
-    }
-
-    public Integer getCodigo_agencia() {
-        return codigo_agencia;
-    }
-
-    public void setCodigo_agencia(Integer codigo_agencia) {
-        this.codigo_agencia = codigo_agencia;
-    }
-
-
-    public String getNome_cliente() {
-        return nome_cliente;
-    }
-
-    public void setNome_cliente(String nome_cliente) {
-        this.nome_cliente = nome_cliente;
-    }
-
-    public Integer getCodigo_cliente() {
-        return codigo_cliente;
-    }
-
-    public void setCodigo_cliente(Integer codigo_cliente) {
-        this.codigo_cliente = codigo_cliente;
-    }
-
-    */
-
     public TipoConta getTipo_conta() {
         return tipo_conta;
     }
@@ -174,25 +137,25 @@ public class Conta {
         String conta;
 
         if (getTipo_conta().equals(TipoConta.CORRENTE)) {
-            conta = "Conta{" +
-                    "id = " + id +
-                    ", número da conta = '" + numero + "'" +
-                    ", código da agência = " + agencia.getCodigo() +
-                    ", cliente = " + cliente.getNome() +
-                    ", tipo da conta = " + tipo_conta.name() +
-                    ", plano = " + plano.name() +
-                    ", saldo = " + saldo +
-                    ", limite = " + limite +
+            conta = "Conta {" +
+                    " Id = " + id +
+                    ", Número da Conta = '" + numero + "'" +
+                    ", Código da agência = " + agencia.getCodigo() +
+                    ", Cliente Responsável= " + cliente.getNome() +
+                    ", Tipo da Conta = " + tipo_conta.name() +
+                    ", Plano = " + plano.name() +
+                    ", Saldo = " + saldo +
+                    ", Limite = " + limite +
                     '}';
         } else {
-            conta = "Conta{" +
-                    "id = " + id +
-                    ", número da conta = '" + numero + "'" +
-                    ", código da agência = " + agencia.getCodigo() +
-                    ", cliente = " + cliente.getNome() +
-                    ", tipo da conta = " + tipo_conta.name() +
-                    ", saldo = " + saldo +
-                    ", limite = " + limite +
+            conta = "Conta { " +
+                    " Id = " + id +
+                    ", Número da Conta = '" + numero + "'" +
+                    ", Código da agência = " + agencia.getCodigo() +
+                    ", Cliente Responsável= " + cliente.getNome() +
+                    ", Tipo da Conta = " + tipo_conta.name() +
+                    ", Saldo = " + saldo +
+                    ", Limite = " + limite +
                     '}';
         }
         return conta;

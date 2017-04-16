@@ -82,13 +82,13 @@ public class Agencia {
 
     @Override
     public String toString() {
-        return "Agencia{" +
-                "id=" + id +
-                ", codigo=" + codigo +
-                ", nome='" + nome + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", gerente='" + gerente + '\'' +
-                ", contas=" + contas +
+        return "Agência {" +
+                " Id = " + id +
+                ", Código = " + codigo +
+                ", Nome = '" + nome + '\'' +
+                ", Endereço = '" + endereco + '\'' +
+                ", Gerente = '" + gerente + '\'' +
+              //  ", Contas = " + contas +
                 '}';
     }
 }

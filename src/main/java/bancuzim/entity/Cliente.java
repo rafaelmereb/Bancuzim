@@ -101,15 +101,15 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpfCnpj='" + cpfCnpj + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", data_de_nascimento=" + data_de_nascimento +
-                ", sexo=" + sexo +
-                ", contas=" + contas +
-                ", emprestimo=" + emprestimo +
+        return "Cliente {" +
+                " Id = " + id +
+                ", Nome = '" + nome + '\'' +
+                ", CPF/CNPJ = '" + cpfCnpj + '\'' +
+                ", Endereço = '" + endereco + '\'' +
+                ", Data de Nascimento = " + data_de_nascimento +
+                ", Sexo = " + sexo +
+             //   ", Contas = " + contas +
+             //   ", Empréstimo = " + emprestimo +
                 '}';
     }
 }

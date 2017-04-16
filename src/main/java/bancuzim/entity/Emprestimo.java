@@ -12,38 +12,43 @@ public class Emprestimo {
     @OneToOne
     private Cliente cliente;
 
-    private String nome_cliente;
-    private String cpfCnpj;
+//    private String nome_cliente;
+//    private String cpfCnpj;
     private TipoEmprestimo tipo_emprestimo;
     private Double valor;
-
 
     public Emprestimo(){
         super();
     }
 
-    public Emprestimo(String nome_cliente, String cpf_cnpj, TipoEmprestimo tipo_emprestimo, double valor) {
+    public Emprestimo(TipoEmprestimo tipo_emprestimo, double valor) {
         super();
-        this.nome_cliente = nome_cliente;
-        this.cpfCnpj = cpf_cnpj;
         this.tipo_emprestimo = tipo_emprestimo;
         this.valor = valor;
     }
 
-    public String getNome_cliente() {
-        return nome_cliente;
+
+    public Emprestimo(Cliente cliente, TipoEmprestimo tipo_emprestimo, double valor) {
+        super();
+        this.cliente = cliente;
+        this.tipo_emprestimo = tipo_emprestimo;
+        this.valor = valor;
     }
 
-    public void setNome_cliente(String nome_cliente) {
-        this.nome_cliente = nome_cliente;
+    public Integer getId() {
+        return id;
     }
 
-    public String getCpfCnpj() {
-        return cpfCnpj;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setCpfCnpj(String cpfCnpj) {
-        this.cpfCnpj = cpfCnpj;
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public TipoEmprestimo getTipo_emprestimo() {
@@ -54,11 +59,21 @@ public class Emprestimo {
         this.tipo_emprestimo = tipo_emprestimo;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return "Empréstimo { " +
+                "Id = " + id +
+                ", CPF/CNPJ do Cliente Responsável = " + cliente.getCpfCnpj() +
+                ", Tipo do Empréstimo = " + tipo_emprestimo +
+                ", Valor do Bem = " + valor +
+                " }";
     }
 }
