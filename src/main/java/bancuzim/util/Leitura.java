@@ -12,8 +12,13 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
+import static bancuzim.enums.OpcaoMenu.A;
+import static bancuzim.enums.OpcaoMenu.B;
+import static bancuzim.enums.OpcaoMenu.CONTINUE;
 
 /**
  * Classe utilitária na leitura das entradas.
@@ -23,7 +28,7 @@ import java.util.Scanner;
 public final class Leitura {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat
-            .forPattern("dd/MM/yyyy HH:mm");
+            .forPattern("dd/MM/yyyy");
 
     private Leitura() {
     }
@@ -37,18 +42,94 @@ public final class Leitura {
     public static OpcaoMenu lerOpcaoMenu() {
         Scanner leitor = new Scanner(System.in);
         String valor;
-        boolean opcaoValida = false;
+        boolean opcaoInvalida = true;
         do {
             System.out.println("Opção: ");
 
             valor = leitor.nextLine().toUpperCase();
             if (OpcaoMenu.notContains(valor)) {
                 System.out.println("Opcao Invalida!");
-            } else opcaoValida = true;
-        } while (!opcaoValida);
-
+            } else {
+                opcaoInvalida = false;
+            }
+        } while (opcaoInvalida);
 
         return OpcaoMenu.valueOf(valor);
+    }
+
+    /**
+     * Colhe uma referência entre duas opcoes
+     *
+     * @return referência que será utilizada em futuros procedimentos
+     */
+    public static OpcaoMenu colherReferenciaEntreDuasOpcoes(String opcaoA, String opcaoB) {
+        OpcaoMenu opcao = CONTINUE;
+        ArrayList<OpcaoMenu> opcoesDisponiveis = new ArrayList<>();
+        opcoesDisponiveis.add(A);
+        opcoesDisponiveis.add(B);
+
+        while (!opcoesDisponiveis.contains(opcao)) {
+            System.out.println("Escolha a referência:\nA - " + opcaoA + "\nB - " + opcaoB);
+            opcao = Leitura.lerOpcaoMenu();
+            switch (opcao) {
+                case A:
+                case B:
+                    return opcao;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }
+
+        return opcao;
+    }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário
+     * for inválida, não correspondendo a um TipoConta.
+     *
+     * @return a opção escolhida, do tipo TipoConta
+     */
+    public static TipoConta lerTipoConta() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean tipoContaInvalida = true;
+        do {
+            System.out.println("Tipo da Conta (Poupanca, Corrente ou Salario): ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (TipoConta.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+            } else {
+                tipoContaInvalida = false;
+            }
+        } while (tipoContaInvalida);
+
+        return TipoConta.valueOf(valor);
+    }
+
+    /**
+     * Solicita uma entrada enquanto a String informada pelo usuário
+     * for inválida, não correspondendo a um Plano.
+     *
+     * @return a opção escolhida, do tipo Plano
+     */
+    public static Plano lerPlano() {
+        Scanner leitor = new Scanner(System.in);
+        String valor;
+        boolean planoInvalido = false;
+        do {
+            System.out.println("Plano (Silver, Gold ou Diamond): ");
+            valor = leitor.nextLine().toUpperCase();
+
+            if (Plano.notContains(valor)) {
+                System.out.println("Opcao Invalida!");
+                planoInvalido = true;
+            }
+        } while (planoInvalido);
+
+
+        return Plano.valueOf(valor);
     }
 
     /**
@@ -86,7 +167,13 @@ public final class Leitura {
             if (entradaInvalida) {
                 System.out.println("CPF/CNPJ Inválido!!");
             }
-            cpfCnpj = lerCampoStringObrigatorio("Digite um CPF/CNPJ do cliente, sem máscara/pontuação: ");
+            cpfCnpj = lerCampoStringObrigatorio("Digite um CPF/CNPJ do cliente: ");
+            if (cpfCnpj.contains(".")) {
+                cpfCnpj = StringUtils.replaceAll(cpfCnpj, ".", "");
+            }
+            if (cpfCnpj.contains("-")) {
+                cpfCnpj = StringUtils.replaceAll(cpfCnpj, "-", "");
+            }
             entradaInvalida = !(ValidadorCPF.isCPF(cpfCnpj) ^ ValidadorCNPJ.isCNPJ(cpfCnpj));
             // '^' é o operador OU-EXCLUSIVO. O resultado só é verdadeiro se as cláusulas tem cpfCnpj diferente.
         } while (entradaInvalida);
@@ -116,6 +203,29 @@ public final class Leitura {
 
         return valor;
     }
+
+    /**
+     * Solicita uma entrada enquanto o número informado pelo usuário for
+     * inválida.
+     *
+     * @param mensagem para solicitar a entrada do campo
+     * @return o campo Double informado
+     */
+    public static Double lerCampoDoubleObrigatorio(String mensagem) {
+        Scanner leitor = new Scanner(System.in);
+        Double valor = null;
+        do {
+            try {
+                System.out.println(mensagem);
+                valor = Double.parseDouble(leitor.nextLine());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Entrada Inválida. Digite um número válido!");
+            }
+        } while (valor == null);
+
+        return valor;
+    }
+
 
     /**
      * Solicita uma entrada enquanto a String informada pelo usuário for uma data
@@ -205,7 +315,7 @@ public final class Leitura {
                 date = LocalDateTime.parse(dataTexto, DATE_FORMATTER);
             } catch (final IllegalArgumentException e) {
                 System.out.println("Data Inválida. Informe uma data/hora no "
-                        + "formato dd/MM/yyyy hh:mm");
+                        + "formato dd/MM/yyyy");
                 date = null;
             }
         } while (date == null);
@@ -213,12 +323,17 @@ public final class Leitura {
         return date;
     }
 
+    /**
+     * Solicita uma entrada enquanto o sexo informado pelo usuário for inválido.
+     *
+     * @return o sexo informado
+     */
     public static Sexo lerSexoObrigatorio() {
         Scanner leitor = new Scanner(System.in);
         String valor;
         boolean sexoValido = false;
         do {
-            System.out.println("Sexo do Cliente: ");
+            System.out.println("Sexo: ");
             valor = leitor.nextLine().toUpperCase();
 
             if (Sexo.notContains(valor)) {
@@ -227,54 +342,6 @@ public final class Leitura {
         } while (!sexoValido);
 
         return Sexo.valueOf(valor);
-    }
-
-    /**
-     * Solicita uma entrada enquanto a String informada pelo usuário
-     * for inválida, não correspondendo a um TipoConta.
-     *
-     * @return a opção escolhida, do tipo TipoConta
-     */
-    public static TipoConta lerTipoConta() {
-        Scanner leitor = new Scanner(System.in);
-        String valor;
-        boolean tipoContaInvalida = false;
-        do {
-            System.out.println("Tipo da Conta (Poupanca, Corrente ou Salario): ");
-            valor = leitor.nextLine().toUpperCase();
-
-            if (TipoConta.notContains(valor)) {
-                System.out.println("Opcao Invalida!");
-                tipoContaInvalida = true;
-            }
-        } while (tipoContaInvalida);
-
-
-        return TipoConta.valueOf(valor);
-    }
-
-    /**
-     * Solicita uma entrada enquanto a String informada pelo usuário
-     * for inválida, não correspondendo a um Plano.
-     *
-     * @return a opção escolhida, do tipo Plano
-     */
-    public static Plano lerPlano() {
-        Scanner leitor = new Scanner(System.in);
-        String valor;
-        boolean planoInvalido = false;
-        do {
-            System.out.println("Plano (Silver, Gold ou Diamond): ");
-            valor = leitor.nextLine().toUpperCase();
-
-            if (Plano.notContains(valor)) {
-                System.out.println("Opcao Invalida!");
-                planoInvalido = true;
-            }
-        } while (planoInvalido);
-
-
-        return Plano.valueOf(valor);
     }
 
 }
