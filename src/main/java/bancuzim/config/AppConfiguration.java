@@ -3,11 +3,12 @@ package bancuzim.config;
 import bancuzim.service.AgenciaService;
 import bancuzim.service.ClienteService;
 import bancuzim.service.ContaService;
+import bancuzim.service.EmprestimoService;
 import bancuzim.view.ViewMenuPrincipal;
 import bancuzim.view.agencia.*;
 import bancuzim.view.cliente.*;
 import bancuzim.view.conta.*;
-import bancuzim.view.emprestimo.ViewGerenciarEmprestimos;
+import bancuzim.view.emprestimo.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -108,7 +109,9 @@ public class AppConfiguration {
     /**************************************************  CONTA  **************************************************/
 
     @Bean(name = "contaService")
-    ContaService contaService(){ return new ContaService();}
+    ContaService contaService() {
+        return new ContaService();
+    }
 
     @Bean(name = "viewGerenciarContas")
     ViewGerenciarContas viewGerenciarContas() {
@@ -116,27 +119,75 @@ public class AppConfiguration {
     }
 
     @Bean(name = "viewCadastrarConta")
-    ViewCadastrarConta viewCadastrarConta() { return new ViewCadastrarConta(); }
+    ViewCadastrarConta viewCadastrarConta() {
+        return new ViewCadastrarConta();
+    }
 
     @Bean(name = "viewImportarContas")
-    ViewImportarContas viewImportarContas(){ return new ViewImportarContas(); }
+    ViewImportarContas viewImportarContas() {
+        return new ViewImportarContas();
+    }
 
     @Bean(name = "viewListarContas")
-    ViewListarContas viewListarContas(){ return new ViewListarContas(); }
+    ViewListarContas viewListarContas() {
+        return new ViewListarContas();
+    }
 
     @Bean(name = "viewDeletarConta")
-    ViewDeletarConta viewDeletarConta() { return new ViewDeletarConta(); }
+    ViewDeletarConta viewDeletarConta() {
+        return new ViewDeletarConta();
+    }
 
     @Bean(name = "viewAtualizarConta")
-    ViewAtualizarConta viewAtualizarConta() { return new ViewAtualizarConta(); }
+    ViewAtualizarConta viewAtualizarConta() {
+        return new ViewAtualizarConta();
+    }
 
     @Bean(name = "viewBuscarConta")
-    ViewBuscarConta viewBuscarConta() { return new ViewBuscarConta(); }
+    ViewBuscarConta viewBuscarConta() {
+        return new ViewBuscarConta();
+    }
 
     /************************************************ EMPRESTIMO ************************************************/
+
+    @Bean(name = "emprestimoService")
+    EmprestimoService emprestimoService() {
+        return new EmprestimoService();
+    }
 
     @Bean(name = "viewGerenciarEmprestimos")
     ViewGerenciarEmprestimos viewGerenciarEmprestimos() {
         return new ViewGerenciarEmprestimos();
     }
+
+    @Bean(name = "viewCadastrarEmprestimo")
+    ViewCadastrarEmprestimo viewCadastrarEmprestimo() {
+        return new ViewCadastrarEmprestimo();
+    }
+
+    @Bean(name = "viewImportarEmprestimos")
+    ViewImportarEmprestimos viewImportarEmprestimos() {
+        return new ViewImportarEmprestimos();
+    }
+
+    @Bean(name = "viewListarEmprestimos")
+    ViewListarEmprestimos viewListarEmprestimos() {
+        return new ViewListarEmprestimos();
+    }
+
+    @Bean(name = "viewDeletarEmprestimo")
+    ViewDeletarEmprestimo viewDeletarEmprestimo() {
+        return new ViewDeletarEmprestimo();
+    }
+
+    @Bean(name = "viewAtualizarEmprestimo")
+    ViewAtualizarEmprestimo viewAtualizarEmprestimo() {
+        return new ViewAtualizarEmprestimo();
+    }
+
+    @Bean(name = "viewBuscarEmprestimo")
+    ViewBuscarEmprestimo viewBuscarEmprestimo() {
+        return new ViewBuscarEmprestimo();
+    }
+
 }
