@@ -1,7 +1,10 @@
 package bancuzim.view.conta;
 
+import bancuzim.entity.Agencia;
+import bancuzim.entity.Cliente;
 import bancuzim.entity.Conta;
 import bancuzim.enums.OpcaoMenu;
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.service.ContaService;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
@@ -11,8 +14,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import static bancuzim.enums.OpcaoMenu.CONTINUE;
 import static bancuzim.enums.OpcaoMenu.notVoltar;
+import static bancuzim.enums.TipoConta.CORRENTE;
+import static bancuzim.util.Leitura.lerCampoStringObrigatorio;
+import static bancuzim.util.Leitura.lerTipoConta;
 
 public class ViewGerenciarContas extends ViewMenuPrincipal {
+
     @Autowired
     @Qualifier("contaService")
     public ContaService contaService;
@@ -60,30 +67,73 @@ public class ViewGerenciarContas extends ViewMenuPrincipal {
      *
      * @return conta cujos dados foram colhidos
      */
-    public Conta colherDadosDeConta() {
+    public Conta colherDadosDeConta() throws FalhaBuscaException {
         Conta conta = new Conta();
 
-        String nome_codigo_agencia = Leitura.lerCampoStringObrigatorio("Nome/Codigo da agência vinculada à conta: ");
+        conta.setAgencia(colherAgencia());
+        conta.setNumero(colherNumeroDaConta());
+        conta.setCliente(colherCliente());
+        conta.setTipo_conta(lerTipoConta());
 
-        try {
-            conta.setCodigo_agencia(Integer.parseInt(nome_codigo_agencia));
-            //Caso não seja possível converter a entrada do usuário, possivelmente a mesma corresponde ao nome de uma agência:
-        } catch (NumberFormatException e) {
-            conta.setNome_agencia(nome_codigo_agencia);
+        if (conta.getTipo_conta().equals(CORRENTE)) {
+            //Caso seja uma conta corrente, ela tem um plano:
+            conta.setPlano(Leitura.lerPlano());
         }
 
-        conta.setNumero(Leitura.lerCampoStringObrigatorio("Número da conta:"));
-        String nome_codigo_cliente = Leitura.lerCampoStringObrigatorio("Nome/Código do cliente vinculado à conta:");
+        conta.setSaldo(Leitura.lerCampoDoubleObrigatorio("Saldo da conta: "));
+        conta.setLimite(Leitura.lerCampoDoubleObrigatorio("Limite da conta: "));
 
-        try {
-            conta.setCodigo_cliente(Integer.parseInt(nome_codigo_agencia));
-            //Caso não seja possível converter a entrada do usuário, possivelmente a mesma corresponde ao nome de um cliente:
-        } catch (NumberFormatException e) {
-            conta.setNome_cliente(nome_codigo_cliente);
-        }
-
-        conta.setTipo_conta(Leitura.lerTipoConta());
-        
         return conta;
     }
+
+    /**
+     * Colhe o número da Conta a ser adotado pela mesma
+     *
+     * @return número da conta escolhido
+     */
+    public String colherNumeroDaConta() {
+        return lerCampoStringObrigatorio("Número da conta:");
+    }
+
+    /**
+     * Colhe Agência relacionada à Conta
+     *
+     * @return Agência  relacionada à conta
+     * @throws FalhaBuscaException caso a agência não seja encontrada
+     */
+    public Agencia colherAgencia() throws FalhaBuscaException {
+        System.out.println("##### Agência da Conta #####");
+        return viewGerenciarAgencias.buscarAgencia();
+    }
+
+    /**
+     * Colhe cliente relacionado à Conta
+     *
+     * @return Cliente relacionado à conta
+     * @throws FalhaBuscaException caso o cliente não seja encontrado
+     */
+    private Cliente colherCliente() throws FalhaBuscaException {
+        System.out.println("##### Cliente da Conta #####");
+        return viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarCliente());
+    }
+
+    /**
+     * Exibe uma conta no console
+     *
+     * @param conta a ser exibida
+     */
+    public void exibirConta(Conta conta) {
+        if (conta != null) {
+            System.out.println(conta.toString());
+        }
+    }
+
+    public Conta buscarConta() throws FalhaBuscaException {
+        String numeroConta = lerCampoStringObrigatorio("Número da conta: ");
+
+        Integer codigoAgencia = Leitura.lerCampoIntegerObrigatorio("Código da agência da conta: ");
+        Agencia agencia = viewGerenciarAgencias.agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
+        return contaService.buscarConta(numeroConta, agencia);
+    }
+
 }
