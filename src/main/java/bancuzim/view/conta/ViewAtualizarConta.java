@@ -10,7 +10,6 @@ import static bancuzim.enums.TipoConta.CORRENTE;
 
 public class ViewAtualizarConta extends ViewGerenciarContas implements ViewAtualizarInterface {
 
-
     /**
      * "Carrega" a View responsável por atualizar contas
      */
@@ -36,6 +35,12 @@ public class ViewAtualizarConta extends ViewGerenciarContas implements ViewAtual
 
     }
 
+    /**
+     * Colhe os dados da conta, atualizados
+     *
+     * @return conta com dados atualizados
+     * @throws FalhaBuscaException caso o cliente vinculado não seja encontrado
+     */
     private Conta colherDadosAtualizadosDeConta() throws FalhaBuscaException {
         System.out.println("\n##### Digite os novos dados #####");
         return colherDadosDeConta();
@@ -69,6 +74,7 @@ public class ViewAtualizarConta extends ViewGerenciarContas implements ViewAtual
 
     /**
      * Confere a responsabilidade de atualizar uma conta específica à service correspondente
+     *
      * @param conta com os dados atualizados
      * @throws FalhaAtualizacaoException caso alguma falha ocorra no processo
      */

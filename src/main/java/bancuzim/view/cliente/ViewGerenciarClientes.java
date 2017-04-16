@@ -19,25 +19,25 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
 
     @Autowired
     @Qualifier("clienteService")
-    public ClienteService clienteService;
+    ClienteService clienteService;
     @Autowired
     @Qualifier("viewCadastrarCliente")
-    private ViewCadastrarCliente viewCadastrarCliente;
+    ViewCadastrarCliente viewCadastrarCliente;
     @Autowired
     @Qualifier("viewImportarClientes")
-    private ViewImportarClientes viewImportarClientes;
+    ViewImportarClientes viewImportarClientes;
     @Autowired
     @Qualifier("viewListarClientes")
-    private ViewListarClientes viewListarClientes;
+    ViewListarClientes viewListarClientes;
     @Autowired
     @Qualifier("viewDeletarCliente")
-    private ViewDeletarCliente viewDeletarCliente;
+    ViewDeletarCliente viewDeletarCliente;
     @Autowired
     @Qualifier("viewAtualizarCliente")
-    private ViewAtualizarCliente viewAtualizarCliente;
+    ViewAtualizarCliente viewAtualizarCliente;
     @Autowired
     @Qualifier("viewBuscarCliente")
-    private ViewBuscarCliente viewBuscarCliente;
+    ViewBuscarCliente viewBuscarCliente;
 
     /**
      * "Carrega" a View responsável por Gerenciar operações referentes a Clientes

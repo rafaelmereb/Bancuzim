@@ -128,12 +128,14 @@ public class ViewGerenciarContas extends ViewMenuPrincipal {
         }
     }
 
+    /**
+     * Confere a responsabilidade de buscar uma conta à service correspondente, a partir dos dados da conta (número e agência)
+     *
+     * @return
+     * @throws FalhaBuscaException
+     */
     public Conta buscarConta() throws FalhaBuscaException {
-        String numeroConta = lerCampoStringObrigatorio("Número da conta: ");
-
-        Integer codigoAgencia = Leitura.lerCampoIntegerObrigatorio("Código da agência da conta: ");
-        Agencia agencia = viewGerenciarAgencias.agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
-        return contaService.buscarConta(numeroConta, agencia);
+        return contaService.buscarConta(colherNumeroDaConta(), colherAgencia());
     }
 
 }

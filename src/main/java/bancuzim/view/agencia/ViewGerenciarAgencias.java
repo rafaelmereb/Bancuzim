@@ -20,25 +20,25 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
 
     @Autowired
     @Qualifier("agenciaService")
-    public AgenciaService agenciaService;
+    AgenciaService agenciaService;
     @Autowired
     @Qualifier("viewCadastrarAgencia")
-    private ViewCadastrarAgencia viewCadastrarAgencia;
+    ViewCadastrarAgencia viewCadastrarAgencia;
     @Autowired
     @Qualifier("viewBuscarAgencia")
-    private ViewBuscarAgencia viewBuscarAgencia;
+    ViewBuscarAgencia viewBuscarAgencia;
     @Autowired
     @Qualifier("viewAtualizarAgencia")
-    private ViewAtualizarAgencia viewAtualizarAgencia;
+    ViewAtualizarAgencia viewAtualizarAgencia;
     @Autowired
     @Qualifier("viewDeletarAgencia")
-    private ViewDeletarAgencia viewDeletarAgencia;
+    ViewDeletarAgencia viewDeletarAgencia;
     @Autowired
     @Qualifier("viewListarAgencias")
-    private ViewListarAgencias viewListarAgencias;
+    ViewListarAgencias viewListarAgencias;
     @Autowired
     @Qualifier("viewImportarAgencias")
-    private ViewImportarAgencias viewImportarAgencias;
+    ViewImportarAgencias viewImportarAgencias;
 
     public void load() {
         manterMenuGerenciarAgencias();
@@ -133,7 +133,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @param nomeAgencia utilizada como referência na busca
      * @return agencia com o nome informado, caso a mesma exista
      */
-    Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
+    public Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
         return agenciaService.buscarAgenciaPorNome(nomeAgencia);
     }
 
@@ -143,7 +143,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @param codigoAgencia utilizado como referência na busca
      * @return agencia com o código informado, caso a mesma exista
      */
-    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
+    public Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
         return agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
     }
 }

@@ -8,6 +8,7 @@ import bancuzim.util.Menu;
 import java.util.ArrayList;
 
 public class ViewListarContas  extends ViewGerenciarContas implements ViewListarTodosInterface{
+
     /**
      * "Carrega" a View responsável por listar todas as contas salvas
      */

@@ -92,9 +92,11 @@ public class ClienteService {
     }
 
     /**
+     * /**
      * Busca um cliente no banco de dados a partir do nome informado como referência
      *
      * @param nome a ser buscado no banco de dados
+     * @return Lista de clientes com o nome indicado
      * @throws FalhaBuscaException caso a busca encontre algum tipo de falha
      */
     public List<Cliente> buscarClientesPorNome(String nome) throws FalhaBuscaException {
@@ -158,7 +160,7 @@ public class ClienteService {
     /**
      * Retorna os clientes anteriormente persistidos no banco de dados
      *
-     * @throws FalhaListagemException caso a deleção encontre algum tipo de falha
+     * @throws FalhaListagemException caso a listagem encontre algum tipo de falha
      */
     public ArrayList<Cliente> listarClientes() throws FalhaListagemException {
 
@@ -172,10 +174,10 @@ public class ClienteService {
     }
 
     /**
-     * Converte um iterável de agências em uma lista de agências
+     * Converte um iterável de clientes em uma lista de clientes
      *
-     * @param iteravel que fornecerá as agências
-     * @return lista de agências
+     * @param iteravel que fornecerá os clientes
+     * @return lista de clientes
      */
     private List<Cliente> converterIteravelEmLista(Iterable<Cliente> iteravel) {
         if (iteravel instanceof List) {
