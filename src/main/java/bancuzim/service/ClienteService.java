@@ -14,11 +14,12 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static bancuzim.enums.Entidade.CLIENTE;
+
 @Service
 @Transactional
 public class ClienteService {
 
-    private final String CLIENTE = bancuzim.entity.Cliente.class.getSimpleName();
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -35,11 +36,11 @@ public class ClienteService {
 
             if (clienteSalvo == null) {
                 throw new FalhaCadastroException(CLIENTE, "Falha ao cadastrar cliente no banco!");
-            } else if (clienteSalvo.getCpfCnpj().equals(cliente.getCpfCnpj())) {
+            } else if (clienteSalvo.getId().equals(cliente.getId())) {
                 System.out.println("\n##### Cliente salvo com sucesso! #####");
             }
 
-        }
+        } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo CPF/CNPJ!");
     }
 
     /**
@@ -47,14 +48,13 @@ public class ClienteService {
      *
      * @param cliente a ser verificado
      * @return se o cliente é novo
-     * @throws FalhaCadastroException caso ocorra uma falha no processo
      */
-    private boolean isNew(Cliente cliente) throws FalhaCadastroException {
+    private boolean isNew(Cliente cliente) {
 
         if (isCpfCnpjInexistente(cliente.getCpfCnpj())) {
             return true;
-        } else throw new FalhaCadastroException(CLIENTE, "Já existe outro cliente com mesmo CPF/CNPJ!");
-
+        }
+        return false;
     }
 
     /**
@@ -126,12 +126,12 @@ public class ClienteService {
      * Atualiza um cliente no banco de dados a partir de seus novos dados
      *
      * @param cliente a ser atualizado no banco de dados
-     * @throws FalhaAtualizacaoException caso a busca encontre algum tipo de falha
+     * @throws FalhaAtualizacaoException caso a atualização encontre algum tipo de falha
      */
     public void atualizarCliente(Cliente cliente) throws FalhaAtualizacaoException {
-        Cliente clienteAtualizado = clienteRepository.save(cliente);
 
-        if (!cliente.getCpfCnpj().equals(clienteAtualizado.getCpfCnpj())) {
+        Cliente clienteAtualizado = clienteRepository.save(cliente);
+        if (!cliente.getId().equals(clienteAtualizado.getId())) {
             throw new FalhaAtualizacaoException(CLIENTE, "Não foi possível atualizar a cliente indicado!");
         }
     }
@@ -154,25 +154,6 @@ public class ClienteService {
             throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o cpf/cnpj indicado!");
         }
     }
-
-    /**
-     * Deleta um cliente no banco de dados a partir de seu id informado como referência.
-     *
-     * @param id do cliente a ser deletada do banco de dados
-     * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
-     */
-    public void deletarCliente(int id) throws FalhaDelecaoException {
-
-        try {
-            clienteRepository.findOne(id);
-            // Se o id informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
-            clienteRepository.delete(id);
-            System.out.println("##### Cliente removido com sucesso! #####");
-        } catch (IllegalArgumentException e) {
-            throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o id indicado!");
-        }
-    }
-
 
     /**
      * Retorna os clientes anteriormente persistidos no banco de dados

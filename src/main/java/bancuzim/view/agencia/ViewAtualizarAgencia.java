@@ -3,6 +3,7 @@ package bancuzim.view.agencia;
 
 import bancuzim.entity.Agencia;
 import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.interfaces.ViewAtualizarInterface;
 import bancuzim.util.Menu;
 
@@ -21,10 +22,14 @@ public class ViewAtualizarAgencia extends ViewGerenciarAgencias implements ViewA
      */
     private void manterViewAtualizarAgencia() {
         try {
-            atualizarDados(buscarAgencia());
-            System.out.println("Agência atualizada com sucesso!");
-        } catch (FalhaAtualizacaoException e) {
-            System.out.println(e.getMessage());
+            try {
+                atualizarDados(buscarAgencia());
+                System.out.println("Agência atualizada com sucesso!");
+            } catch (FalhaBuscaException falha) {
+                throw new FalhaAtualizacaoException(falha.getEntidade(), falha.getDescricaoFalha());
+            }
+        } catch (FalhaAtualizacaoException falha) {
+            System.out.println(falha.getMessage());
         }
 
     }

@@ -36,8 +36,8 @@ public class ViewListarAgencias extends ViewGerenciarAgencias implements ViewLis
                     exibirAgencia(agencia);
                 }
             }
-        } catch (FalhaListagemException e) {
-            System.out.println(e.getMessage());
+        } catch (FalhaListagemException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 }

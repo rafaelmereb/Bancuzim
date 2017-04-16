@@ -9,7 +9,9 @@ import bancuzim.util.Menu;
 
 import java.util.List;
 
-public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDeletarInterface{
+import static bancuzim.util.Leitura.colherReferenciaEntreDuasOpcoes;
+
+public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDeletarInterface {
     /**
      * "Carrega" a View responsável por deletar clientes
      */
@@ -22,15 +24,16 @@ public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDel
      * Mantém a view responsável por deletar clientes
      */
     private void manterViewDeletarCliente() {
-        deletarClienteSegundoReferencia(colherReferencia("CPF/CNPJ", "Nome"));
+        deletarClienteSegundoReferencia(colherReferenciaEntreDuasOpcoes("CPF/CNPJ", "Nome"));
     }
 
     /**
      * Redireciona a forma de deleção a partir da referência escolhida pelo usuário (CPF/CNPJ ou Nome)
+     *
      * @param opcaoMenu correspondente à referência escolhida pelo usuário para futura deleção
      */
     private void deletarClienteSegundoReferencia(OpcaoMenu opcaoMenu) {
-        switch (opcaoMenu){
+        switch (opcaoMenu) {
             case A:
                 deletarClientePorCpfCnpj(colherCpfCnpjCliente());
                 break;
@@ -45,13 +48,14 @@ public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDel
 
     /**
      * Confere a responsabilidade de deletar um cliente pelo seu respectivo CPF/CNPJ à service correspondente
+     *
      * @param cpfCnpj utilizado como referência para a deleção
      */
     private void deletarClientePorCpfCnpj(String cpfCnpj) {
-        try{
+        try {
             clienteService.deletarClientePorCpfCnpj(cpfCnpj);
-        }catch (FalhaDelecaoException e){
-            System.out.println(e.getMessage());
+        } catch (FalhaDelecaoException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 
@@ -62,13 +66,17 @@ public class ViewDeletarCliente extends ViewGerenciarClientes implements ViewDel
      * @param nome utilizado como referência para a deleção
      */
     private void deletarClientePorNome(String nome) {
-        try{
-            List<Cliente> clientes = clienteService.buscarClientesPorNome(nome);
-            clienteService.deletarCliente(escolherClienteDesejado(clientes).getId());
-        }catch (FalhaDelecaoException e){
-            System.out.println(e.getMessage());
-        } catch (FalhaBuscaException e) {
-            e.printStackTrace();
+        try {
+            try {
+                //Busca clientes pelo nome informado:
+                List<Cliente> clientes = clienteService.buscarClientesPorNome(nome);
+                // Escolhe o cliente desejado e então o deleta:
+                clienteService.deletarClientePorCpfCnpj(escolherClienteDesejado(clientes).getCpfCnpj());
+            } catch (FalhaBuscaException falha) {
+                throw new FalhaDelecaoException(falha.getEntidade(), falha.getDescricaoFalha());
+            }
+        } catch (FalhaDelecaoException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 

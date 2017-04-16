@@ -2,6 +2,7 @@ package bancuzim.view.cliente;
 
 import bancuzim.entity.Cliente;
 import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.interfaces.ViewAtualizarInterface;
 import bancuzim.util.Menu;
 
@@ -20,19 +21,35 @@ public class ViewAtualizarCliente extends ViewGerenciarClientes implements ViewA
      */
     private void manterViewAtualizarCliente() {
          try {
-            atualizarDados(escolherClienteDesejado(buscarCliente()));
+             try{
+            atualizarDados(escolherClienteDesejado(buscarCliente()), colherDadosAtualizadosDeCliente());
             System.out.println("Cliente atualizado com sucesso!");
-        } catch (FalhaAtualizacaoException e) {
+             } catch (FalhaBuscaException e) {
+                 throw new FalhaAtualizacaoException(e.getEntidade(), e.getDescricaoFalha());
+             }
+         } catch (FalhaAtualizacaoException e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    private void atualizarDados(Cliente cliente) throws FalhaAtualizacaoException {
-        if (cliente != null) {
-            System.out.println("\n##### Digite os novos dados #####");
-            Cliente clienteAtualizado = colherDadosDeCliente();
+    /**
+     * Colhe dados atualizados de cliente
+     * @return dados atualizados do cliente
+     */
+    private Cliente colherDadosAtualizadosDeCliente() {
+        System.out.println("\n##### Digite os novos dados #####");
+        return colherDadosDeCliente();
+    }
 
+    /**
+     * Atualiza os dados de um cliente a partir de novos dados coletados
+     * @param cliente a ser atualizado
+     * @param clienteAtualizado dados atualizados do cliente
+     * @throws FalhaAtualizacaoException caso alguma falha ocorra no processo
+     */
+    private void atualizarDados(Cliente cliente, Cliente clienteAtualizado) throws FalhaAtualizacaoException {
+        if (cliente != null) {
             //Setando os novos dados no registro já presente:
             cliente.setNome(clienteAtualizado.getNome());
             cliente.setCpfCnpj(clienteAtualizado.getCpfCnpj());

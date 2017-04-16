@@ -5,13 +5,13 @@ import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.service.AgenciaService;
-import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import static bancuzim.enums.OpcaoMenu.*;
+import static bancuzim.util.Leitura.*;
 
 /**
  * View correspondente à gerência de agências
@@ -19,34 +19,26 @@ import static bancuzim.enums.OpcaoMenu.*;
 public class ViewGerenciarAgencias extends ViewMenuPrincipal {
 
     @Autowired
+    @Qualifier("agenciaService")
+    public AgenciaService agenciaService;
+    @Autowired
     @Qualifier("viewCadastrarAgencia")
     private ViewCadastrarAgencia viewCadastrarAgencia;
-
     @Autowired
     @Qualifier("viewBuscarAgencia")
     private ViewBuscarAgencia viewBuscarAgencia;
-
     @Autowired
     @Qualifier("viewAtualizarAgencia")
     private ViewAtualizarAgencia viewAtualizarAgencia;
-
     @Autowired
     @Qualifier("viewDeletarAgencia")
     private ViewDeletarAgencia viewDeletarAgencia;
-
     @Autowired
     @Qualifier("viewListarAgencias")
     private ViewListarAgencias viewListarAgencias;
-
     @Autowired
     @Qualifier("viewImportarAgencias")
     private ViewImportarAgencias viewImportarAgencias;
-
-    @Autowired
-    @Qualifier("agenciaService")
-    public AgenciaService agenciaService;
-
-    public final String AGENCIA = Agencia.class.getSimpleName();
 
     public void load() {
         manterMenuGerenciarAgencias();
@@ -60,7 +52,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
 
         while (notVoltar(opcao)) {
             exibirMenu(Menu.GERENCIAR_AGENCIAS);
-            opcao = Leitura.lerOpcaoMenu();
+            opcao = lerOpcaoMenu();
             interpretarEntrada(opcao, viewCadastrarAgencia, viewBuscarAgencia, viewAtualizarAgencia, viewDeletarAgencia, viewListarAgencias, viewImportarAgencias);
         }
     }
@@ -73,10 +65,10 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
     public Agencia colherDadosDeAgencia() {
         Agencia agencia = new Agencia();
 
-        agencia.setCodigo(Leitura.lerCampoIntegerObrigatorio("Código da Agência: "));
-        agencia.setNome(Leitura.lerCampoStringObrigatorio("Nome da Agência: "));
-        agencia.setGerente(Leitura.lerCampoStringObrigatorio("Nome do Gerente da Agência: "));
-        agencia.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço da Agência: "));
+        agencia.setCodigo(lerCampoIntegerObrigatorio("Código da Agência: "));
+        agencia.setNome(lerCampoStringObrigatorio("Nome da Agência: "));
+        agencia.setGerente(lerCampoStringObrigatorio("Nome do Gerente da Agência: "));
+        agencia.setEndereco(lerCampoStringObrigatorio("Endereço da Agência: "));
 
         return agencia;
     }
@@ -86,8 +78,8 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      *
      * @return agência buscada
      */
-    public Agencia buscarAgencia() {
-        return buscarAgenciaPorReferencia(colherReferencia("Código", "Nome"));
+    public Agencia buscarAgencia() throws FalhaBuscaException {
+        return buscarAgenciaPorReferencia(colherReferenciaEntreDuasOpcoes("Código", "Nome"));
     }
 
     /**
@@ -96,7 +88,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return código da agência pretendida
      */
     public Integer colherCodigoAgencia() {
-                return Leitura.lerCampoIntegerObrigatorio("Código da agência: ");
+        return lerCampoIntegerObrigatorio("Código da agência: ");
     }
 
     /**
@@ -105,7 +97,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @return nome da agência pretendida
      */
     public String colherNomeAgencia() {
-        return Leitura.lerCampoStringObrigatorio("Nome da agência: ");
+        return lerCampoStringObrigatorio("Nome da agência: ");
     }
 
     /**
@@ -125,7 +117,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @param opcao correspondente a escolha da referência utilizada para a consulta
      * @return agencia encontrada, caso a mesma exista
      */
-    public Agencia buscarAgenciaPorReferencia(OpcaoMenu opcao) {
+    public Agencia buscarAgenciaPorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
 
         if (isA(opcao)) { // Parâmetro de busca: Código
             return buscarAgenciaPorCodigo(colherCodigoAgencia());
@@ -141,14 +133,8 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @param nomeAgencia utilizada como referência na busca
      * @return agencia com o nome informado, caso a mesma exista
      */
-    Agencia buscarAgenciaPorNome(String nomeAgencia) {
-        Agencia agencia = null;
-        try {
-            agencia = agenciaService.buscarAgenciaPorNome(nomeAgencia);
-        } catch (FalhaBuscaException e) {
-            System.out.println(e.getMessage());
-        }
-        return agencia;
+    Agencia buscarAgenciaPorNome(String nomeAgencia) throws FalhaBuscaException {
+        return agenciaService.buscarAgenciaPorNome(nomeAgencia);
     }
 
     /**
@@ -157,13 +143,7 @@ public class ViewGerenciarAgencias extends ViewMenuPrincipal {
      * @param codigoAgencia utilizado como referência na busca
      * @return agencia com o código informado, caso a mesma exista
      */
-    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) {
-        Agencia agencia = null;
-        try {
-            agencia = agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
-        } catch (FalhaBuscaException e) {
-            System.out.println(e.getMessage());
-        }
-        return agencia;
+    Agencia buscarAgenciaPorCodigo(Integer codigoAgencia) throws FalhaBuscaException {
+        return agenciaService.buscarAgenciaPorCodigo(codigoAgencia);
     }
 }

@@ -4,7 +4,6 @@ import bancuzim.entity.Cliente;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.service.ClienteService;
-import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static bancuzim.enums.OpcaoMenu.*;
+import static bancuzim.util.Leitura.*;
 
 public class ViewGerenciarClientes extends ViewMenuPrincipal {
 
@@ -54,7 +54,7 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
 
         while (notVoltar(opcao)) {
             exibirMenu(Menu.GERENCIAR_CLIENTES);
-            opcao = Leitura.lerOpcaoMenu();
+            opcao = lerOpcaoMenu();
             interpretarEntrada(opcao, viewCadastrarCliente, viewBuscarCliente, viewAtualizarCliente, viewDeletarCliente, viewListarClientes, viewImportarClientes);
         }
     }
@@ -67,11 +67,11 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
     public Cliente colherDadosDeCliente() {
         Cliente cliente = new Cliente();
 
-        cliente.setNome(Leitura.lerCampoStringObrigatorio("Nome da Cliente: "));
-        cliente.setCpfCnpj(Leitura.lerCPFouCNPJvalido());
-        cliente.setEndereco(Leitura.lerCampoStringObrigatorio("Endereço do Cliente: "));
-        cliente.setData_de_nascimento(Leitura.lerCampoDateObrigatorio("Data de nascimento do Cliente (AAAA-MM-DD): "));
-        cliente.setSexo(Leitura.lerSexoObrigatorio());
+        cliente.setNome(lerCampoStringObrigatorio("Nome do Cliente: "));
+        cliente.setCpfCnpj(lerCPFouCNPJvalido());
+        cliente.setEndereco(lerCampoStringObrigatorio("Endereço do Cliente: "));
+        cliente.setData_de_nascimento(lerCampoDateObrigatorio("Data de nascimento do Cliente (AAAA-MM-DD): "));
+        cliente.setSexo(lerSexoObrigatorio());
 
         return cliente;
     }
@@ -81,11 +81,11 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      *
      * @return agência buscada
      */
-    public List<Cliente> buscarCliente() {
-        return buscarClientePorReferencia(colherReferencia("CPF/CNPJ", "Nome"));
+    public List<Cliente> buscarCliente() throws FalhaBuscaException {
+        return buscarClientePorReferencia(colherReferenciaEntreDuasOpcoes("CPF/CNPJ", "Nome"));
     }
 
-    public List<Cliente> buscarClientePorReferencia(OpcaoMenu opcao) {
+    public List<Cliente> buscarClientePorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
         List<Cliente> clientes = new ArrayList<Cliente>();
         if (isA(opcao)) { // Parâmetro de busca: Código
              clientes.add(buscarClientePorCpfCnpj(colherCpfCnpjCliente()));
@@ -114,7 +114,7 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
                 Cliente clienteDesejado = null;
                 do {
                     try {
-                        clienteDesejado = clientes.get(Leitura.lerCampoIntegerObrigatorio("Escolha o índice do cliente para a operação desejada: "));
+                        clienteDesejado = clientes.get(lerCampoIntegerObrigatorio("Escolha o índice do cliente para a operação desejada: "));
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Índice inválido!");
                         indexInvalido = true;
@@ -130,14 +130,8 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @param cpfCnpj utilizado como referência na busca
      * @return cliente com o código informado, caso o mesmo exista
      */
-    public Cliente buscarClientePorCpfCnpj(String cpfCnpj) {
-        Cliente cliente = null;
-        try {
-            cliente = clienteService.buscarClientePorCpfCnpj(cpfCnpj);
-        } catch (FalhaBuscaException e) {
-            System.out.println(e.getMessage());
-        }
-        return cliente;
+    public Cliente buscarClientePorCpfCnpj(String cpfCnpj) throws FalhaBuscaException {
+        return clienteService.buscarClientePorCpfCnpj(cpfCnpj);
     }
 
     /**
@@ -146,14 +140,8 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @param nomeCliente utilizado como referência na busca
      * @return clientes com o nome informado, caso o mesmo exista
      */
-    public List<Cliente> buscarClientesPorNome(String nomeCliente) {
-        List<Cliente> cliente = null;
-        try {
-            cliente = clienteService.buscarClientesPorNome(nomeCliente);
-        } catch (FalhaBuscaException e) {
-            System.out.println(e.getMessage());
-        }
-        return cliente;
+    public List<Cliente> buscarClientesPorNome(String nomeCliente) throws FalhaBuscaException {
+        return clienteService.buscarClientesPorNome(nomeCliente);
     }
 
     /**
@@ -162,7 +150,7 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @return CPF/CNPJ do cliente desejado
      */
     public String colherCpfCnpjCliente() {
-        return Leitura.lerCPFouCNPJvalido();
+        return lerCPFouCNPJvalido();
     }
 
 
@@ -172,7 +160,7 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @return nome do cliente desejado
      */
     public String colherNomeCliente() {
-        return Leitura.lerCampoStringObrigatorio("Nome do cliente: ");
+        return lerCampoStringObrigatorio("Nome do cliente: ");
     }
 
     /**

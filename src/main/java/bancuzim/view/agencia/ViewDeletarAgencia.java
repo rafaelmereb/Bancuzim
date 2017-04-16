@@ -1,14 +1,14 @@
 package bancuzim.view.agencia;
 
-import bancuzim.entity.Agencia;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.delecao.FalhaDelecaoException;
 import bancuzim.interfaces.ViewDeletarInterface;
 import bancuzim.util.Menu;
 
+import static bancuzim.util.Leitura.colherReferenciaEntreDuasOpcoes;
+
 public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDeletarInterface{
 
-    private final String AGENCIA = Agencia.class.getSimpleName();
 
     /**
      * "Carrega" a View responsável por deletar agências
@@ -22,7 +22,7 @@ public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDel
      * Mantém a View responsável por deletar agências
      */
     private void manterViewDeletarAgencia(){
-        deletarAgenciaSegundoReferencia(colherReferencia("Código", "Nome"));
+        deletarAgenciaSegundoReferencia(colherReferenciaEntreDuasOpcoes("Código", "Nome"));
     }
 
     /**
@@ -50,8 +50,8 @@ public class ViewDeletarAgencia extends ViewGerenciarAgencias implements ViewDel
     private void deletarAgenciaPorCodigo(Integer codigo){
         try {
             agenciaService.deletarAgenciaPorCodigo(codigo);
-        } catch (FalhaDelecaoException e) {
-            System.out.println(e.getMessage());
+        } catch (FalhaDelecaoException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 

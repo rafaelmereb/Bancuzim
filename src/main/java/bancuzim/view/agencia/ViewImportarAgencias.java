@@ -4,7 +4,6 @@ import bancuzim.entity.Agencia;
 import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.exception.importacao.FalhaImportacaoException;
 import bancuzim.interfaces.ViewImportarInterface;
-import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,6 +14,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static bancuzim.enums.Entidade.AGENCIA;
+import static bancuzim.util.Leitura.lerCampoStringObrigatorio;
 
 public class ViewImportarAgencias extends ViewGerenciarAgencias implements ViewImportarInterface{
 
@@ -103,7 +105,7 @@ public class ViewImportarAgencias extends ViewGerenciarAgencias implements ViewI
             agencia.setGerente(atributosDeAgenda[4]); // Gerente
             return agencia;
         } else {
-            throw new FalhaImportacaoException(Agencia.class.getSimpleName(), "Falha ao colher atributos de agenda!");
+            throw new FalhaImportacaoException(AGENCIA, "Falha ao colher atributos de agenda!");
         }
     }
 
@@ -113,7 +115,7 @@ public class ViewImportarAgencias extends ViewGerenciarAgencias implements ViewI
      * @return o caminho (Path) do arquivo a ser importado
      */
     private Path colherCaminhoDoArquivo() {
-        return Paths.get(Leitura.lerCampoStringObrigatorio("Entre com o caminho (completo) do arquivo a ser importado:"));
+        return Paths.get(lerCampoStringObrigatorio("Entre com o caminho (completo) do arquivo a ser importado:"));
 
     }
 

@@ -14,6 +14,8 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static bancuzim.enums.Entidade.AGENCIA;
+
 /**
  * Classe de serviço para a entidade Agencia, segundo anotação SpringBoot.
  * (Espera-se que aqui não seja feito nenhuma operação senão printar o resultado das operações e acionar os métodos de AgenciaRepository)
@@ -24,7 +26,6 @@ public class AgenciaService {
 
     @Autowired
     private AgenciaRepository agenciaRepository;
-    private final String AGENCIA = bancuzim.entity.Agencia.class.getSimpleName();
 
     /**
      * Persiste a agência informada no banco de dados, caso não exista outra com mesmo id/nome
@@ -181,7 +182,7 @@ public class AgenciaService {
     /**
      * Retorna as agências anteriormente persistidas no banco de dados
      *
-     * @throws FalhaListagemException caso a deleção encontre algum tipo de falha
+     * @throws FalhaListagemException caso a listagem encontre algum tipo de falha
      */
     public ArrayList<Agencia> listarAgencias() throws FalhaListagemException {
 

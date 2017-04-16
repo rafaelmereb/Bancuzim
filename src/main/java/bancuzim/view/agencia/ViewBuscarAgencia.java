@@ -1,5 +1,6 @@
 package bancuzim.view.agencia;
 
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.interfaces.ViewBuscarInterface;
 import bancuzim.util.Menu;
 
@@ -17,7 +18,11 @@ public class ViewBuscarAgencia extends ViewGerenciarAgencias implements ViewBusc
      * Mantém a View responsável por buscar agências
      */
     private void manterViewBuscarAgencia() {
-        exibirAgencia(buscarAgencia());
+        try {
+            exibirAgencia(buscarAgencia());
+        } catch (FalhaBuscaException falha) {
+            System.out.println(falha.getMessage());
+        }
     }
 
 }

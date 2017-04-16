@@ -24,8 +24,8 @@ public class ViewCadastrarCliente extends ViewGerenciarClientes implements ViewC
     private void cadastrarCliente(Cliente cliente) {
         try {
             clienteService.salvarCliente(cliente);
-        } catch (FalhaCadastroException e) {
-            System.out.println(e.getMessage());
+        } catch (FalhaCadastroException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 

@@ -36,8 +36,8 @@ public class ViewListarClientes extends ViewGerenciarClientes implements ViewLis
                     exibirCliente(cliente);
                 }
             }
-        } catch (FalhaListagemException e) {
-            System.out.println(e.getMessage());
+        } catch (FalhaListagemException falha) {
+            System.out.println(falha.getMessage());
         }
     }
 }
