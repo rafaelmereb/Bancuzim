@@ -10,10 +10,13 @@ public class ViewCadastrarConta extends ViewGerenciarContas implements ViewCadas
 
     public void load() {
         exibirMenu(Menu.CADASTRAR_CONTA);
-        manterViewCadastrarCliente();
+        manterViewCadastrarContas();
     }
 
-    private void manterViewCadastrarCliente() {
+    /**
+     * Mantém a view responsável por cadastrar Contas
+     */
+    private void manterViewCadastrarContas() {
         try {
             try {
                 cadastrarConta(colherDadosDeConta());
