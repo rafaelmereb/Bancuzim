@@ -73,10 +73,12 @@ public class ViewGerenciarContas extends ViewMenuPrincipal {
         Conta conta = new Conta();
 
 
-        conta.setNumero(colherNumeroDaConta());
-
         try{
+            conta.setNumero(colherNumeroDaConta());
             conta.setAgencia(colherAgencia());
+                if (!contaService.isNew(conta)){
+                    throw new FalhaCadastroException(CONTA, "Já existe outra conta com mesmo número na agência indicada!" );
+                }
             conta.setCliente(colherCliente());
         } catch (FalhaBuscaException falha) {
             throw new FalhaCadastroException(CONTA, falha.getDescricaoFalha());

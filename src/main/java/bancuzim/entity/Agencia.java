@@ -88,7 +88,7 @@ public class Agencia {
                 ", Nome = '" + nome + '\'' +
                 ", Endereço = '" + endereco + '\'' +
                 ", Gerente = '" + gerente + '\'' +
-              //  ", Contas = " + contas +
+                ", Contas = " + contas +
                 '}';
     }
 }

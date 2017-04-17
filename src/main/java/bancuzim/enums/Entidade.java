@@ -3,7 +3,7 @@ package bancuzim.enums;
 public enum Entidade {
    AGENCIA("AGÊNCIA"), CLIENTE("CLIENTE"), CONTA("CONTA"), EMPRESTIMO("EMPRÉSTIMO");
 
-    public String entidade;
+    private String entidade;
 
     Entidade(String entidade) {
         this.entidade = entidade;

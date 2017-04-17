@@ -3,8 +3,7 @@ package bancuzim.enums;
 public enum TipoEmprestimo {
     PESSOAL("PESSOAL"), IMOVEL("IMOVEL"), VEICULO("VEICULO");
 
-
-    public String tipoEmprestimo;
+    private String tipoEmprestimo;
 
     TipoEmprestimo(String tipoConta) {
         this.tipoEmprestimo = tipoConta;
@@ -13,7 +12,6 @@ public enum TipoEmprestimo {
     public String getTipoEmprestimo() {
         return tipoEmprestimo;
     }
-
 
     public static boolean contains(String string) {
 
@@ -60,4 +58,6 @@ public enum TipoEmprestimo {
     public static boolean notVEICULO(TipoEmprestimo tipoConta){
         return !tipoConta.equals(TipoEmprestimo.VEICULO);
     }
+
+
 }

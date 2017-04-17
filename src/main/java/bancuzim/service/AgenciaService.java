@@ -154,7 +154,7 @@ public class AgenciaService {
             // Se não houver agência com o código informado, uma FalhaBuscaException será lançada:
             buscarAgenciaPorCodigo(codigo);
             agenciaRepository.deleteAgenciaByCodigo(codigo);
-            System.out.println("Agência removida com sucesso!");
+            System.out.println("\n##### Agência deletada com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(AGENCIA, "Não há agência com o código informado!");
         }

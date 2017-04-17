@@ -3,7 +3,7 @@ package bancuzim.enums;
 public enum Operacao {
     CADASTRAR("CADASTRAR"), BUSCAR("BUSCAR"), ATUALIZAR("ATUALIZAR"), DELETAR("DELETAR"), IMPORTAR("IMPORTAR"), LISTAR_TODOS("LISTAR TODOS");
 
-    public String operacao;
+    private String operacao;
 
     Operacao(String operacao) {
         this.operacao = operacao;

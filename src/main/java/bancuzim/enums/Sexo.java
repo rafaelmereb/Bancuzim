@@ -3,7 +3,7 @@ package bancuzim.enums;
 public enum Sexo {
     MASCULINO("MASCULINO"), FEMININO("FEMININO");
 
-    public String sexo;
+    private String sexo;
 
     Sexo(String sexo) {
         this.sexo = sexo;

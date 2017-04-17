@@ -3,7 +3,7 @@ package bancuzim.enums;
 public enum Plano {
     SILVER("SILVER"), GOLD("GOLD"), DIAMOND("DIAMOND");
 
-    public String plano;
+    private String plano;
 
     Plano(String plano) {
         this.plano = plano;
@@ -12,7 +12,6 @@ public enum Plano {
     public String getPlano() {
         return plano;
     }
-
 
     public static boolean contains(String string) {
 

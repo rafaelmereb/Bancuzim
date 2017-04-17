@@ -86,6 +86,13 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
         return buscarClientesPorReferencia(colherReferenciaEntreDuasOpcoes("CPF/CNPJ", "Nome"));
     }
 
+    /**
+     * Redireciona a busca segundo a referência/opção adotada (nome ou CPF/CNPJ)
+     *
+     * @param opcao escolhida pelo usuário
+     * @return lista de clientes contendo o resultado da busca
+     * @throws FalhaBuscaException caso alguma falha ocorra no processo
+     */
     public List<Cliente> buscarClientesPorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
         List<Cliente> clientes = new ArrayList<Cliente>();
         if (isA(opcao)) { // Parâmetro de busca: Código
@@ -116,14 +123,17 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
             if (clientes.size() > 1) {
                 System.out.println("\nHá mais de um cliente com o nome em questão! Seguem:\n");
                 for (Cliente cliente : clientes) {
-                    System.out.println(clientes.indexOf(cliente) + "º) " + cliente.toString());
+                    System.out.println( (clientes.indexOf(cliente) + 1) + "º) " + cliente.toString());
+                    // O acréscimo é para que os itens listados não comecem com índice 0.
                 }
 
                 boolean indexInvalido = false;
                 Cliente clienteDesejado = null;
                 do {
                     try {
-                        clienteDesejado = clientes.get(lerCampoIntegerObrigatorio("Escolha o índice do cliente para a operação desejada: "));
+                        clienteDesejado = clientes.get(lerCampoIntegerObrigatorio("Escolha o índice do cliente para a operação desejada: ") - 1);
+                        // O decréscimo é para compensar o acréscimo imposto anteriormente
+
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Índice inválido!");
                         indexInvalido = true;

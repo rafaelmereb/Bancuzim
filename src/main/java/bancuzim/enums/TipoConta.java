@@ -3,8 +3,7 @@ package bancuzim.enums;
 public enum TipoConta {
     POUPANCA("POUPANCA"), CORRENTE("CORRENTE"), SALARIO("SALARIO");
 
-
-    public String tipoConta;
+    private String tipoConta;
 
     TipoConta(String tipoConta) {
         this.tipoConta = tipoConta;
@@ -13,7 +12,6 @@ public enum TipoConta {
     public String getTipoConta() {
         return tipoConta;
     }
-
 
     public static boolean contains(String string) {
 
@@ -37,27 +35,27 @@ public enum TipoConta {
         return true;
     }
 
-    public static boolean isPOUPANCA(TipoConta tipoConta){
+    public static boolean isPOUPANCA(TipoConta tipoConta) {
         return tipoConta.equals(TipoConta.POUPANCA);
     }
 
-    public static boolean notPOUPANCA(TipoConta tipoConta){
+    public static boolean notPOUPANCA(TipoConta tipoConta) {
         return !tipoConta.equals(TipoConta.POUPANCA);
     }
 
-    public static boolean isCORRENTE(TipoConta tipoConta){
+    public static boolean isCORRENTE(TipoConta tipoConta) {
         return tipoConta.equals(TipoConta.CORRENTE);
     }
 
-    public static boolean notCORRENTE(TipoConta tipoConta){
+    public static boolean notCORRENTE(TipoConta tipoConta) {
         return !tipoConta.equals(TipoConta.CORRENTE);
     }
 
-    public static boolean isSALARIO(TipoConta tipoConta){
+    public static boolean isSALARIO(TipoConta tipoConta) {
         return tipoConta.equals(TipoConta.SALARIO);
     }
 
-    public static boolean notSALARIO(TipoConta tipoConta){
+    public static boolean notSALARIO(TipoConta tipoConta) {
         return !tipoConta.equals(TipoConta.SALARIO);
     }
 }

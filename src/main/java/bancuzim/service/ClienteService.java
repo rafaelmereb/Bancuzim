@@ -151,7 +151,7 @@ public class ClienteService {
             // Se o CPF/CNPJ informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
 
             clienteRepository.deleteClienteByCpfCnpj(cpfCnpj);
-            System.out.println("##### Cliente removido com sucesso! #####");
+            System.out.println("\n##### Cliente deletado com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(CLIENTE, "Não há cliente com o cpf/cnpj indicado!");
         }

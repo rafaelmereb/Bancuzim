@@ -106,8 +106,7 @@ public class EmprestimoService {
             emprestimo.setCliente(null);
             emprestimoRepository.save(emprestimo);
             emprestimoRepository.delete(emprestimo.getId());
-            //emprestimoRepository.deleteByCliente_CpfCnpj(cpfCnpj);
-            System.out.println("##### Empréstimo removido com sucesso! #####");
+            System.out.println("\n##### Empréstimo deletado com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(CLIENTE, "Não há empréstimo vinculado ao cliente com o cpf/cnpj indicado!");
         }

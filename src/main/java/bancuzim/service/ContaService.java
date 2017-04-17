@@ -31,6 +31,8 @@ public class ContaService {
      */
     public void salvarConta(Conta conta) throws FalhaCadastroException {
         if (isNew(conta)) {
+            conta.getAgencia().getContas().add(conta);
+            conta.getCliente().getContas().add(conta);
             Conta contaSalva = contaRepository.save(conta);
 
             if (contaSalva == null) {
@@ -47,7 +49,7 @@ public class ContaService {
      * @param conta a ser verificada
      * @return
      */
-    private boolean isNew(Conta conta) {
+    public boolean isNew(Conta conta) {
         if (isNumeroDaContaInexistenteNaAgencia(conta.getNumero(), conta.getAgencia())) {
             return true;
         }
@@ -111,8 +113,7 @@ public class ContaService {
             conta.setCliente(null);
             contaRepository.save(conta);
             contaRepository.delete(conta.getId());
-           // contaRepository.deleteContaByNumeroAndAgencia(numeroDaConta, agencia);
-            System.out.println("Conta deletada com sucesso!");
+            System.out.println("\n##### Conta deletada com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(e.getEntidade(), e.getDescricaoFalha());
         }
