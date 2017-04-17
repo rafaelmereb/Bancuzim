@@ -17,11 +17,7 @@ public class Conta {
     @ManyToOne
     private Cliente cliente;
 
-//    private String nome_agencia;
-//    private Integer codigo_agencia;
     private String numero;
-//    private String nome_cliente;
-//    private Integer codigo_cliente;
     private TipoConta tipo_conta;
     private Plano plano;
     private Double saldo;
