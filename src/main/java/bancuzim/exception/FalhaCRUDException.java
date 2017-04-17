@@ -9,7 +9,7 @@ public class FalhaCRUDException extends Exception {
     private final String descricaoFalha;
 
     public FalhaCRUDException(Operacao operacao, Entidade entidade, String descricaoFalha){
-        super("Falha ao realizar operação " + operacao.name() + " sobre a entidade " + entidade.name() + " [" + descricaoFalha + "]");
+        super("\nFalha ao realizar operação " + operacao.name() + " sobre a entidade " + entidade.name() + " [" + descricaoFalha + "]");
         this.entidade = entidade;
         this.descricaoFalha = descricaoFalha;
         this.operacao = operacao;
