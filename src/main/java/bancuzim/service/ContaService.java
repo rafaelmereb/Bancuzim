@@ -36,7 +36,7 @@ public class ContaService {
             if (contaSalva == null) {
                 throw new FalhaCadastroException(CONTA, "Falha ao cadastrar Conta no banco!");
             } else if (contaSalva.getId().equals(conta.getId())) {
-                System.out.println("##### Conta cadastrada com sucesso! #####");
+                System.out.println("\n##### Conta cadastrada com sucesso! #####");
             }
         } else throw new FalhaCadastroException(CONTA, "Já existe outra conta com mesmo número na agência indicada!");
     }
@@ -107,6 +107,8 @@ public class ContaService {
             Conta conta = buscarConta(numeroDaConta, agencia);
             conta.getAgencia().getContas().remove(conta);
             conta.setAgencia(null);
+            conta.getCliente().getContas().remove(conta);
+            conta.setCliente(null);
             contaRepository.save(conta);
             contaRepository.delete(conta.getId());
            // contaRepository.deleteContaByNumeroAndAgencia(numeroDaConta, agencia);
