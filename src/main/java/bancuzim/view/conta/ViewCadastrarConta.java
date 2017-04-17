@@ -1,7 +1,6 @@
 package bancuzim.view.conta;
 
 import bancuzim.entity.Conta;
-import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.interfaces.ViewCadastrarInterface;
 import bancuzim.util.Menu;
@@ -18,11 +17,8 @@ public class ViewCadastrarConta extends ViewGerenciarContas implements ViewCadas
      */
     private void manterViewCadastrarContas() {
         try {
-            try {
-                cadastrarConta(colherDadosDeConta());
-            } catch (FalhaBuscaException e) {
-                throw new FalhaCadastroException(e.getEntidade(), e.getDescricaoFalha());
-            }
+            cadastrarConta(colherDadosDeConta());
+
         } catch (FalhaCadastroException falha) {
             System.out.println(falha.getMessage());
         }

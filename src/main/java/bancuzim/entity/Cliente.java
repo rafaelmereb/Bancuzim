@@ -108,8 +108,8 @@ public class Cliente {
                 ", Endereço = '" + endereco + '\'' +
                 ", Data de Nascimento = " + data_de_nascimento +
                 ", Sexo = " + sexo +
-             //   ", Contas = " + contas +
-             //   ", Empréstimo = " + emprestimo +
+                ", Contas = " + contas +
+                ", Empréstimo = " + emprestimo +
                 '}';
     }
 }

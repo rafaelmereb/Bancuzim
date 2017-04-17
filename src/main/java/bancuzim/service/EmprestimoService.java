@@ -46,17 +46,17 @@ public class EmprestimoService {
 
     /**
      * Verifica se um empréstimo é inexistente no banco de dados
+     *
      * @param emprestimo a ser verificado
      * @return
      * @throws FalhaCadastroException
      */
     private boolean isNew(Emprestimo emprestimo) throws FalhaCadastroException {
-        try{
-            if (buscarEmprestimo(emprestimo.getCliente().getCpfCnpj()) != null){
-                return false;
-            } else return true;
-        } catch (FalhaBuscaException falha){
-            throw new FalhaCadastroException(falha.getEntidade(), falha.getDescricaoFalha());
+        try {
+            buscarEmprestimo(emprestimo.getCliente().getCpfCnpj());
+            return false;
+        } catch (FalhaBuscaException falha) {
+            return true;
         }
     }
 
@@ -67,13 +67,14 @@ public class EmprestimoService {
      * @return empréstimo vinculado ao cliente com o cnpj indicado, caso o mesmo exista
      * @throws FalhaBuscaException caso a busca encontre algum tipo de falha
      */
-    public Emprestimo buscarEmprestimo(String cpfCnpj) throws FalhaBuscaException{
-
-        Emprestimo emprestimoBuscado = emprestimoRepository.findByCliente_CpfCnpj(cpfCnpj);
-        if (emprestimoBuscado == null){
-            throw new FalhaBuscaException(EMPRESTIMO, "Não há empréstimo vinculado ao cliente indicado!");
-        }
-        return emprestimoBuscado;
+    public Emprestimo buscarEmprestimo(String cpfCnpj) throws FalhaBuscaException {
+        if (cpfCnpj != null) {
+            Emprestimo emprestimoBuscado = emprestimoRepository.findByCliente_CpfCnpj(cpfCnpj);
+            if (emprestimoBuscado == null) {
+                throw new FalhaBuscaException(EMPRESTIMO, "Não há empréstimo vinculado ao cliente indicado!");
+            }
+            return emprestimoBuscado;
+        } else throw new FalhaBuscaException(EMPRESTIMO, "Não há referência de cliente para a busca!");
     }
 
 
@@ -93,18 +94,20 @@ public class EmprestimoService {
 
     /**
      * Deleta um empréstimo de um cliente no banco de dados a partir do cpf/cnpj do cliente
-     *
+     * TODO: Tentar remover apenas pelo id
      * @param cpfCnpj do cliente que possui o empréstimo a ser deletado do banco de dados
      * @throws FalhaDelecaoException caso a deleção encontre algum tipo de falha
      */
     public void deletarEmprestimoPorCpfCnpjDoCliente(String cpfCnpj) throws FalhaDelecaoException {
 
         try {
-            buscarEmprestimo(cpfCnpj);
-            // Se o CPF/CNPJ informado não existir, a instrução acima lançará uma exceção que será capturada abaixo
-
-            emprestimoRepository.deleteByCliente_CpfCnpj(cpfCnpj);
-            System.out.println("##### Cliente removido com sucesso! #####");
+            Emprestimo emprestimo = buscarEmprestimo(cpfCnpj);
+            emprestimo.getCliente().setEmprestimo(null);
+            emprestimo.setCliente(null);
+            emprestimoRepository.save(emprestimo);
+            emprestimoRepository.delete(emprestimo.getId());
+            //emprestimoRepository.deleteByCliente_CpfCnpj(cpfCnpj);
+            System.out.println("##### Empréstimo removido com sucesso! #####");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(CLIENTE, "Não há empréstimo vinculado ao cliente com o cpf/cnpj indicado!");
         }
@@ -128,6 +131,7 @@ public class EmprestimoService {
 
     /**
      * Converte um iterável de empréstimos em uma lista de empréstimos
+     *
      * @param iteravel que fornecerá os empréstimos
      * @return lista de empréstimos
      */

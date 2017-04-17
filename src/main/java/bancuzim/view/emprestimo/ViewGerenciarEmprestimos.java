@@ -11,6 +11,7 @@ import bancuzim.view.cliente.ViewGerenciarClientes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import static bancuzim.enums.Entidade.EMPRESTIMO;
 import static bancuzim.enums.OpcaoMenu.CONTINUE;
 import static bancuzim.enums.OpcaoMenu.notVoltar;
 import static bancuzim.util.Leitura.*;
@@ -56,7 +57,7 @@ public class ViewGerenciarEmprestimos extends ViewMenuPrincipal {
         OpcaoMenu opcao = CONTINUE;
 
         while (notVoltar(opcao)) {
-            exibirMenu(Menu.GERENCIAR_CLIENTES);
+            exibirMenu(Menu.GERENCIAR_EMPRESTIMOS);
             opcao = lerOpcaoMenu();
             interpretarEntrada(opcao, viewCadastrarEmprestimo, viewBuscarEmprestimo, viewAtualizarEmprestimo, viewDeletarEmprestimo, viewListarEmprestimos, viewImportarEmprestimos);
         }
@@ -71,7 +72,12 @@ public class ViewGerenciarEmprestimos extends ViewMenuPrincipal {
     public Emprestimo colherDadosDeEmprestimo() throws FalhaBuscaException {
         Emprestimo emprestimo = new Emprestimo();
 
-        emprestimo.setCliente(colherCliente());
+        try {
+            emprestimo.setCliente(colherCliente());
+        } catch (FalhaBuscaException falha) {
+            throw new FalhaBuscaException(EMPRESTIMO, falha.getDescricaoFalha());
+        }
+
         emprestimo.setTipo_emprestimo(lerTipoEmprestimo());
         emprestimo.setValor(lerCampoDoubleObrigatorio("Valor do bem: "));
 
@@ -86,7 +92,7 @@ public class ViewGerenciarEmprestimos extends ViewMenuPrincipal {
      */
     private Cliente colherCliente() throws FalhaBuscaException {
         System.out.println("##### Cliente que possui o empréstimo #####");
-        return viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarCliente());
+        return viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarClientes());
     }
 
     /**
@@ -100,11 +106,12 @@ public class ViewGerenciarEmprestimos extends ViewMenuPrincipal {
         }
     }
 
-    public Emprestimo buscarEmprestimo() throws FalhaBuscaException {
-        return emprestimoService.buscarEmprestimo(colherCpfCnpjDoCliente());
-    }
 
-    public String colherCpfCnpjDoCliente() {
-        return lerCPFouCNPJvalido();
+    public Emprestimo buscarEmprestimo() throws FalhaBuscaException {
+        try {
+            return emprestimoService.buscarEmprestimo(viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarClientes()).getCpfCnpj());
+        } catch (FalhaBuscaException e) {
+            throw new FalhaBuscaException(EMPRESTIMO, e.getDescricaoFalha());
+        }
     }
 }

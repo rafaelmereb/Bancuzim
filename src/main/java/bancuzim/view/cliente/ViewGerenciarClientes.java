@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import static bancuzim.enums.Entidade.CLIENTE;
 import static bancuzim.enums.OpcaoMenu.*;
 import static bancuzim.util.Leitura.*;
 
@@ -81,11 +82,11 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      *
      * @return agência buscada
      */
-    public List<Cliente> buscarCliente() throws FalhaBuscaException {
-        return buscarClientePorReferencia(colherReferenciaEntreDuasOpcoes("CPF/CNPJ", "Nome"));
+    public List<Cliente> buscarClientes() throws FalhaBuscaException {
+        return buscarClientesPorReferencia(colherReferenciaEntreDuasOpcoes("CPF/CNPJ", "Nome"));
     }
 
-    public List<Cliente> buscarClientePorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
+    public List<Cliente> buscarClientesPorReferencia(OpcaoMenu opcao) throws FalhaBuscaException {
         List<Cliente> clientes = new ArrayList<Cliente>();
         if (isA(opcao)) { // Parâmetro de busca: Código
              clientes.add(buscarClientePorCpfCnpj(colherCpfCnpjCliente()));
@@ -101,8 +102,16 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
      * @param clientes a serem verificados
      * @return cliente desejado
      */
-    public Cliente escolherClienteDesejado(List<Cliente> clientes) {
+    public Cliente escolherClienteDesejado(List<Cliente> clientes) throws FalhaBuscaException {
         if (clientes != null) {
+
+            if (clientes.size() == 0){
+                throw new FalhaBuscaException(CLIENTE, "Não foi encontrado nenhum cliente com a informação fornecida!");
+            }
+
+            if (clientes.size() == 1){
+                return clientes.get(0);
+            }
 
             if (clientes.size() > 1) {
                 System.out.println("\nHá mais de um cliente com o nome em questão! Seguem:\n");
@@ -121,8 +130,10 @@ public class ViewGerenciarClientes extends ViewMenuPrincipal {
                     }
                 } while (indexInvalido);
                 return clienteDesejado;
-            } else return clientes.get(0);
-        } else return null;
+            }
+        }
+
+        return null;
     }
     /**
      * Confere a responsabilidade de buscar um cliente a partir de seu CPF/CNPJ à service correspondente

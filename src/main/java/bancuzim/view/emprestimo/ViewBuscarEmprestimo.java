@@ -7,17 +7,17 @@ import bancuzim.util.Menu;
 public class ViewBuscarEmprestimo extends ViewGerenciarEmprestimos implements ViewBuscarInterface{
 
     /**
-     * "Carrega" a View responsável por buscar clientes
+     * "Carrega" a View responsável por buscar Empréstimos
      */
     public void load() {
         exibirMenu(Menu.BUSCAR_EMPRESTIMO);
-        manterViewBuscarConta();
+        manterViewBuscarEmprestimo();
     }
 
     /**
-     * Mantém a View responsável por buscar clientes
+     * Mantém a View responsável por buscar Empréstimos
      */
-    private void manterViewBuscarConta() {
+    private void manterViewBuscarEmprestimo() {
         try {
             exibirEmprestimo(buscarEmprestimo());
         } catch (FalhaBuscaException falha) {

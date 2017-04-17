@@ -22,7 +22,7 @@ public class ViewAtualizarCliente extends ViewGerenciarClientes implements ViewA
     private void manterViewAtualizarCliente() {
          try {
              try{
-            atualizarDados(escolherClienteDesejado(buscarCliente()), colherDadosAtualizadosDeCliente());
+            atualizarDados(escolherClienteDesejado(buscarClientes()), colherDadosAtualizadosDeCliente());
             System.out.println("Cliente atualizado com sucesso!");
              } catch (FalhaBuscaException e) {
                  throw new FalhaAtualizacaoException(e.getEntidade(), e.getDescricaoFalha());

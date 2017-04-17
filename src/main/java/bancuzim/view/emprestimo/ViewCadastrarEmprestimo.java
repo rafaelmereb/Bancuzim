@@ -12,7 +12,7 @@ public class ViewCadastrarEmprestimo extends ViewGerenciarEmprestimos implements
      * "Carrega" a view responsável por cadastrar clientes
      */
     public void load() {
-        exibirMenu(Menu.CADASTRAR_CLIENTE);
+        exibirMenu(Menu.CADASTRAR_EMPRESTIMO);
         manterViewCadastrarEmprestimo();
     }
 

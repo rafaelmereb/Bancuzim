@@ -5,6 +5,7 @@ import bancuzim.entity.Cliente;
 import bancuzim.entity.Conta;
 import bancuzim.enums.OpcaoMenu;
 import bancuzim.exception.busca.FalhaBuscaException;
+import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.service.ContaService;
 import bancuzim.util.Leitura;
 import bancuzim.util.Menu;
@@ -12,6 +13,7 @@ import bancuzim.view.ViewMenuPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import static bancuzim.enums.Entidade.CONTA;
 import static bancuzim.enums.OpcaoMenu.CONTINUE;
 import static bancuzim.enums.OpcaoMenu.notVoltar;
 import static bancuzim.enums.TipoConta.CORRENTE;
@@ -67,12 +69,19 @@ public class ViewGerenciarContas extends ViewMenuPrincipal {
      *
      * @return conta cujos dados foram colhidos
      */
-    public Conta colherDadosDeConta() throws FalhaBuscaException {
+    public Conta colherDadosDeConta() throws FalhaCadastroException {
         Conta conta = new Conta();
 
-        conta.setAgencia(colherAgencia());
+
         conta.setNumero(colherNumeroDaConta());
-        conta.setCliente(colherCliente());
+
+        try{
+            conta.setAgencia(colherAgencia());
+            conta.setCliente(colherCliente());
+        } catch (FalhaBuscaException falha) {
+            throw new FalhaCadastroException(CONTA, falha.getDescricaoFalha());
+        }
+
         conta.setTipo_conta(lerTipoConta());
 
         if (conta.getTipo_conta().equals(CORRENTE)) {
@@ -114,7 +123,7 @@ public class ViewGerenciarContas extends ViewMenuPrincipal {
      */
     private Cliente colherCliente() throws FalhaBuscaException {
         System.out.println("##### Cliente da Conta #####");
-        return viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarCliente());
+        return viewGerenciarClientes.escolherClienteDesejado(viewGerenciarClientes.buscarClientes());
     }
 
     /**

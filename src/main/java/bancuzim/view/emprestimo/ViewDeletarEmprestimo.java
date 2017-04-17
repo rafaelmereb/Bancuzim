@@ -1,5 +1,6 @@
 package bancuzim.view.emprestimo;
 
+import bancuzim.exception.busca.FalhaBuscaException;
 import bancuzim.exception.delecao.FalhaDelecaoException;
 import bancuzim.interfaces.ViewDeletarInterface;
 import bancuzim.util.Menu;
@@ -19,7 +20,11 @@ public class ViewDeletarEmprestimo extends ViewGerenciarEmprestimos implements V
      */
     private void manterViewDeletarEmprestimo() {
         try {
-            deletarEmprestimo(colherCpfCnpjDoCliente());
+            try {
+                deletarEmprestimo(buscarEmprestimo().getCliente().getCpfCnpj());
+            } catch (FalhaBuscaException e) {
+                throw new FalhaDelecaoException(e.getEntidade(), e.getDescricaoFalha());
+            }
         } catch (FalhaDelecaoException falha) {
             System.out.println(falha.getMessage());
         }

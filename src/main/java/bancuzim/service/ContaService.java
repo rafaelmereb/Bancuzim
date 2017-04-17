@@ -56,16 +56,13 @@ public class ContaService {
 
 
     private boolean isNumeroDaContaInexistenteNaAgencia(String numero, Agencia agencia) {
-        boolean contaInexistente = false;
-
         try {
             //Caso não exista o número da conta com a agência informada, o método lançará uma exceção:
             buscarConta(numero, agencia);
+            return false;
         } catch (FalhaBuscaException falha) {
-            contaInexistente = true;
+            return true;
         }
-
-        return contaInexistente;
     }
 
     /**
@@ -101,15 +98,18 @@ public class ContaService {
 
     /**
      * Deleta uma conta do banco de dados a partir da agência e número da conta correspondentes
-     * TODO: NÃO ESTÀ SENDO DELETADA A CONTA!!!
-     *
-     * @param numeroDaConta
-     * @param agencia
+     * TODO: Tentar remover apenas pelo id
+     * @param numeroDaConta a ser deletada
+     * @param agencia pelo qual pertence a conta
      */
     public void deletarConta(String numeroDaConta, Agencia agencia) throws FalhaDelecaoException {
         try {
-            buscarConta(numeroDaConta, agencia);
-            contaRepository.deleteContaByNumeroAndAgencia(numeroDaConta, agencia);
+            Conta conta = buscarConta(numeroDaConta, agencia);
+            conta.getAgencia().getContas().remove(conta);
+            conta.setAgencia(null);
+            contaRepository.save(conta);
+            contaRepository.delete(conta.getId());
+           // contaRepository.deleteContaByNumeroAndAgencia(numeroDaConta, agencia);
             System.out.println("Conta deletada com sucesso!");
         } catch (FalhaBuscaException e) {
             throw new FalhaDelecaoException(e.getEntidade(), e.getDescricaoFalha());

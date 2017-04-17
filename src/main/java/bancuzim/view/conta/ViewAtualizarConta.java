@@ -3,6 +3,7 @@ package bancuzim.view.conta;
 import bancuzim.entity.Conta;
 import bancuzim.exception.atualizacao.FalhaAtualizacaoException;
 import bancuzim.exception.busca.FalhaBuscaException;
+import bancuzim.exception.cadastro.FalhaCadastroException;
 import bancuzim.interfaces.ViewAtualizarInterface;
 import bancuzim.util.Menu;
 
@@ -26,8 +27,8 @@ public class ViewAtualizarConta extends ViewGerenciarContas implements ViewAtual
             try {
                 atualizarDados(buscarConta(), colherDadosAtualizadosDeConta());
                 System.out.println("Cliente atualizado com sucesso!");
-            } catch (FalhaBuscaException e) {
-                throw new FalhaAtualizacaoException(e.getEntidade(), e.getDescricaoFalha());
+            } catch (FalhaBuscaException | FalhaCadastroException  falha) {
+                throw new FalhaAtualizacaoException(falha.getEntidade(), falha.getDescricaoFalha());
             }
         } catch (FalhaAtualizacaoException e) {
             System.out.println(e.getMessage());
@@ -41,7 +42,7 @@ public class ViewAtualizarConta extends ViewGerenciarContas implements ViewAtual
      * @return conta com dados atualizados
      * @throws FalhaBuscaException caso o cliente vinculado não seja encontrado
      */
-    private Conta colherDadosAtualizadosDeConta() throws FalhaBuscaException {
+    private Conta colherDadosAtualizadosDeConta() throws FalhaCadastroException {
         System.out.println("\n##### Digite os novos dados #####");
         return colherDadosDeConta();
     }

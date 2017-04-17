@@ -7,6 +7,8 @@ import bancuzim.util.Menu;
 
 import java.util.List;
 
+import static bancuzim.enums.Entidade.CLIENTE;
+
 public class ViewBuscarCliente extends ViewGerenciarClientes implements ViewBuscarInterface {
 
     /**
@@ -21,16 +23,25 @@ public class ViewBuscarCliente extends ViewGerenciarClientes implements ViewBusc
      * Mantém a View responsável por buscar clientes
      */
     private void manterViewBuscarCliente() {
+
         List<Cliente> clientes = null;
         try {
-            clientes = buscarCliente();
+            clientes = buscarClientes();
+
+            if (clientes.size() == 0){
+                throw new FalhaBuscaException(CLIENTE, "Não há cliente(s) com a informação fornecida!");
+            }
+
+            if (clientes.size() == 1) {
+                exibirCliente(clientes.get(0));
+            }
 
             if (clientes.size() > 1) {
                 System.out.println("Há mais de um cliente com o nome indicado! Seguem:");
                 for (Cliente cliente : clientes) {
                     exibirCliente(cliente);
                 }
-            } else exibirCliente(clientes.get(0));
+            }
 
         } catch (FalhaBuscaException falha) {
             System.out.println(falha.getMessage());

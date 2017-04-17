@@ -188,7 +188,7 @@ public final class Leitura {
             if (entradaInvalida) {
                 System.out.println("CPF/CNPJ Inválido!!");
             }
-            cpfCnpj = lerCampoStringObrigatorio("Digite um CPF/CNPJ do cliente: ");
+            cpfCnpj = lerCampoStringObrigatorio("Digite o CPF/CNPJ do cliente: ");
             if (cpfCnpj.contains(".")) {
                 cpfCnpj = StringUtils.replaceAll(cpfCnpj, ".", "");
             }
