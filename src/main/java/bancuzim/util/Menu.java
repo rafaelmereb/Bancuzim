@@ -2,7 +2,7 @@ package bancuzim.util;
 
 /**
  * Classe utilitária na definição dos menus apresentados nas Views.
- * TODO: FINALIZAR DEMAIS MENUS
+ *
  * @author Rafael
  */
 public final class Menu {
@@ -13,13 +13,17 @@ public final class Menu {
     public static String INICIAL =
             "\n/* ############### BANCUZIM ############### */\n" +
 
-            "Olá, bem vindo ao Bancuzim!\n" +
+                    "Olá, bem vindo ao Bancuzim!\n" +
                     "Digite um comando para prosseguir:\n" +
                     "A - Gerenciar agências\n" +
                     "B - Gerenciar clientes\n" +
                     "C - Gerenciar contas\n" +
                     "E - Gerenciar empréstimos/financiamentos\n" +
                     "S - Sair";
+
+
+    /* ----------------------------------------- AGENCIA ----------------------------------------- */
+
 
     public static String GERENCIAR_AGENCIAS =
             "\n/* ############### GERENCIAR AGÊNCIAS ############### */\n" +
@@ -35,15 +39,17 @@ public final class Menu {
                     "\n/* -------------------------------------------------- */";
 
 
+    public static String CADASTRAR_AGENCIA = "\n/* ############### CADASTRAR AGÊNCIA ############### */";
+    public static String BUSCAR_AGENCIA = "\n/* ############### BUSCAR AGÊNCIA ############### */";
+    public static String ATUALIZAR_AGENCIA = "\n/* ############### ATUALIZAR AGÊNCIA ############### */";
+    public static String DELETAR_AGENCIA = "\n/* ############### DELETAR AGÊNCIA ############### */";
+    public static String LISTAR_AGENCIAS = "\n/* ############### LISTAR AGÊNCIAS ############### */";
+    public static String IMPORTAR_AGENCIA = "\n/* ############### IMPORTAR AGÊNCIAS ############### */";
 
-    /* ----------------------------------------- AGENCIA ----------------------------------------- */
 
-    public static String CADASTRAR_AGENCIA ="\n/* ############### CADASTRAR AGÊNCIA ############### */\n";
-    public static String BUSCAR_AGENCIA ="" ;
-    public static String ATUALIZAR_AGENCIA = "";
-    public static String DELETAR_AGENCIA = "";
-    public static String LISTAR_AGENCIAS = "";
-    public static String IMPORTAR_AGENCIA = "";
+    /* ----------------------------------------- CLIENTE ----------------------------------------- */
+
+
     public static String GERENCIAR_CLIENTES =
             "\n/* ############### GERENCIAR CLIENTES ############### */\n" +
 
@@ -58,18 +64,19 @@ public final class Menu {
                     "\n/* -------------------------------------------------- */";
 
 
+    public static String CADASTRAR_CLIENTE = "\n/* ############### CADASTRAR CLIENTE ############### */";
+    public static String IMPORTAR_CLIENTE = "\n/* ############### IMPORTAR CLIENTES ############### */";
+    public static String ATUALIZAR_CLIENTE = "\n/* ############### ATUALIZAR CLIENTE ############### */";
+    public static String DELETAR_CLIENTE = "\n/* ############### DELETAR CLIENTE ############### */";
+    public static String BUSCAR_CLIENTE = "\n/* ############### BUSCAR CLIENTE ############### */";
+    public static String LISTAR_CLIENTES = "\n/* ############### LISTAR CLIENTES ############### */";
 
 
-    /* ----------------------------------------- CLIENTE ----------------------------------------- */
+    /* ----------------------------------------- CONTA ----------------------------------------- */
 
-    public static String CADASTRAR_CLIENTE = "";
-    public static String IMPORTAR_CLIENTE = "";
-    public static String ATUALIZAR_CLIENTE = "";
-    public static String DELETAR_CLIENTE = "";
-    public static String BUSCAR_CLIENTE = "";
-    public static String LISTAR_CLIENTES = "";
+
     public static String GERENCIAR_CONTAS =
-            "/* ############### GERENCIAR CONTAS ############### */\n" +
+            "\n/* ############### GERENCIAR CONTAS ############### */\n" +
 
                     "Digite um comando para prosseguir:\n" +
                     "C - Cadastrar uma conta\n" +
@@ -82,16 +89,19 @@ public final class Menu {
                     "\n/* -------------------------------------------------- */";
 
 
-    /* ----------------------------------------- CONTA ----------------------------------------- */
+    public static String CADASTRAR_CONTA = "\n/* ############### CADASTRAR CONTA ############### */";
+    public static String IMPORTAR_CONTA = "\n/* ############### IMPORTAR CONTAS ############### */";
+    public static String ATUALIZAR_CONTA = "\n/* ############### ATUALIZAR CONTA ############### */";
+    public static String DELETAR_CONTA = "\n/* ############### DELETAR CONTA ############### */";
+    public static String BUSCAR_CONTA = "\n/* ############### BUSCAR CONTA ############### */";
+    public static String LISTAR_CONTAS = "\n/* ############### LISTAR CONTAS ############### */";
 
-    public static String CADASTRAR_CONTA = "";
-    public static String IMPORTAR_CONTA = "";
-    public static String ATUALIZAR_CONTA = "";
-    public static String DELETAR_CONTA = "";
-    public static String BUSCAR_CONTA = "";
-    public static String LISTAR_CONTAS = "";
+
+     /* ----------------------------------------- EMPRESTIMOS/FINANCIAMENTOS ----------------------------------------- */
+
+
     public static String GERENCIAR_EMPRESTIMOS =
-            "/* ############### GERENCIAR EMPRÉSTIMOS ############### */\n" +
+            "\n/* ############### GERENCIAR EMPRÉSTIMOS ############### */\n" +
 
                     "Digite um comando para prosseguir:\n" +
                     "C - Cadastrar um empréstimo\n" +
@@ -104,13 +114,10 @@ public final class Menu {
                     "\n/* -------------------------------------------------- */";
 
 
-     /* ----------------------------------------- EMPRESTIMOS/FINANCIAMENTOS ----------------------------------------- */
-
-    public static String CADASTRAR_EMPRESTIMO = "";
-    public static String IMPORTAR_EMPRESTIMO = "";
-    public static String ATUALIZAR_EMPRESTIMO = "";
-    public static String DELETAR_EMPRESTIMO = "";
-    public static String BUSCAR_EMPRESTIMO = "";
-    public static String LISTAR_EMPRESTIMOS = "";
-
+    public static String CADASTRAR_EMPRESTIMO = "\n/* ############### CADASTRAR EMPRÉSTIMO ############### */";
+    public static String IMPORTAR_EMPRESTIMO = "\n/* ############### IMPORTAR EMPRÉSTIMOS ############### */";
+    public static String ATUALIZAR_EMPRESTIMO = "\n/* ############### ATUALIZAR EMPRÉSTIMO ############### */";
+    public static String DELETAR_EMPRESTIMO = "\n/* ############### DELETAR EMPRÉSTIMO ############### */";
+    public static String BUSCAR_EMPRESTIMO = "\n/* ############### BUSCAR EMPRÉSTIMO ############### */";
+    public static String LISTAR_EMPRESTIMOS = "\n/* ############### LISTAR EMPRÉSTIMOS ############### */";
 }
